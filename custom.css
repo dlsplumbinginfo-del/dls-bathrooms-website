@@ -1,0 +1,38 @@
+.skip-link{position:fixed;z-index:200;top:10px;left:10px;padding:10px 14px;background:#fff;color:#090b0c;border-radius:8px;transform:translateY(-160%)}
+.skip-link:focus{transform:translateY(0)}
+.gallery-extra{display:none}
+.gallery-grid.show-all .gallery-extra{display:block}
+.whatsapp-float{position:fixed;z-index:45;right:22px;bottom:22px;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border:1px solid #91e2af;border-radius:999px;background:#123c23;color:#eafff0;font-size:13px;font-weight:800;box-shadow:0 14px 40px #0009}
+.mobile-cta{display:none}
+.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:46px}
+.faq-grid details{border:1px solid var(--line);border-radius:15px;background:#0c0f10;padding:0 22px}
+.faq-grid summary{cursor:pointer;padding:22px 34px 22px 0;font-weight:800;position:relative;list-style:none}
+.faq-grid summary::-webkit-details-marker{display:none}
+.faq-grid summary:after{content:"+";position:absolute;right:0;color:var(--gold);font-size:24px;line-height:1}
+.faq-grid details[open] summary:after{content:"-"}
+.faq-grid details p{color:var(--muted);margin:0;padding:0 0 22px;line-height:1.7}
+.form-page{background:radial-gradient(circle at 86% 2%,#d9b66b1a,#0000 30%),#090b0c;min-height:100vh}
+.form-shell{width:min(820px,100% - 28px);margin:0 auto;padding:116px 0 80px}
+.form-card{border:1px solid var(--line);border-radius:22px;background:#111416;padding:36px;box-shadow:0 28px 90px #0006}
+.form-card h1{font-size:clamp(40px,7vw,68px);line-height:1;margin:8px 0 18px;letter-spacing:-.045em}
+.form-card h2{font-size:25px;line-height:1.2;margin:38px 0 6px;letter-spacing:-.02em}
+.form-card .form-lead,.form-card .form-hint{color:var(--muted);line-height:1.7}
+.form-card .form-hint{font-size:13px;margin:0 0 20px}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{margin-top:18px}
+.field label,.field legend{display:block;margin-bottom:7px;color:#eeeae2;font-weight:750}
+.field input,.field select,.field textarea{width:100%;border:1px solid #ffffff2b;border-radius:11px;background:#090c0e;color:#fff;padding:14px 13px;outline:none}
+.field textarea{min-height:115px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px #d9b66b16}
+.field input[type=file]{padding:18px;border-style:dashed}
+.choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.choice{display:flex;align-items:flex-start;gap:8px;border:1px solid #ffffff21;border-radius:11px;background:#0c0f10;padding:13px;font-size:13px}
+.choice input{width:17px;height:17px;margin-top:1px;flex:0 0 auto}
+.form-note{margin:22px 0 0;padding:18px 20px;border:1px solid #d9b66b47;border-radius:12px;background:#d9b66b0c;color:#c9c5bc;font-size:13px;line-height:1.65}
+.form-consent{display:flex;align-items:flex-start;gap:10px;margin:22px 0;color:#aaa79f;font-size:13px;line-height:1.5}
+.form-consent input{width:18px;height:18px;flex:0 0 auto;margin-top:2px}
+.form-consent a{color:var(--gold-light);text-decoration:underline;text-underline-offset:3px}
+.form-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.form-back{display:inline-block;margin-bottom:22px;color:var(--gold-light);font-size:13px}
+.honey{display:none!important}
+@media (width<=760px){.faq-grid{grid-template-columns:1fr}.field-grid,.choice-grid{grid-template-columns:1fr}.form-shell{padding-top:92px}.form-card{padding:24px 18px}.whatsapp-float{display:none}.mobile-cta{position:fixed;z-index:50;display:grid;grid-template-columns:.8fr 1.2fr;gap:8px;inset:auto 8px 8px;padding:8px;border:1px solid #ffffff1f;border-radius:16px;background:#080a0bf0;backdrop-filter:blur(14px)}.mobile-cta .button{min-height:47px;padding:0 12px;font-size:13px}body:not(.legal-page):not(.form-page){padding-bottom:78px}}

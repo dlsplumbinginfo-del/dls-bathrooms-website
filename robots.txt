@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.dlsbathrooms.co.uk/sitemap.xml

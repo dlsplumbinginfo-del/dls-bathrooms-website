@@ -1,0 +1,18 @@
+# Recovery work and local verification output
+early-bathroom-images/
+gallery-batch/
+recovered-docs/
+recovered-images/
+tmp/
+video-frames/
+output/
+*-contact.jpg
+review-site.html
+v4-*.html
+v4-*.js
+v4-*.css
+.openai-download-*
+
+# Local operating-system and editor files
+.DS_Store
+Thumbs.db
