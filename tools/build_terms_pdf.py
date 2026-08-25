@@ -20,7 +20,7 @@ from reportlab.platypus import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "output" / "pdf" / "DLS_Bathrooms_Terms_and_Conditions.pdf"
+OUTPUT = ROOT / "output" / "pdf" / "DLS_Bathrooms_Terms_DRAFT_Solicitor_Review.pdf"
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 
 PAGE_W, PAGE_H = A4
@@ -66,7 +66,8 @@ def draw_header_footer(canvas, doc):
     canvas.drawString(20 * mm, PAGE_H - 11.5 * mm, "DLS BATHROOMS LTD")
     canvas.setFillColor(STONE)
     canvas.setFont("Helvetica", 7.5)
-    canvas.drawRightString(PAGE_W - 20 * mm, PAGE_H - 11.5 * mm, "CUSTOMER TERMS AND CONDITIONS - VERSION 1.0")
+    canvas.setFillColor(colors.HexColor("#A11B1B"))
+    canvas.drawRightString(PAGE_W - 20 * mm, PAGE_H - 11.5 * mm, "DRAFT FOR SOLICITOR REVIEW - DO NOT ISSUE")
     canvas.line(20 * mm, 15 * mm, PAGE_W - 20 * mm, 15 * mm)
     canvas.drawString(20 * mm, 10.5 * mm, "Company No. 17412702  |  info@dlsbathrooms.co.uk  |  07539 037841")
     canvas.drawRightString(PAGE_W - 20 * mm, 10.5 * mm, f"Page {doc.page}")
@@ -82,7 +83,7 @@ doc = BaseDocTemplate(
     bottomMargin=21 * mm,
     title="DLS Bathrooms Ltd Customer Terms and Conditions",
     author="DLS Bathrooms Ltd",
-    subject="Customer terms for bathroom quotations and installations",
+    subject="Draft customer terms for solicitor review - not for issue",
 )
 frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id="main")
 doc.addPageTemplates(PageTemplate(id="dls", frames=[frame], onPage=draw_header_footer))
@@ -90,11 +91,11 @@ doc.addPageTemplates(PageTemplate(id="dls", frames=[frame], onPage=draw_header_f
 story = []
 story.extend([
     Spacer(1, 12 * mm),
-    p("DLS BATHROOMS LTD", "EyebrowDLS"),
+    p("DRAFT FOR SOLICITOR REVIEW - DO NOT ISSUE", "EyebrowDLS"),
     p("Customer Terms<br/>and Conditions", "TitleDLS"),
     p("For bathroom renovations, wet rooms, tiling, plumbing and related installation work.", "SubtitleDLS"),
     HRFlowable(width="100%", thickness=1.1, color=GOLD, spaceBefore=4, spaceAfter=18),
-    p("Version 1.0 - 23 August 2026", "H2DLS"),
+    p("Review draft - 25 August 2026", "H2DLS"),
     p("These terms are intended to be read with the written quotation, specification, drawings, accepted variations and any cancellation information supplied for the project. If a project document conflicts with these general terms, the written quotation or later written variation takes priority for that project.", "CalloutDLS"),
 ])
 
@@ -170,6 +171,7 @@ story.extend([
     p("Price, timing and completion", "H1DLS"),
     clause(13, "Price, deposit and stage payments", [
         "The total price, booking deposit and stage-payment schedule are stated in the quotation. The schedule may differ between labour-only and supply-and-fit projects and may include payments before major product orders or agreed stages.",
+        "Where offered, payment may be made by bank transfer or by consumer debit or credit card processed through Worldpay. DLS does not provide credit. The accepted quotation and invoice will state the available method and due date.",
         "Invoices are due on the dates or milestones stated. If the customer disputes an amount, they should explain why promptly and pay any undisputed amount when due. DLS must be given a reasonable opportunity to answer the concern.",
     ]),
     clause(14, "Non-payment and suspension", [
@@ -211,7 +213,7 @@ story.extend([
     ]),
     clause(23, "Photographs and personal information", [
         "DLS may take progress photographs for project records, quality control and resolving questions. Portfolio or marketing use will be discussed with the customer. Addresses and identifying personal details will not be published without permission.",
-        "Personal information is handled as described in the DLS privacy policy at www.dlsbathrooms.co.uk/privacy.html.",
+        "Personal information is handled as described in the DLS privacy policy at www.dlsbathrooms.co.uk/privacy.",
     ]),
     clause(24, "Concerns, liability, rights and law", [
         "Please raise concerns promptly so DLS can inspect and propose a solution. Contact info@dlsbathrooms.co.uk or 07539 037841. Both parties should try to resolve a dispute reasonably before court proceedings.",
