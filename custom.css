@@ -35,4 +35,22 @@
 .form-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
 .form-back{display:inline-block;margin-bottom:22px;color:var(--gold-light);font-size:13px}
 .honey{display:none!important}
+.payment-section{background:linear-gradient(180deg,#111415,#090b0c);border-block:1px solid var(--line)}
+.payment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+.payment-grid article{border:1px solid var(--line);border-radius:17px;background:#0c0f10;padding:24px}
+.payment-grid article strong{display:block;margin-bottom:8px;font-size:18px}
+.payment-grid article p,.payment-smallprint{color:var(--muted);line-height:1.65}
+.payment-grid .worldpay-panel{border-color:#ff4f6d55;background:linear-gradient(150deg,#291116,#0c0f10)}
+.payment-grid .worldpay-panel>span{display:block;margin-bottom:10px;color:#ff315b;font-size:25px;font-weight:900;letter-spacing:-.05em}
+.payment-smallprint{max-width:850px;margin:18px 0 0;font-size:12px}
+.local-seo-heading{max-width:800px}
+.local-area-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:42px}
+.local-area-grid article{border:1px solid var(--line);border-radius:17px;background:#0c0f10;padding:25px}
+.local-area-grid article>span{color:var(--gold-light);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+.local-area-grid h3{margin:10px 0;font-size:21px}
+.local-area-grid p{color:var(--muted);line-height:1.65}
+.local-area-cta{background:linear-gradient(150deg,#d9b66b16,#0c0f10)!important}
+.text-link{color:var(--gold-light);font-weight:800}
+.cta-payment-note,.footer-payment{color:var(--gold-light)!important;font-size:12px}
 @media (width<=760px){.faq-grid{grid-template-columns:1fr}.field-grid,.choice-grid{grid-template-columns:1fr}.form-shell{padding-top:92px}.form-card{padding:24px 18px}.whatsapp-float{display:none}.mobile-cta{position:fixed;z-index:50;display:grid;grid-template-columns:.8fr 1.2fr;gap:8px;inset:auto 8px 8px;padding:8px;border:1px solid #ffffff1f;border-radius:16px;background:#080a0bf0;backdrop-filter:blur(14px)}.mobile-cta .button{min-height:47px;padding:0 12px;font-size:13px}body:not(.legal-page):not(.form-page){padding-bottom:78px}}
+@media (width<=760px){.payment-grid,.local-area-grid{grid-template-columns:1fr}.payment-grid{margin-top:26px}.local-area-grid{margin-top:28px}}

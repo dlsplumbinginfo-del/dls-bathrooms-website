@@ -68,7 +68,7 @@ def draw_header_footer(canvas, doc):
     canvas.setFont("Helvetica", 7.5)
     canvas.drawRightString(PAGE_W - 20 * mm, PAGE_H - 11.5 * mm, "CUSTOMER TERMS AND CONDITIONS - VERSION 1.0")
     canvas.line(20 * mm, 15 * mm, PAGE_W - 20 * mm, 15 * mm)
-    canvas.drawString(20 * mm, 10.5 * mm, "Company No. 17412702  |  info@dlsbathrooms.co.uk  |  07304 056595")
+    canvas.drawString(20 * mm, 10.5 * mm, "Company No. 17412702  |  info@dlsbathrooms.co.uk  |  07539 037841")
     canvas.drawRightString(PAGE_W - 20 * mm, 10.5 * mm, f"Page {doc.page}")
     canvas.restoreState()
 
@@ -102,7 +102,7 @@ details = [
     [p("BUSINESS", "EyebrowDLS"), p("DLS Bathrooms Ltd", "BodyDLS")],
     [p("COMPANY NUMBER", "EyebrowDLS"), p("17412702 - registered in England and Wales", "BodyDLS")],
     [p("REGISTERED OFFICE", "EyebrowDLS"), p("28-30 Wilbraham Road, Manchester, M14 7DW, England", "BodyDLS")],
-    [p("CONTACT", "EyebrowDLS"), p("info@dlsbathrooms.co.uk  |  07304 056595", "BodyDLS")],
+    [p("CONTACT", "EyebrowDLS"), p("info@dlsbathrooms.co.uk  |  07539 037841", "BodyDLS")],
 ]
 table = Table(details, colWidths=[42 * mm, 118 * mm], hAlign="LEFT")
 table.setStyle(TableStyle([
@@ -214,7 +214,7 @@ story.extend([
         "Personal information is handled as described in the DLS privacy policy at www.dlsbathrooms.co.uk/privacy.html.",
     ]),
     clause(24, "Concerns, liability, rights and law", [
-        "Please raise concerns promptly so DLS can inspect and propose a solution. Contact info@dlsbathrooms.co.uk or 07304 056595. Both parties should try to resolve a dispute reasonably before court proceedings.",
+        "Please raise concerns promptly so DLS can inspect and propose a solution. Contact info@dlsbathrooms.co.uk or 07539 037841. Both parties should try to resolve a dispute reasonably before court proceedings.",
         "Nothing excludes liability where it would be unlawful to do so. Nothing limits statutory rights, including the right to services performed with reasonable care and skill. The contract is governed by the law of England and Wales and the courts with lawful jurisdiction may hear disputes.",
     ]),
     PageBreak(),
@@ -225,7 +225,7 @@ story.extend([
     p("EFFECT OF CANCELLATION", "EyebrowDLS"),
     p("DLS will reimburse payments as required by law, normally without undue delay and within the applicable statutory time. If you expressly asked DLS to begin a service during the cancellation period, you may be required to pay a proportionate amount for service supplied up to the time you cancel."),
     p("HOW TO CONTACT DLS", "EyebrowDLS"),
-    p("Email: info@dlsbathrooms.co.uk<br/>Post: DLS Bathrooms Ltd, 28-30 Wilbraham Road, Manchester, M14 7DW, England<br/>Telephone: 07304 056595"),
+    p("Email: info@dlsbathrooms.co.uk<br/>Post: DLS Bathrooms Ltd, 28-30 Wilbraham Road, Manchester, M14 7DW, England<br/>Telephone: 07539 037841"),
     Spacer(1, 7 * mm),
     p("REQUEST TO START DURING THE CANCELLATION PERIOD", "H2DLS"),
     p("Complete this only if you want DLS to begin the service before an applicable cancellation period has ended.", "BodySmallDLS"),

@@ -24,11 +24,7 @@
 </div>
 </a>
 <div class="card">
-<form id="quoteForm" action="https://formsubmit.co/info@dlsbathrooms.co.uk" method="POST" enctype="multipart/form-data">
-<input type="hidden" name="_subject" value="New DLS Bathrooms enquiry">
-<input type="hidden" name="_template" value="table">
-<input type="hidden" name="_autoresponse" value="Thanks for your enquiry to DLS Bathrooms. We have received your details and will review the project before getting back to you.">
-<input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off">
+<form id="quoteForm" data-whatsapp="447539037841">
 <input type="hidden" id="jobType" name="Job type" value="">
 <input type="hidden" id="finish" name="Finish level" value="">
 <div id="formWrap">
@@ -112,12 +108,11 @@
 <section class="step">
 <h2>Photos & timing.</h2>
 <p class="hint">Photos help us give you a much better first response.</p>
-<label>Upload photos</label>
+<label>Photos and video</label>
 <div class="upload">
-<strong>Add bathroom or inspiration photos</strong>
-<span>Existing room, measurements, drawings or ideas.</span>
-<input type="file" name="attachment" accept="image/jpeg,image/png,image/webp,application/pdf" multiple>
-<div class="limit">Maximum total upload size: 10MB.</div>
+<strong>Have your room photos ready</strong>
+<span>WhatsApp opens after the final step. Attach the existing room, measurements, drawings, inspiration photos or a slow room video there.</span>
+<div class="limit">Only send files that relate to your bathroom enquiry.</div>
 </div>
 <label for="timing">When would you ideally like the work done? <span class="req">*</span>
 </label>
@@ -169,16 +164,16 @@
 <div class="sending" id="sending">
 <div class="spinner">
 </div>
-<strong>Sending your enquiry…</strong>
-<p style="color:var(--muted)">Please don't close this page.</p>
+<strong>Opening WhatsApp…</strong>
+<p style="color:var(--muted)">Your project details will be ready for you to send.</p>
 </div>
 </form>
 </div>
-<div class="footer">DLS Bathrooms Ltd · Company No. 17412702<br>Stockport & Manchester · <a href="tel:+447539037841">07539 037841</a> · <a href="mailto:info@dlsbathrooms.co.uk">Email</a><br>Registered office: 28-30 Wilbraham Road, Manchester, M14 7DW, England · <a href="/">Back to website</a>
+<div class="footer">DLS Bathrooms Ltd · Company No. 17412702<br>Stockport & Manchester · <a href="tel:+447539037841">07539 037841</a> · <a href="mailto:info@dlsbathrooms.co.uk">Email</a><br>Major cards accepted · Securely processed by Worldpay<br>Registered office: 28-30 Wilbraham Road, Manchester, M14 7DW, England · <a href="/">Back to website</a>
 </div>
 </div>
 <script>
-let step=0;const steps=[...document.querySelectorAll('.step')],bar=document.getElementById('bar'),note=document.getElementById('stepnote'),back=document.getElementById('back'),next=document.getElementById('next'),err=document.getElementById('error'),form=document.getElementById('quoteForm');function showError(msg){err.textContent=msg;err.classList.add('show')}function clearError(){err.classList.remove('show');err.textContent=''}document.querySelectorAll('.options').forEach(group=>group.querySelectorAll('.opt').forEach(opt=>opt.addEventListener('click',()=>{group.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));opt.classList.add('selected');document.getElementById(group.dataset.target).value=opt.dataset.value;clearError()})));function render(){steps.forEach((s,i)=>s.classList.toggle('active',i===step));bar.style.width=((step+1)/steps.length*100)+'%';note.textContent=`Step ${step+1} of ${steps.length}`;back.style.visibility=step===0?'hidden':'visible';next.textContent=step===steps.length-1?'Send my enquiry':'Continue';clearError();window.scrollTo({top:0,behavior:'smooth'})}function validateStep(){const current=steps[step];if(step===0&&!document.getElementById('jobType').value){showError('Please choose what you need.');return false}if(step===2&&!document.getElementById('finish').value){showError('Please choose a finish level, or select “Not sure - advise me”.');return false}for(const field of current.querySelectorAll('[required]')){if((field.type==='checkbox'&&!field.checked)||!field.value){field.focus();showError('Please complete the required fields before continuing.');return false}if(field.type==='email'&&!field.validity.valid){field.focus();showError('Please enter a valid email address.');return false}}return true}next.addEventListener('click',()=>{if(!validateStep())return;if(step<steps.length-1){step++;render()}else{document.getElementById('formWrap').style.display='none';document.getElementById('sending').classList.add('show');form.submit()}});back.addEventListener('click',()=>{if(step>0){step--;render()}});render();
+let step=0;const steps=[...document.querySelectorAll('.step')],bar=document.getElementById('bar'),note=document.getElementById('stepnote'),back=document.getElementById('back'),next=document.getElementById('next'),err=document.getElementById('error'),form=document.getElementById('quoteForm');function showError(msg){err.textContent=msg;err.classList.add('show')}function clearError(){err.classList.remove('show');err.textContent=''}document.querySelectorAll('.options').forEach(group=>group.querySelectorAll('.opt').forEach(opt=>opt.addEventListener('click',()=>{group.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));opt.classList.add('selected');document.getElementById(group.dataset.target).value=opt.dataset.value;clearError()})));function render(){steps.forEach((s,i)=>s.classList.toggle('active',i===step));bar.style.width=((step+1)/steps.length*100)+'%';note.textContent=`Step ${step+1} of ${steps.length}`;back.style.visibility=step===0?'hidden':'visible';next.textContent=step===steps.length-1?'Continue in WhatsApp':'Continue';clearError();window.scrollTo({top:0,behavior:'smooth'})}function validateStep(){const current=steps[step];if(step===0&&!document.getElementById('jobType').value){showError('Please choose what you need.');return false}if(step===2&&!document.getElementById('finish').value){showError('Please choose a finish level, or select “Not sure - advise me”.');return false}for(const field of current.querySelectorAll('[required]')){if((field.type==='checkbox'&&!field.checked)||!field.value){field.focus();showError('Please complete the required fields before continuing.');return false}if(field.type==='email'&&!field.validity.valid){field.focus();showError('Please enter a valid email address.');return false}}return true}function openWhatsApp(){const data=new FormData(form),lines=['Hello DLS Bathrooms Ltd, I would like a bathroom quotation.',''];const seen=new Set;for(const [key,value] of data.entries()){if(!value||seen.has(`${key}:${value}`)||key==='Contact consent')continue;seen.add(`${key}:${value}`);lines.push(`${key.replaceAll('_',' ')}: ${value}`)}lines.push('','I can attach room photographs, a video and measurements in WhatsApp.');const number=form.dataset.whatsapp;window.location.href=`https://wa.me/${number}?text=${encodeURIComponent(lines.join('\n'))}`}next.addEventListener('click',()=>{if(!validateStep())return;if(step<steps.length-1){step++;render()}else{document.getElementById('formWrap').style.display='none';document.getElementById('sending').classList.add('show');openWhatsApp()}});back.addEventListener('click',()=>{if(step>0){step--;render()}});render();
 </script>
 </body>
 </html>
