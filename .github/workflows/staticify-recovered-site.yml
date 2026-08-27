@@ -1,0 +1,49 @@
+name: Staticify recovered DLS website
+
+on:
+  push:
+    branches:
+      - migration/final-full-site-2026-08-27
+    paths:
+      - tools/staticify_vinext_site.py
+      - site-static.js
+      - static-overrides.css
+      - .github/workflows/staticify-recovered-site.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: staticify-recovered-dls
+  cancel-in-progress: false
+
+jobs:
+  staticify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out migration branch
+        uses: actions/checkout@v4
+        with:
+          ref: migration/final-full-site-2026-08-27
+          fetch-depth: 0
+
+      - name: Convert recovered Vinext pages into reliable static pages
+        run: python tools/staticify_vinext_site.py
+
+      - name: Validate static JavaScript
+        run: node --check site-static.js
+
+      - name: Commit converted pages
+        run: |
+          git config user.name "DLS Website Static Conversion"
+          git config user.email "dlsplumbinginfo@gmail.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No static conversion changes to commit."
+            exit 0
+          fi
+          git commit -m "Convert recovered DLS website to reliable static hosting"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
