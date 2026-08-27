@@ -6,6 +6,7 @@ from pathlib import Path
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
+TEXT_SUFFIXES = {".html", ".js", ".css", ".json", ".svg", ".vtt"}
 
 
 def replace_image_optimizer_urls(text: str) -> str:
@@ -46,6 +47,26 @@ def patch_image_component() -> None:
     path.write_text(text, encoding="utf-8")
 
 
+def patch_legacy_text() -> None:
+    replacements = [
+        ("dlsplumbinginfo@gmail.com", "info@dlsbathrooms.co.uk"),
+        ("dlstilingandplumbing30@gmail.com", "info@dlsbathrooms.co.uk"),
+        ("07304 056595", "07539 037841"),
+        ("+44 7304 056595", "+44 7539 037841"),
+        ("+447304056595", "+447539037841"),
+        ("447304056595", "447539037841"),
+    ]
+
+    for path in ROOT.rglob("*"):
+        if not path.is_file() or path.suffix.lower() not in TEXT_SUFFIXES:
+            continue
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        for old, new in replacements:
+            text = text.replace(old, new)
+        text = re.sub(r"klarna", "credit card payments", text, flags=re.IGNORECASE)
+        path.write_text(text, encoding="utf-8")
+
+
 def create_logo_alias() -> None:
     source = ROOT / "dls-badge-cropped.png"
     target = ROOT / "dls-badge.png"
@@ -55,12 +76,9 @@ def create_logo_alias() -> None:
 
 def validate() -> None:
     text_paths = [
-        *ROOT.rglob("*.html"),
-        *ROOT.rglob("*.js"),
-        *ROOT.rglob("*.css"),
-        *ROOT.rglob("*.json"),
-        *ROOT.rglob("*.svg"),
-        *ROOT.rglob("*.vtt"),
+        path
+        for path in ROOT.rglob("*")
+        if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES
     ]
     all_text = "\n".join(
         path.read_text(encoding="utf-8", errors="ignore") for path in text_paths
@@ -108,6 +126,7 @@ def validate() -> None:
 if __name__ == "__main__":
     patch_html()
     patch_image_component()
+    patch_legacy_text()
     create_logo_alias()
     validate()
     print("Static-host finalisation complete")
