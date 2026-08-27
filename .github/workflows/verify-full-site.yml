@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: verify-full-dls-${{ github.ref }}
+  group: verify-full-dls
   cancel-in-progress: true
 
 jobs:
