@@ -1,22 +1,4 @@
 (() => {
-  const businessEmail = 'info@dlsbathrooms.co.uk';
-
-  // Keep the public homepage contact email aligned with the active DLS business inbox.
-  document.querySelectorAll('a[href="mailto:dlsplumbinginfo@gmail.com"]').forEach((link) => {
-    link.href = `mailto:${businessEmail}`;
-  });
-
-  // Keep the homepage structured business data aligned for search engines that execute JS.
-  document.querySelectorAll('script[type="application/ld+json"]').forEach((script) => {
-    try {
-      const data = JSON.parse(script.textContent);
-      if (data && data['@type'] === 'HomeAndConstructionBusiness') {
-        data.email = businessEmail;
-        script.textContent = JSON.stringify(data);
-      }
-    } catch (_) {}
-  });
-
   const cards = [...document.querySelectorAll('.gallery-card')];
   const gallery = document.getElementById('gallery-grid');
   const toggle = document.getElementById('gallery-toggle');
