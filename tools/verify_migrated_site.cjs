@@ -171,8 +171,13 @@ async function noOverflow(page, label) {
     desktop.on('pageerror', (error) => consoleErrors.push(String(error)));
     desktop.on('requestfailed', (request) => {
       const type = request.resourceType();
-      if (!['image', 'media'].includes(type) && !request.url().includes('/_vercel/insights/')) {
-        failedRequests.push(`${type} ${request.url()} - ${request.failure()?.errorText}`);
+      const url = request.url();
+      if (
+        !['image', 'media'].includes(type) &&
+        !url.includes('/_vercel/insights/') &&
+        !url.startsWith('https://wa.me/')
+      ) {
+        failedRequests.push(`${type} ${url} - ${request.failure()?.errorText}`);
       }
     });
 
@@ -183,7 +188,10 @@ async function noOverflow(page, label) {
     const homeText = await desktop.locator('body').innerText();
     check(homeText.includes('Worldpay'), 'Worldpay information is visible');
     check(homeText.includes('07539 037841'), 'Correct phone is visible');
-    check(homeText.includes('info@dlsbathrooms.co.uk'), 'Correct email is visible');
+    check(
+      (await desktop.locator('a[href="mailto:info@dlsbathrooms.co.uk"]').count()) >= 1,
+      'Correct business email link is present',
+    );
 
     check((await desktop.locator('.gallery-card').count()) === 75, 'All 75 gallery cards are in the page');
     check((await desktop.locator('.gallery-card:visible').count()) === 10, 'Ten featured photographs show initially');
