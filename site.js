@@ -1,7 +1,6 @@
 (() => {
   const PHONE = '447539037841';
 
-  // Vercel Web Analytics for the static site.
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   if (!document.querySelector('script[src="/_vercel/insights/script.js"]')) {
     const analytics = document.createElement('script');
@@ -10,7 +9,11 @@
     document.head.appendChild(analytics);
   }
 
-  // Safety net: remove the retired personal number from any old cached markup.
+  // Match the production mobile overflow repair while keeping the migrated styles.
+  const mobileFix = document.createElement('style');
+  mobileFix.textContent = `html,body{max-width:100%;overflow-x:clip}@supports not (overflow:clip){html,body{overflow-x:hidden}}@media (max-width:760px){.mobile-cta{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)!important;left:8px!important;right:8px!important;bottom:8px!important;width:auto!important;max-width:calc(100vw - 16px)!important;box-sizing:border-box!important;overflow:hidden!important}.mobile-cta .button{min-width:0!important;width:100%!important;max-width:100%!important;padding-inline:10px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.shell,.trust-strip,.gallery-shell{max-width:calc(100vw - 24px)}.hero-content,.trust-strip>div,.payment-grid>*,.local-area-grid>*{min-width:0}}`;
+  document.head.appendChild(mobileFix);
+
   document.querySelectorAll('a[href*="447304056595"]').forEach((link) => {
     link.href = link.href.replace('447304056595', PHONE);
   });
@@ -21,19 +24,35 @@
     link.href = 'mailto:info@dlsbathrooms.co.uk';
   });
 
-  // Keep public wording accurate where old review totals were hard-coded.
   document.querySelectorAll('.trust-strip div').forEach((item) => {
     if (/recommend|review/i.test(item.textContent)) {
       item.innerHTML = '<strong>Recommended</strong><span>Trusted by customers on Facebook</span>';
     }
   });
 
-  // Route the remote-estimate button to the dedicated working page.
   document.querySelectorAll('a').forEach((link) => {
     if (/request a video estimate/i.test(link.textContent)) link.href = '/video-estimate';
   });
 
-  // Add the product-matched visualisation service to the richer homepage.
+  const areaGrid = document.querySelector('.local-area-grid');
+  if (areaGrid) {
+    const areaCards = [...areaGrid.querySelectorAll('article')];
+    const addLink = (card, href, label) => {
+      if (!card || card.querySelector('a')) return;
+      const link = document.createElement('a');
+      link.className = 'text-link';
+      link.href = href;
+      link.textContent = label;
+      card.appendChild(link);
+    };
+    addLink(areaCards[0], '/areas/stockport', 'View Stockport services →');
+    addLink(areaCards[1], '/areas/manchester', 'View Manchester services →');
+    if (areaCards[2] && !/cheadle/i.test(areaCards[2].textContent)) {
+      areaCards[2].classList.remove('local-area-cta');
+      areaCards[2].innerHTML = '<span>Cheadle</span><h3>Complete bathrooms in Cheadle</h3><p>Full bathroom renovations, walk-in showers, wet rooms and premium tiling, coordinated from preparation through to the finished room.</p><a class="text-link" href="/areas/cheadle">View Cheadle services →</a>';
+    }
+  }
+
   const workSection = document.getElementById('work');
   if (workSection && !document.getElementById('visualisation')) {
     const visual = document.createElement('section');
@@ -45,7 +64,7 @@
           <p class="eyebrow">Product-matched bathroom visualisation</p>
           <h2>See what you are choosing. <span>Inside your actual bathroom.</span></h2>
           <p class="lead">DLS can create a high-detail visual guide of your real room using the products and finishes selected for your project before installation begins.</p>
-          <p>Choose products from Scudo or another recognised supplier. Share the product links, model numbers, colours and finishes, or let DLS help select the range, so the complete scheme can be reviewed together.</p>
+          <p>Choose products from Scudo or another recognised supplier. Share product links, model numbers, colours and finishes, or let DLS help select the range, so the complete scheme can be reviewed together.</p>
           <div class="visual-badges"><span>Tiles</span><span>Baths</span><span>Showers</span><span>Furniture</span><span>Brassware</span><span>Lighting</span><span>Niches</span><span>Mirrors</span><span>Radiators</span></div>
           <div class="remote-actions"><a class="button" href="/quote">Request My Bathroom Visual</a><span>Available for suitable DLS supply-and-fit projects</span></div>
         </div>
@@ -76,12 +95,10 @@
       const link = document.createElement('a');
       link.href = '#visualisation';
       link.textContent = 'Design Preview';
-      const workLink = nav.querySelector('a[href="#work"]');
-      nav.insertBefore(link, workLink || null);
+      nav.insertBefore(link, nav.querySelector('a[href="#work"]') || null);
     }
   }
 
-  // Add area links to existing footers when they are missing.
   document.querySelectorAll('.footer-links').forEach((links) => {
     const add = (href, label) => {
       if (!links.querySelector(`a[href="${href}"]`)) {
@@ -100,10 +117,10 @@
   const gallery = document.getElementById('gallery-grid');
   const toggle = document.getElementById('gallery-toggle');
   const lightbox = document.getElementById('lightbox');
-  const lightboxImage = document.getElementById('lightbox-image');
-  const lightboxTitle = document.getElementById('lightbox-title');
-  const lightboxCount = document.getElementById('lightbox-count');
-  let currentIndex = 0;
+  const image = document.getElementById('lightbox-image');
+  const title = document.getElementById('lightbox-title');
+  const count = document.getElementById('lightbox-count');
+  let current = 0;
   let previousFocus = null;
 
   if (gallery && toggle) {
@@ -117,48 +134,45 @@
     });
   }
 
-  const updateLightbox = () => {
-    const card = cards[currentIndex];
-    if (!card || !lightboxImage || !lightboxTitle || !lightboxCount) return;
-    const image = card.querySelector('img');
-    lightboxImage.src = image.currentSrc || image.src;
-    lightboxImage.alt = image.alt;
-    lightboxTitle.textContent = card.querySelector('strong')?.textContent || 'DLS Bathrooms project';
-    lightboxCount.textContent = `${currentIndex + 1} of ${cards.length}`;
+  const refresh = () => {
+    const card = cards[current];
+    if (!card || !image || !title || !count) return;
+    const cardImage = card.querySelector('img');
+    image.src = cardImage.currentSrc || cardImage.src;
+    image.alt = cardImage.alt;
+    title.textContent = card.querySelector('strong')?.textContent || 'DLS Bathrooms project';
+    count.textContent = `${current + 1} of ${cards.length}`;
   };
-
-  const openLightbox = (index) => {
+  const open = (index) => {
     if (!lightbox) return;
     previousFocus = document.activeElement;
-    currentIndex = index;
-    updateLightbox();
+    current = index;
+    refresh();
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
     lightbox.querySelector('.lightbox-close')?.focus();
   };
-
-  const closeLightbox = () => {
+  const close = () => {
     if (!lightbox) return;
     lightbox.hidden = true;
     document.body.style.overflow = '';
-    if (lightboxImage) lightboxImage.src = '';
+    if (image) image.src = '';
     previousFocus?.focus();
   };
-
-  const moveLightbox = (offset) => {
+  const move = (offset) => {
     if (!cards.length) return;
-    currentIndex = (currentIndex + offset + cards.length) % cards.length;
-    updateLightbox();
+    current = (current + offset + cards.length) % cards.length;
+    refresh();
   };
 
-  cards.forEach((card, index) => card.addEventListener('click', () => openLightbox(index)));
-  lightbox?.querySelectorAll('[data-lightbox-close]').forEach((button) => button.addEventListener('click', closeLightbox));
-  document.getElementById('lightbox-prev')?.addEventListener('click', () => moveLightbox(-1));
-  document.getElementById('lightbox-next')?.addEventListener('click', () => moveLightbox(1));
+  cards.forEach((card, index) => card.addEventListener('click', () => open(index)));
+  lightbox?.querySelectorAll('[data-lightbox-close]').forEach((button) => button.addEventListener('click', close));
+  document.getElementById('lightbox-prev')?.addEventListener('click', () => move(-1));
+  document.getElementById('lightbox-next')?.addEventListener('click', () => move(1));
   document.addEventListener('keydown', (event) => {
     if (!lightbox || lightbox.hidden) return;
-    if (event.key === 'Escape') closeLightbox();
-    if (event.key === 'ArrowLeft') moveLightbox(-1);
-    if (event.key === 'ArrowRight') moveLightbox(1);
+    if (event.key === 'Escape') close();
+    if (event.key === 'ArrowLeft') move(-1);
+    if (event.key === 'ArrowRight') move(1);
   });
 })();
