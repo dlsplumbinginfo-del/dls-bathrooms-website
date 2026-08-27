@@ -19,7 +19,7 @@ concurrency:
 jobs:
   browser-checks:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
 
     steps:
       - name: Check out website
@@ -37,7 +37,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run desktop, mobile, route and asset checks
-        run: npm run test:site
+        run: timeout 90s npm run test:site
 
       - name: Upload screenshots and results
         if: always()
