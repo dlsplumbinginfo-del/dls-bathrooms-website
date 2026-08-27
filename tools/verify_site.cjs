@@ -65,6 +65,7 @@ function check(condition, name, detail = '') {
     ['video-estimate.html', 'Remote Video Estimate'],
     ['terms.html', 'Terms & Conditions'],
     ['privacy.html', 'Privacy Policy'],
+    ['assets/DLS-Bathrooms-Terms-and-Conditions.pdf', null],
     ['robots.txt', null],
     ['sitemap.xml', null],
   ];
@@ -75,15 +76,16 @@ function check(condition, name, detail = '') {
   }
 
   await page.goto(`${base}/quote.html`, { waitUntil: 'networkidle' });
-  check((await page.locator('form').getAttribute('data-whatsapp')) === '447539037841', 'Standard quote continues to the business WhatsApp');
+  check((await page.locator('form').getAttribute('action')).includes('formsubmit.co/'), 'Standard quote form has a delivery endpoint');
   await page.getByText('Full bathroom renovation', { exact: true }).click();
   await page.getByRole('button', { name: 'Continue' }).click();
   check(await page.getByText('Tell us about the room.', { exact: true }).isVisible(), 'Standard quote form advances to step 2');
-  check(await page.locator('a[href="/privacy"]').count() > 0, 'Standard quote links to privacy notice');
+  check(await page.locator('a[href="privacy.html"]').count() > 0, 'Standard quote links to privacy notice');
 
   await page.goto(`${base}/video-estimate.html`, { waitUntil: 'networkidle' });
-  check(await page.getByRole('link', { name: 'Continue to the Enquiry' }).isVisible(), 'Video estimate continues to the main enquiry');
-  check(await page.getByText('Start with a clear video.', { exact: true }).isVisible(), 'Video estimate guidance is visible');
+  check((await page.locator('form').getAttribute('action')).includes('formsubmit.co/'), 'Video estimate has a delivery endpoint');
+  check((await page.locator('[required]').count()) >= 10, 'Video estimate captures the required project details');
+  check((await page.locator('input[type="file"]').getAttribute('accept')).includes('video/mp4'), 'Video estimate accepts MP4 uploads');
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${base}/index.html`, { waitUntil: 'networkidle' });
