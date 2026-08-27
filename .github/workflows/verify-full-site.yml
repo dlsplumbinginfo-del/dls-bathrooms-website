@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: verify-full-dls
+  group: verify-full-dls-final
   cancel-in-progress: true
 
 jobs:
