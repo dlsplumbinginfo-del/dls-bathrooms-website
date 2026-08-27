@@ -31,7 +31,9 @@ jobs:
           fetch-depth: 0
 
       - name: Convert recovered Vinext pages into reliable static pages
-        run: python tools/staticify_vinext_site.py
+        run: |
+          sed -i 's/Same-day bathroom design service highlights/Flexible bathroom design service highlights/g' index.html
+          python tools/staticify_vinext_site.py
 
       - name: Validate static JavaScript
         run: node --check site-static.js
