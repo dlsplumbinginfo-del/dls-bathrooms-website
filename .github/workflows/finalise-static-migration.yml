@@ -1,0 +1,44 @@
+name: Finalise static DLS migration
+
+on:
+  push:
+    branches:
+      - migration/final-full-site-2026-08-27
+    paths:
+      - tools/finalise_static_migration.py
+      - .github/workflows/finalise-static-migration.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: finalise-static-dls-migration
+  cancel-in-progress: false
+
+jobs:
+  finalise:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out final migration branch
+        uses: actions/checkout@v4
+        with:
+          ref: migration/final-full-site-2026-08-27
+          fetch-depth: 0
+
+      - name: Apply static-host fixes and validate
+        run: python tools/finalise_static_migration.py
+
+      - name: Commit finalised website
+        run: |
+          git config user.name "DLS Website Finalisation"
+          git config user.email "dlsplumbinginfo@gmail.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No finalisation changes to commit."
+            exit 0
+          fi
+          git commit -m "Finalise migrated site for static Vercel hosting"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
