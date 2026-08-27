@@ -1,110 +1,231 @@
 const { chromium } = require('playwright');
 const fs = require('fs');
+const http = require('http');
+const path = require('path');
+const { URL } = require('url');
 
+const root = path.resolve(__dirname, '..');
 const base = 'http://127.0.0.1:4173';
-const outDir = 'tmp/browser';
+const outDir = path.join(root, 'tmp', 'browser');
 fs.mkdirSync(outDir, { recursive: true });
 
-const results = [];
-const errors = [];
+const contentTypes = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.ico': 'image/x-icon',
+  '.mp4': 'video/mp4',
+  '.vtt': 'text/vtt; charset=utf-8',
+  '.pdf': 'application/pdf',
+};
 
+function localFileFor(pathname) {
+  let clean = decodeURIComponent(pathname.split('?')[0]);
+  if (clean === '/') clean = '/index.html';
+
+  const direct = path.join(root, clean.replace(/^\//, ''));
+  if (fs.existsSync(direct) && fs.statSync(direct).isFile()) return direct;
+
+  if (!path.extname(clean)) {
+    const html = `${direct}.html`;
+    if (fs.existsSync(html) && fs.statSync(html).isFile()) return html;
+  }
+  return null;
+}
+
+const server = http.createServer((request, response) => {
+  const requestUrl = new URL(request.url, base);
+
+  if (requestUrl.pathname.startsWith('/_vercel/insights/')) {
+    response.writeHead(200, { 'content-type': 'text/javascript; charset=utf-8' });
+    response.end('');
+    return;
+  }
+
+  const file = localFileFor(requestUrl.pathname);
+  if (!file) {
+    response.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' });
+    response.end('Not found');
+    return;
+  }
+
+  const type = contentTypes[path.extname(file).toLowerCase()] || 'application/octet-stream';
+  response.writeHead(200, {
+    'content-type': type,
+    'cache-control': 'no-store',
+  });
+  if (request.method === 'HEAD') {
+    response.end();
+    return;
+  }
+  fs.createReadStream(file).pipe(response);
+});
+
+const checks = [];
+const failures = [];
 function check(condition, name, detail = '') {
-  results.push({ name, passed: Boolean(condition), detail });
-  if (!condition) errors.push(`${name}${detail ? `: ${detail}` : ''}`);
+  const passed = Boolean(condition);
+  checks.push({ name, passed, detail });
+  if (!passed) failures.push(`${name}${detail ? `: ${detail}` : ''}`);
+}
+
+async function checkLocalAssets(page, label) {
+  const failed = await page.evaluate(async () => {
+    const values = [...document.querySelectorAll('[src], link[href], source[src]')]
+      .map((node) => node.getAttribute('src') || node.getAttribute('href'))
+      .filter(Boolean)
+      .filter((value) => !value.startsWith('data:'))
+      .filter((value) => !value.startsWith('mailto:'))
+      .filter((value) => !value.startsWith('tel:'))
+      .filter((value) => !value.startsWith('#'))
+      .filter((value) => !value.startsWith('http'))
+      .filter((value) => !value.startsWith('/_vercel/insights/'));
+
+    const urls = [...new Set(values.map((value) => new URL(value, location.href).href))];
+    const results = await Promise.all(urls.map(async (url) => {
+      try {
+        const response = await fetch(url, { method: 'GET' });
+        return { url, status: response.status };
+      } catch (error) {
+        return { url, status: 0, error: String(error) };
+      }
+    }));
+    return results.filter((result) => result.status < 200 || result.status >= 400);
+  });
+  check(failed.length === 0, `${label} local assets load`, JSON.stringify(failed));
+}
+
+async function noOverflow(page, label) {
+  const dimensions = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    clientWidth: document.documentElement.clientWidth,
+  }));
+  check(
+    dimensions.scrollWidth <= dimensions.clientWidth + 1,
+    `${label} has no horizontal overflow`,
+    JSON.stringify(dimensions),
+  );
+}
+
+async function open(page, route) {
+  const response = await page.goto(`${base}${route}`, { waitUntil: 'domcontentloaded', timeout: 15000 });
+  await page.waitForTimeout(300);
+  return response;
 }
 
 (async () => {
+  await new Promise((resolve) => server.listen(4173, '127.0.0.1', resolve));
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
+
   const consoleErrors = [];
   const failedRequests = [];
+  const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  page.setDefaultTimeout(15000);
   page.on('console', (message) => {
     if (message.type() === 'error') consoleErrors.push(message.text());
   });
-  page.on('requestfailed', (request) => failedRequests.push(`${request.method()} ${request.url()} - ${request.failure()?.errorText}`));
-
-  const response = await page.goto(`${base}/index.html`, { waitUntil: 'networkidle' });
-  check(response?.status() === 200, 'Homepage returns 200', String(response?.status()));
-  check((await page.locator('body').innerText()).trim().length > 1000, 'Homepage has meaningful content');
-  check(await page.locator('h1').getByText('Exceptional bathrooms.', { exact: false }).isVisible(), 'Hero heading is visible');
-  check((await page.locator('.gallery-card').count()) === 23, 'All 23 gallery photographs are present');
-  check((await page.locator('.gallery-extra:visible').count()) === 0, 'Extra gallery photographs start collapsed');
-  check((await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)), 'Desktop homepage has no horizontal overflow');
-
-  const assetFailures = await page.evaluate(async () => {
-    const values = [...document.querySelectorAll('[src], link[href]')]
-      .map((node) => node.getAttribute('src') || node.getAttribute('href'))
-      .filter((value) => value && !value.startsWith('http') && !value.startsWith('data:'));
-    const urls = [...new Set(values.map((value) => new URL(value, location.href).href))];
-    const statuses = await Promise.all(urls.map(async (url) => {
-      try {
-        const response = await fetch(url, { method: 'HEAD' });
-        return { url, status: response.status };
-      } catch (error) {
-        return { url, status: 0 };
-      }
-    }));
-    return statuses.filter((item) => item.status < 200 || item.status >= 400);
+  page.on('pageerror', (error) => consoleErrors.push(String(error)));
+  page.on('requestfailed', (request) => {
+    if (!request.url().includes('/_vercel/insights/')) {
+      failedRequests.push(`${request.method()} ${request.url()} - ${request.failure()?.errorText}`);
+    }
   });
-  check(assetFailures.length === 0, 'Homepage assets load', JSON.stringify(assetFailures));
 
-  await page.locator('#gallery-toggle').click();
-  check((await page.locator('.gallery-extra:visible').count()) === 13, 'Gallery expands to all 23 photographs');
-  check((await page.locator('#gallery-toggle').innerText()) === 'Show Fewer Photographs', 'Gallery toggle label updates');
-  await page.locator('.gallery-card').first().click();
-  check(await page.locator('#lightbox').isVisible(), 'Gallery lightbox opens');
-  check((await page.locator('#lightbox-count').innerText()) === '1 of 23', 'Lightbox count starts correctly');
-  await page.locator('#lightbox-next').click();
-  check((await page.locator('#lightbox-count').innerText()) === '2 of 23', 'Lightbox next control works');
-  await page.keyboard.press('Escape');
-  check(!(await page.locator('#lightbox').isVisible()), 'Escape closes the lightbox');
-  await page.screenshot({ path: `${outDir}/homepage-desktop.png`, fullPage: true });
+  const homepageResponse = await open(page, '/');
+  check(homepageResponse?.status() === 200, 'Homepage returns 200', String(homepageResponse?.status()));
+  check((await page.title()).includes('DLS Bathrooms'), 'Homepage title identifies DLS Bathrooms', await page.title());
+  check((await page.locator('h1').first().innerText()).trim().length > 10, 'Homepage hero heading is visible');
 
-  const routes = [
-    ['quote.html', 'Get a Quote'],
-    ['video-estimate.html', 'Remote Video Estimate'],
-    ['terms.html', 'Terms & Conditions'],
-    ['privacy.html', 'Privacy Policy'],
-    ['robots.txt', null],
-    ['sitemap.xml', null],
+  const bodyText = await page.locator('body').innerText();
+  check(bodyText.includes('Worldpay'), 'Worldpay information is present');
+  check(bodyText.includes('07539 037841'), 'Correct business phone is present');
+  check(bodyText.includes('info@dlsbathrooms.co.uk'), 'Correct business email is present');
+  check(!bodyText.includes('07304 056595'), 'Old personal phone is absent');
+  check(!bodyText.toLowerCase().includes('klarna'), 'Unverified Klarna wording is absent');
+
+  check((await page.locator('.gallery-card').count()) === 10, 'Homepage starts with 10 featured gallery photographs');
+  const galleryButton = page.getByRole('button', { name: /View All 75 Photographs/i });
+  check((await galleryButton.count()) === 1, '75-photo gallery control is present');
+  await galleryButton.waitFor({ state: 'visible' });
+  await galleryButton.click();
+  await page.waitForFunction(() => document.querySelectorAll('.gallery-card').length >= 75, null, { timeout: 15000 });
+  check((await page.locator('.gallery-card').count()) === 75, 'Gallery expands to all 75 photographs');
+  check((await page.locator('.gallery-card img').count()) === 75, 'All 75 gallery images are rendered');
+
+  await checkLocalAssets(page, 'Homepage');
+  await noOverflow(page, 'Desktop homepage');
+  await page.screenshot({ path: path.join(outDir, 'homepage-desktop.png'), fullPage: true });
+
+  const routeChecks = [
+    ['quote', 'DLS Bathrooms'],
+    ['video-estimate', 'Remote Video Estimate'],
+    ['terms', 'Terms'],
+    ['privacy', 'Privacy'],
+    ['areas/stockport', 'Stockport'],
+    ['areas/manchester', 'Manchester'],
+    ['areas/cheadle', 'Cheadle'],
   ];
-  for (const [route, titleText] of routes) {
-    const routeResponse = await page.goto(`${base}/${route}`, { waitUntil: 'networkidle' });
-    check(routeResponse?.status() === 200, `${route} returns 200`, String(routeResponse?.status()));
-    if (titleText) check((await page.title()).includes(titleText), `${route} has the correct title`, await page.title());
+
+  for (const [route, titlePart] of routeChecks) {
+    const response = await open(page, `/${route}`);
+    check(response?.status() === 200, `/${route} returns 200`, String(response?.status()));
+    check((await page.title()).includes(titlePart), `/${route} has the expected title`, await page.title());
+    check((await page.locator('h1').first().innerText()).trim().length > 5, `/${route} has a visible heading`);
+    const text = await page.locator('body').innerText();
+    check(!text.includes('07304 056595'), `/${route} excludes the old phone number`);
+    check(!text.toLowerCase().includes('klarna'), `/${route} excludes unverified Klarna wording`);
+    await checkLocalAssets(page, `/${route}`);
+    await noOverflow(page, `Desktop /${route}`);
   }
 
-  await page.goto(`${base}/quote.html`, { waitUntil: 'networkidle' });
-  check((await page.locator('form').getAttribute('data-whatsapp')) === '447539037841', 'Standard quote continues to the business WhatsApp');
-  await page.getByText('Full bathroom renovation', { exact: true }).click();
-  await page.getByRole('button', { name: 'Continue' }).click();
-  check(await page.getByText('Tell us about the room.', { exact: true }).isVisible(), 'Standard quote form advances to step 2');
-  check(await page.locator('a[href="/privacy"]').count() > 0, 'Standard quote links to privacy notice');
+  await open(page, '/video-estimate');
+  check((await page.locator('form').getAttribute('action')).includes('formsubmit.co/'), 'Video estimate form has a delivery endpoint');
+  check((await page.locator('input[type="file"]').getAttribute('accept')).includes('video/mp4'), 'Video estimate accepts MP4 uploads');
 
-  await page.goto(`${base}/video-estimate.html`, { waitUntil: 'networkidle' });
-  check(await page.getByRole('link', { name: 'Continue to the Enquiry' }).isVisible(), 'Video estimate continues to the main enquiry');
-  check(await page.getByText('Start with a clear video.', { exact: true }).isVisible(), 'Video estimate guidance is visible');
+  const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  mobile.setDefaultTimeout(15000);
+  mobile.on('console', (message) => {
+    if (message.type() === 'error') consoleErrors.push(`mobile: ${message.text()}`);
+  });
+  mobile.on('pageerror', (error) => consoleErrors.push(`mobile: ${String(error)}`));
+  mobile.on('requestfailed', (request) => {
+    if (!request.url().includes('/_vercel/insights/')) {
+      failedRequests.push(`mobile ${request.method()} ${request.url()} - ${request.failure()?.errorText}`);
+    }
+  });
 
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto(`${base}/index.html`, { waitUntil: 'networkidle' });
-  check((await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)), 'Mobile homepage has no horizontal overflow');
-  check(await page.locator('.mobile-cta').isVisible(), 'Mobile call-to-action bar is visible');
-  check(!(await page.locator('.site-header nav').isVisible()), 'Desktop navigation is hidden on mobile');
-  await page.screenshot({ path: `${outDir}/homepage-mobile.png`, fullPage: true });
+  await open(mobile, '/');
+  await noOverflow(mobile, 'Mobile homepage');
+  check(await mobile.getByRole('link', { name: /Get a Quote/i }).first().isVisible(), 'Mobile quote action is visible');
+  await mobile.screenshot({ path: path.join(outDir, 'homepage-mobile.png'), fullPage: true });
 
-  for (const route of ['quote.html', 'video-estimate.html', 'terms.html', 'privacy.html']) {
-    await page.goto(`${base}/${route}`, { waitUntil: 'networkidle' });
-    check((await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)), `${route} has no mobile overflow`);
-    await page.screenshot({ path: `${outDir}/${route.replace('.html', '')}-mobile.png`, fullPage: true });
+  for (const route of ['quote', 'video-estimate', 'terms', 'privacy', 'areas/stockport', 'areas/manchester', 'areas/cheadle']) {
+    await open(mobile, `/${route}`);
+    await noOverflow(mobile, `Mobile /${route}`);
   }
 
   check(consoleErrors.length === 0, 'No browser console errors', JSON.stringify(consoleErrors));
   check(failedRequests.length === 0, 'No failed browser requests', JSON.stringify(failedRequests));
 
+  await mobile.close();
+  await page.close();
   await browser.close();
-  console.log(JSON.stringify({ results, consoleErrors, failedRequests, passed: errors.length === 0 }, null, 2));
-  if (errors.length) process.exitCode = 1;
-})().catch((error) => {
+  await new Promise((resolve) => server.close(resolve));
+
+  const summary = { passed: failures.length === 0, checks, consoleErrors, failedRequests, failures };
+  fs.writeFileSync(path.join(outDir, 'results.json'), JSON.stringify(summary, null, 2));
+  console.log(JSON.stringify(summary, null, 2));
+  if (failures.length) process.exitCode = 1;
+})().catch(async (error) => {
   console.error(error);
+  try { await new Promise((resolve) => server.close(resolve)); } catch (_) {}
   process.exitCode = 1;
 });

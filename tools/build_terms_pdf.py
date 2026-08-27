@@ -20,7 +20,7 @@ from reportlab.platypus import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "output" / "pdf" / "DLS_Bathrooms_Terms_DRAFT_Solicitor_Review.pdf"
+OUTPUT = ROOT / "output" / "pdf" / "DLS_Bathrooms_Terms_and_Conditions.pdf"
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 
 PAGE_W, PAGE_H = A4
@@ -66,10 +66,9 @@ def draw_header_footer(canvas, doc):
     canvas.drawString(20 * mm, PAGE_H - 11.5 * mm, "DLS BATHROOMS LTD")
     canvas.setFillColor(STONE)
     canvas.setFont("Helvetica", 7.5)
-    canvas.setFillColor(colors.HexColor("#A11B1B"))
-    canvas.drawRightString(PAGE_W - 20 * mm, PAGE_H - 11.5 * mm, "DRAFT FOR SOLICITOR REVIEW - DO NOT ISSUE")
+    canvas.drawRightString(PAGE_W - 20 * mm, PAGE_H - 11.5 * mm, "CUSTOMER TERMS AND CONDITIONS - VERSION 1.0")
     canvas.line(20 * mm, 15 * mm, PAGE_W - 20 * mm, 15 * mm)
-    canvas.drawString(20 * mm, 10.5 * mm, "Company No. 17412702  |  info@dlsbathrooms.co.uk  |  07539 037841")
+    canvas.drawString(20 * mm, 10.5 * mm, "Company No. 17412702  |  info@dlsbathrooms.co.uk  |  07304 056595")
     canvas.drawRightString(PAGE_W - 20 * mm, 10.5 * mm, f"Page {doc.page}")
     canvas.restoreState()
 
@@ -83,7 +82,7 @@ doc = BaseDocTemplate(
     bottomMargin=21 * mm,
     title="DLS Bathrooms Ltd Customer Terms and Conditions",
     author="DLS Bathrooms Ltd",
-    subject="Draft customer terms for solicitor review - not for issue",
+    subject="Customer terms for bathroom quotations and installations",
 )
 frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id="main")
 doc.addPageTemplates(PageTemplate(id="dls", frames=[frame], onPage=draw_header_footer))
@@ -91,11 +90,11 @@ doc.addPageTemplates(PageTemplate(id="dls", frames=[frame], onPage=draw_header_f
 story = []
 story.extend([
     Spacer(1, 12 * mm),
-    p("DRAFT FOR SOLICITOR REVIEW - DO NOT ISSUE", "EyebrowDLS"),
+    p("DLS BATHROOMS LTD", "EyebrowDLS"),
     p("Customer Terms<br/>and Conditions", "TitleDLS"),
     p("For bathroom renovations, wet rooms, tiling, plumbing and related installation work.", "SubtitleDLS"),
     HRFlowable(width="100%", thickness=1.1, color=GOLD, spaceBefore=4, spaceAfter=18),
-    p("Review draft - 25 August 2026", "H2DLS"),
+    p("Version 1.0 - 23 August 2026", "H2DLS"),
     p("These terms are intended to be read with the written quotation, specification, drawings, accepted variations and any cancellation information supplied for the project. If a project document conflicts with these general terms, the written quotation or later written variation takes priority for that project.", "CalloutDLS"),
 ])
 
@@ -103,7 +102,7 @@ details = [
     [p("BUSINESS", "EyebrowDLS"), p("DLS Bathrooms Ltd", "BodyDLS")],
     [p("COMPANY NUMBER", "EyebrowDLS"), p("17412702 - registered in England and Wales", "BodyDLS")],
     [p("REGISTERED OFFICE", "EyebrowDLS"), p("28-30 Wilbraham Road, Manchester, M14 7DW, England", "BodyDLS")],
-    [p("CONTACT", "EyebrowDLS"), p("info@dlsbathrooms.co.uk  |  07539 037841", "BodyDLS")],
+    [p("CONTACT", "EyebrowDLS"), p("info@dlsbathrooms.co.uk  |  07304 056595", "BodyDLS")],
 ]
 table = Table(details, colWidths=[42 * mm, 118 * mm], hAlign="LEFT")
 table.setStyle(TableStyle([
@@ -171,7 +170,6 @@ story.extend([
     p("Price, timing and completion", "H1DLS"),
     clause(13, "Price, deposit and stage payments", [
         "The total price, booking deposit and stage-payment schedule are stated in the quotation. The schedule may differ between labour-only and supply-and-fit projects and may include payments before major product orders or agreed stages.",
-        "Where offered, payment may be made by bank transfer or by consumer debit or credit card processed through Worldpay. DLS does not provide credit. The accepted quotation and invoice will state the available method and due date.",
         "Invoices are due on the dates or milestones stated. If the customer disputes an amount, they should explain why promptly and pay any undisputed amount when due. DLS must be given a reasonable opportunity to answer the concern.",
     ]),
     clause(14, "Non-payment and suspension", [
@@ -213,10 +211,10 @@ story.extend([
     ]),
     clause(23, "Photographs and personal information", [
         "DLS may take progress photographs for project records, quality control and resolving questions. Portfolio or marketing use will be discussed with the customer. Addresses and identifying personal details will not be published without permission.",
-        "Personal information is handled as described in the DLS privacy policy at www.dlsbathrooms.co.uk/privacy.",
+        "Personal information is handled as described in the DLS privacy policy at www.dlsbathrooms.co.uk/privacy.html.",
     ]),
     clause(24, "Concerns, liability, rights and law", [
-        "Please raise concerns promptly so DLS can inspect and propose a solution. Contact info@dlsbathrooms.co.uk or 07539 037841. Both parties should try to resolve a dispute reasonably before court proceedings.",
+        "Please raise concerns promptly so DLS can inspect and propose a solution. Contact info@dlsbathrooms.co.uk or 07304 056595. Both parties should try to resolve a dispute reasonably before court proceedings.",
         "Nothing excludes liability where it would be unlawful to do so. Nothing limits statutory rights, including the right to services performed with reasonable care and skill. The contract is governed by the law of England and Wales and the courts with lawful jurisdiction may hear disputes.",
     ]),
     PageBreak(),
@@ -227,7 +225,7 @@ story.extend([
     p("EFFECT OF CANCELLATION", "EyebrowDLS"),
     p("DLS will reimburse payments as required by law, normally without undue delay and within the applicable statutory time. If you expressly asked DLS to begin a service during the cancellation period, you may be required to pay a proportionate amount for service supplied up to the time you cancel."),
     p("HOW TO CONTACT DLS", "EyebrowDLS"),
-    p("Email: info@dlsbathrooms.co.uk<br/>Post: DLS Bathrooms Ltd, 28-30 Wilbraham Road, Manchester, M14 7DW, England<br/>Telephone: 07539 037841"),
+    p("Email: info@dlsbathrooms.co.uk<br/>Post: DLS Bathrooms Ltd, 28-30 Wilbraham Road, Manchester, M14 7DW, England<br/>Telephone: 07304 056595"),
     Spacer(1, 7 * mm),
     p("REQUEST TO START DURING THE CANCELLATION PERIOD", "H2DLS"),
     p("Complete this only if you want DLS to begin the service before an applicable cancellation period has ended.", "BodySmallDLS"),

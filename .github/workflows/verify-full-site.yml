@@ -1,0 +1,49 @@
+name: Verify full DLS website
+
+on:
+  push:
+    branches:
+      - migration/final-full-site-2026-08-27
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-full-dls-final
+  cancel-in-progress: true
+
+jobs:
+  browser-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install browser test dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run desktop, mobile, route and asset checks
+        run: timeout 90s npm run test:site
+
+      - name: Upload screenshots and results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dls-site-browser-checks
+          path: tmp/browser
+          if-no-files-found: ignore
+          retention-days: 7
