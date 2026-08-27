@@ -2,7 +2,7 @@
   const businessEmail = 'info@dlsbathrooms.co.uk';
 
   // Keep the public homepage contact email aligned with the active DLS business inbox.
-  document.querySelectorAll('a[href="mailto:dlsplumbinginfo@gmail.com"]').forEach((link) => {
+  document.querySelectorAll('a[href="mailto:info@dlsbathrooms.co.uk"]').forEach((link) => {
     link.href = `mailto:${businessEmail}`;
   });
 
