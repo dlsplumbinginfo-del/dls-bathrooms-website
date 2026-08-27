@@ -1,4 +1,23 @@
 (() => {
+  // Recovery fix: use the original warm bathroom promo film from the old site.
+  // This replaces the later 14-second black-marble showreel and removes its poster image.
+  const promoVideo = document.querySelector('.video-section video');
+  if (promoVideo) {
+    const promoSource = promoVideo.querySelector('source');
+    if (promoSource) {
+      promoSource.src = 'assets/6c45b2de-97e3-4f7d-b86e-517d72861e00.mp4';
+      promoSource.type = 'video/mp4';
+    }
+    promoVideo.removeAttribute('poster');
+    promoVideo.preload = 'metadata';
+    promoVideo.load();
+
+    const promoCopy = document.querySelector('.video-copy .lead');
+    if (promoCopy) {
+      promoCopy.textContent = 'Bathroom inspiration with a clean music-only soundtrack — no voiceover.';
+    }
+  }
+
   const cards = [...document.querySelectorAll('.gallery-card')];
   const gallery = document.getElementById('gallery-grid');
   const toggle = document.getElementById('gallery-toggle');
@@ -21,8 +40,10 @@
 
   const updateLightbox = () => {
     const card = cards[currentIndex];
+    if (!card || !lightboxImage || !lightboxTitle || !lightboxCount) return;
     const image = card.querySelector('img');
-    lightboxImage.src = image.src;
+    if (!image) return;
+    lightboxImage.src = image.currentSrc || image.src;
     lightboxImage.alt = image.alt;
     lightboxTitle.textContent = card.querySelector('strong')?.textContent || 'DLS Bathrooms project';
     lightboxCount.textContent = `${currentIndex + 1} of ${cards.length}`;
@@ -42,11 +63,12 @@
     if (!lightbox) return;
     lightbox.hidden = true;
     document.body.style.overflow = '';
-    lightboxImage.src = '';
+    if (lightboxImage) lightboxImage.src = '';
     previousFocus?.focus();
   };
 
   const moveLightbox = (offset) => {
+    if (!cards.length) return;
     currentIndex = (currentIndex + offset + cards.length) % cards.length;
     updateLightbox();
   };
