@@ -9,6 +9,11 @@
     document.head.appendChild(analytics);
   }
 
+  // Match the production mobile overflow repair while keeping the migrated styles.
+  const mobileFix = document.createElement('style');
+  mobileFix.textContent = `html,body{max-width:100%;overflow-x:clip}@supports not (overflow:clip){html,body{overflow-x:hidden}}@media (max-width:760px){.mobile-cta{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)!important;left:8px!important;right:8px!important;bottom:8px!important;width:auto!important;max-width:calc(100vw - 16px)!important;box-sizing:border-box!important;overflow:hidden!important}.mobile-cta .button{min-width:0!important;width:100%!important;max-width:100%!important;padding-inline:10px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.shell,.trust-strip,.gallery-shell{max-width:calc(100vw - 24px)}.hero-content,.trust-strip>div,.payment-grid>*,.local-area-grid>*{min-width:0}}`;
+  document.head.appendChild(mobileFix);
+
   document.querySelectorAll('a[href*="447304056595"]').forEach((link) => {
     link.href = link.href.replace('447304056595', PHONE);
   });
@@ -31,7 +36,7 @@
 
   const areaGrid = document.querySelector('.local-area-grid');
   if (areaGrid) {
-    const cards = [...areaGrid.querySelectorAll('article')];
+    const areaCards = [...areaGrid.querySelectorAll('article')];
     const addLink = (card, href, label) => {
       if (!card || card.querySelector('a')) return;
       const link = document.createElement('a');
@@ -40,11 +45,11 @@
       link.textContent = label;
       card.appendChild(link);
     };
-    addLink(cards[0], '/areas/stockport', 'View Stockport services →');
-    addLink(cards[1], '/areas/manchester', 'View Manchester services →');
-    if (cards[2] && !/cheadle/i.test(cards[2].textContent)) {
-      cards[2].classList.remove('local-area-cta');
-      cards[2].innerHTML = '<span>Cheadle</span><h3>Complete bathrooms in Cheadle</h3><p>Full bathroom renovations, walk-in showers, wet rooms and premium tiling, coordinated from preparation through to the finished room.</p><a class="text-link" href="/areas/cheadle">View Cheadle services →</a>';
+    addLink(areaCards[0], '/areas/stockport', 'View Stockport services →');
+    addLink(areaCards[1], '/areas/manchester', 'View Manchester services →');
+    if (areaCards[2] && !/cheadle/i.test(areaCards[2].textContent)) {
+      areaCards[2].classList.remove('local-area-cta');
+      areaCards[2].innerHTML = '<span>Cheadle</span><h3>Complete bathrooms in Cheadle</h3><p>Full bathroom renovations, walk-in showers, wet rooms and premium tiling, coordinated from preparation through to the finished room.</p><a class="text-link" href="/areas/cheadle">View Cheadle services →</a>';
     }
   }
 
