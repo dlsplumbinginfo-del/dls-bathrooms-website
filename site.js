@@ -29,20 +29,6 @@
     if (/request a video estimate/i.test(link.textContent)) link.href = '/video-estimate';
   });
 
-  // Restore the original 18-second DLS promo: music, DLS wording, and quote/website ending.
-  const homepageVideo = document.querySelector('.video-section video');
-  if (homepageVideo) {
-    let source = homepageVideo.querySelector('source');
-    if (!source) {
-      source = document.createElement('source');
-      source.type = 'video/mp4';
-      homepageVideo.appendChild(source);
-    }
-    source.src = '/assets/media/dls-original-promo-music.mp4';
-    homepageVideo.poster = '/assets/projects/bronze-wetroom-hero.webp';
-    homepageVideo.load();
-  }
-
   const workSection = document.getElementById('work');
   document.getElementById('visualisation')?.remove();
   document.querySelectorAll('[data-visual-service]').forEach((el) => el.remove());
@@ -51,11 +37,12 @@
   if (workSection) {
     const style = document.createElement('style');
     style.textContent = `
+      html,body{max-width:100%;overflow-x:hidden}
       .liked-visual{background:linear-gradient(180deg,#111415,#090b0c);border-block:1px solid var(--line)}
       .liked-visual-head{max-width:820px;margin-bottom:34px}
-      .liked-visual-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-      .liked-visual-card{overflow:hidden;border:1px solid var(--line);border-radius:18px;background:#0c0f10}
-      .liked-visual-card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+      .liked-visual-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+      .liked-visual-card{overflow:hidden;border:1px solid var(--line);border-radius:18px;background:#0c0f10;min-width:0}
+      .liked-visual-card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:#111}
       .liked-visual-label{padding:18px 20px}
       .liked-visual-label small{display:block;color:var(--gold);text-transform:uppercase;letter-spacing:.14em;font-size:10px;font-weight:800;margin-bottom:4px}
       .liked-visual-label strong{font-size:19px;color:#f4f0e8}
@@ -63,8 +50,8 @@
       .liked-visual-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:24px}
       .liked-visual-note{font-size:12px;color:#88857d;max-width:760px;margin-top:18px;line-height:1.6}
       @media (max-width:760px){
-        .liked-visual-grid{grid-template-columns:1fr 1fr;gap:8px}
-        .liked-visual-label{padding:12px}
+        .liked-visual-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+        .liked-visual-label{padding:12px 10px}
         .liked-visual-label strong{font-size:14px}
         .liked-visual-card img{aspect-ratio:3/4}
         .liked-visual-copy{font-size:15px}
@@ -81,15 +68,15 @@
         <div class="liked-visual-head">
           <p class="eyebrow">Visual bathroom design & quote</p>
           <h2>See Your Bathroom <span>Before It’s Built.</span></h2>
-          <p class="lead">Start with a visual idea, then compare it with the real finished bathroom.</p>
+          <p class="lead">See the visual idea first, then compare it with the real completed bathroom.</p>
         </div>
         <div class="liked-visual-grid">
           <figure class="liked-visual-card">
-            <img src="/assets/visuals/visualised-left.webp" alt="AI-assisted visual bathroom design">
+            <img id="dls-visual-ai" alt="AI-assisted visual bathroom design">
             <figcaption class="liked-visual-label"><small>Visualised Bathroom</small><strong>See the idea first</strong></figcaption>
           </figure>
           <figure class="liked-visual-card">
-            <img src="/assets/visuals/real-right.webp" alt="Real completed DLS bathroom">
+            <img id="dls-visual-real" alt="Real completed DLS bathroom">
             <figcaption class="liked-visual-label"><small>Completed Bathroom</small><strong>Then see the real finish</strong></figcaption>
           </figure>
         </div>
@@ -108,6 +95,43 @@
       nav.insertBefore(link, workLink || null);
     }
   }
+
+  const b64ToBlobUrl = (b64, type) => {
+    const raw = atob(b64);
+    const bytes = new Uint8Array(raw.length);
+    for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+    return URL.createObjectURL(new Blob([bytes], { type }));
+  };
+
+  const applyRecoveredMedia = () => {
+    const media = window.DLS_SITE_MEDIA;
+    if (!media?.promo || !media?.visual || !media?.real) return;
+
+    const homepageVideo = document.querySelector('.video-section video');
+    if (homepageVideo) {
+      let source = homepageVideo.querySelector('source');
+      if (!source) {
+        source = document.createElement('source');
+        source.type = 'video/mp4';
+        homepageVideo.appendChild(source);
+      }
+      source.src = b64ToBlobUrl(media.promo, 'video/mp4');
+      source.type = 'video/mp4';
+      homepageVideo.poster = '/assets/projects/bronze-wetroom-hero.webp';
+      homepageVideo.load();
+    }
+
+    const ai = document.getElementById('dls-visual-ai');
+    const real = document.getElementById('dls-visual-real');
+    if (ai) ai.src = `data:image/webp;base64,${media.visual}`;
+    if (real) real.src = `data:image/webp;base64,${media.real}`;
+  };
+
+  const mediaScript = document.createElement('script');
+  mediaScript.src = '/site-data.js?v=20260827-verified';
+  mediaScript.onload = applyRecoveredMedia;
+  mediaScript.onerror = () => console.error('DLS restored media package failed to load');
+  document.head.appendChild(mediaScript);
 
   document.querySelectorAll('.footer-links').forEach((links) => {
     const add = (href, label) => {
