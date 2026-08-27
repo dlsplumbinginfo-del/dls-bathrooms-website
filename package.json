@@ -3,7 +3,7 @@
   "private": true,
   "version": "4.0.0",
   "scripts": {
-    "test:site": "node tools/verify_site.cjs"
+    "test:site": "node tools/verify_migrated_site.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"
