@@ -1,0 +1,1 @@
+DLS Bathrooms recovery preview created from commit e82e142f7633d0e6f6ad054ccb7ce19bdf818a16 (25 August 2026). Do not merge to production until visually checked and approved. Missing extended gallery photos can be restored separately.
