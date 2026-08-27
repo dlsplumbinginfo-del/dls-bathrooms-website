@@ -115,6 +115,12 @@ async function noOverflow(page, label) {
   );
 }
 
+async function open(page, route) {
+  const response = await page.goto(`${base}${route}`, { waitUntil: 'domcontentloaded', timeout: 15000 });
+  await page.waitForTimeout(300);
+  return response;
+}
+
 (async () => {
   await new Promise((resolve) => server.listen(4173, '127.0.0.1', resolve));
   const browser = await chromium.launch({ headless: true });
@@ -122,6 +128,7 @@ async function noOverflow(page, label) {
   const consoleErrors = [];
   const failedRequests = [];
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  page.setDefaultTimeout(15000);
   page.on('console', (message) => {
     if (message.type() === 'error') consoleErrors.push(message.text());
   });
@@ -132,7 +139,7 @@ async function noOverflow(page, label) {
     }
   });
 
-  const homepageResponse = await page.goto(`${base}/`, { waitUntil: 'networkidle' });
+  const homepageResponse = await open(page, '/');
   check(homepageResponse?.status() === 200, 'Homepage returns 200', String(homepageResponse?.status()));
   check((await page.title()).includes('DLS Bathrooms'), 'Homepage title identifies DLS Bathrooms', await page.title());
   check((await page.locator('h1').first().innerText()).trim().length > 10, 'Homepage hero heading is visible');
@@ -147,8 +154,9 @@ async function noOverflow(page, label) {
   check((await page.locator('.gallery-card').count()) === 10, 'Homepage starts with 10 featured gallery photographs');
   const galleryButton = page.getByRole('button', { name: /View All 75 Photographs/i });
   check((await galleryButton.count()) === 1, '75-photo gallery control is present');
+  await galleryButton.waitFor({ state: 'visible' });
   await galleryButton.click();
-  await page.waitForFunction(() => document.querySelectorAll('.gallery-card').length >= 75);
+  await page.waitForFunction(() => document.querySelectorAll('.gallery-card').length >= 75, null, { timeout: 15000 });
   check((await page.locator('.gallery-card').count()) === 75, 'Gallery expands to all 75 photographs');
   check((await page.locator('.gallery-card img').count()) === 75, 'All 75 gallery images are rendered');
 
@@ -167,7 +175,7 @@ async function noOverflow(page, label) {
   ];
 
   for (const [route, titlePart] of routeChecks) {
-    const response = await page.goto(`${base}/${route}`, { waitUntil: 'networkidle' });
+    const response = await open(page, `/${route}`);
     check(response?.status() === 200, `/${route} returns 200`, String(response?.status()));
     check((await page.title()).includes(titlePart), `/${route} has the expected title`, await page.title());
     check((await page.locator('h1').first().innerText()).trim().length > 5, `/${route} has a visible heading`);
@@ -178,11 +186,12 @@ async function noOverflow(page, label) {
     await noOverflow(page, `Desktop /${route}`);
   }
 
-  await page.goto(`${base}/video-estimate`, { waitUntil: 'networkidle' });
+  await open(page, '/video-estimate');
   check((await page.locator('form').getAttribute('action')).includes('formsubmit.co/'), 'Video estimate form has a delivery endpoint');
   check((await page.locator('input[type="file"]').getAttribute('accept')).includes('video/mp4'), 'Video estimate accepts MP4 uploads');
 
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  mobile.setDefaultTimeout(15000);
   mobile.on('console', (message) => {
     if (message.type() === 'error') consoleErrors.push(`mobile: ${message.text()}`);
   });
@@ -193,13 +202,13 @@ async function noOverflow(page, label) {
     }
   });
 
-  await mobile.goto(`${base}/`, { waitUntil: 'networkidle' });
+  await open(mobile, '/');
   await noOverflow(mobile, 'Mobile homepage');
   check(await mobile.getByRole('link', { name: /Get a Quote/i }).first().isVisible(), 'Mobile quote action is visible');
   await mobile.screenshot({ path: path.join(outDir, 'homepage-mobile.png'), fullPage: true });
 
   for (const route of ['quote', 'video-estimate', 'terms', 'privacy', 'areas/stockport', 'areas/manchester', 'areas/cheadle']) {
-    await mobile.goto(`${base}/${route}`, { waitUntil: 'networkidle' });
+    await open(mobile, `/${route}`);
     await noOverflow(mobile, `Mobile /${route}`);
   }
 
