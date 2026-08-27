@@ -4,7 +4,10 @@
     { "source": "/quote.html", "destination": "/quote", "permanent": true },
     { "source": "/video-estimate.html", "destination": "/video-estimate", "permanent": true },
     { "source": "/terms.html", "destination": "/terms", "permanent": true },
-    { "source": "/privacy.html", "destination": "/privacy", "permanent": true }
+    { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
+    { "source": "/areas/stockport.html", "destination": "/areas/stockport", "permanent": true },
+    { "source": "/areas/manchester.html", "destination": "/areas/manchester", "permanent": true },
+    { "source": "/areas/cheadle.html", "destination": "/areas/cheadle", "permanent": true }
   ],
   "headers": [
     {
