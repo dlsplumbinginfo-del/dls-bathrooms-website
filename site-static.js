@@ -22,6 +22,7 @@
         `Quote type: ${value('quoteType')}`,
         `Product-matched visual: ${value('visualPreview')}`,
         `Preferred timing: ${value('timing')}`,
+        `How they found DLS: ${value('referralSource')}`,
         `Details: ${value('details')}`,
         '',
         'I can add photographs, a room video, rough measurements and product links in WhatsApp.'
