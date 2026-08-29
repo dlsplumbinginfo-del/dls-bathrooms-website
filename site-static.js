@@ -132,7 +132,37 @@
     });
   }
 
+  function prioritiseHomepageProof() {
+    const paymentSection = document.getElementById('payments');
+    const callToAction = document.querySelector('.cta-section');
+    if (paymentSection && callToAction) {
+      callToAction.before(paymentSection);
+    }
+
+    const processGrid = document.querySelector('#process .process-grid');
+    if (!processGrid || processGrid.dataset.customerCareAdded === 'true') return;
+
+    const buildStep = processGrid.querySelector('article:last-child p');
+    if (buildStep) {
+      buildStep.textContent =
+        'One DLS team stays responsible, keeps you updated and coordinates every trade through to completion.';
+    }
+
+    const careSteps = [
+      ['5', 'Protect & communicate', 'Floors and access routes are protected, the working area is kept orderly and progress is explained throughout the installation.'],
+      ['6', 'Handover & aftercare', 'We walk through the finished bathroom with you, explain the new fittings and support our workmanship with a 24-month guarantee.']
+    ];
+
+    careSteps.forEach(([number, title, copy]) => {
+      const article = document.createElement('article');
+      article.innerHTML = `<span>${number}</span><h3>${title}</h3><p>${copy}</p>`;
+      processGrid.appendChild(article);
+    });
+    processGrid.dataset.customerCareAdded = 'true';
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
+    prioritiseHomepageProof();
     setupQuoteForm();
     setupGallery();
   });
