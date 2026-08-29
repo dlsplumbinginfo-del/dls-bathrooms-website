@@ -148,6 +148,7 @@ async function noOverflow(page, label) {
       '07304 056595', '447304056595', 'dlsplumbinginfo@gmail.com',
       'dlstilingandplumbing30@gmail.com', 'klarna', '__vinext_rsc_',
       'rsc_chunks', 'id="_r_"', 'same-day', '41 reviews', '98%'
+      , 'bathroom fitters', 'bathroom fitting', '>cheadle<', '"name":"cheadle"'
     ]) {
       check(!allText.includes(forbidden), `Unsupported value is absent: ${forbidden}`);
     }
