@@ -147,7 +147,7 @@ async function noOverflow(page, label) {
     for (const forbidden of [
       '07304 056595', '447304056595', 'dlsplumbinginfo@gmail.com',
       'dlstilingandplumbing30@gmail.com', 'klarna', '__vinext_rsc_',
-      'rsc_chunks', 'id="_r_"', 'same-day', '41 reviews', '98%'
+      'rsc_chunks', 'id="_r_"', 'same-day', '41 reviews'
       , 'bathroom fitters', 'bathroom fitting', '>cheadle<', '"name":"cheadle"'
     ]) {
       check(!allText.includes(forbidden), `Unsupported value is absent: ${forbidden}`);
@@ -188,6 +188,9 @@ async function noOverflow(page, label) {
     check((await desktop.locator('h1').first().innerText()).trim().length > 10, 'Homepage heading is visible');
     const homeText = await desktop.locator('body').innerText();
     check(homeText.includes('Worldpay'), 'Worldpay information is visible');
+    check(homeText.includes('98% recommend'), 'Verified Facebook recommendation is visible');
+    check(homeText.includes('40 Facebook reviews'), 'Verified Facebook review count is visible');
+    check((await desktop.locator('.whatsapp-float').count()) === 1, 'Floating WhatsApp quote button is present');
     check(homeText.includes('07539 037841'), 'Correct phone is visible');
     check(
       (await desktop.locator('a[href="mailto:info@dlsbathrooms.co.uk"]').count()) >= 1,
@@ -212,7 +215,7 @@ async function noOverflow(page, label) {
     check(!homeText.includes('Cheadle'), 'Homepage only names Stockport and Manchester');
     check(homeText.includes('Your local bathroom specialist'), 'Personal bathroom specialist wording is visible');
     check(
-      (await desktop.locator('a[href="https://www.instagram.com/dlstilingand/"]').count()) === 1,
+      (await desktop.locator('a[href="https://www.instagram.com/dlsbathroomsltd/"]').count()) === 1,
       'Instagram profile link is present',
     );
 
