@@ -161,8 +161,34 @@
     processGrid.dataset.customerCareAdded = 'true';
   }
 
+  function restoreVerifiedTrustAndContact() {
+    if (!document.querySelector('link[href="/trust-contact.css"]')) {
+      const styles = document.createElement('link');
+      styles.rel = 'stylesheet';
+      styles.href = '/trust-contact.css';
+      document.head.appendChild(styles);
+    }
+
+    const trustItems = document.querySelectorAll('.trust-strip > div');
+    const reviewItem = trustItems[2];
+    if (reviewItem) {
+      reviewItem.innerHTML =
+        '<strong>98% recommend</strong><a href="https://www.facebook.com/DLSBathrooms/" target="_blank" rel="noreferrer">40 Facebook reviews</a>';
+    }
+
+    if (!document.querySelector('.whatsapp-float')) {
+      const whatsapp = document.createElement('a');
+      whatsapp.className = 'whatsapp-float';
+      whatsapp.href = `https://wa.me/${businessWhatsApp}?text=${encodeURIComponent("Hello DLS Bathrooms Ltd, I'd like a bathroom quotation.")}`;
+      whatsapp.setAttribute('aria-label', 'Message DLS Bathrooms on WhatsApp');
+      whatsapp.innerHTML = '<span aria-hidden="true">WhatsApp</span><strong>Get a quote</strong>';
+      document.body.appendChild(whatsapp);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     prioritiseHomepageProof();
+    restoreVerifiedTrustAndContact();
     setupQuoteForm();
     setupGallery();
   });
