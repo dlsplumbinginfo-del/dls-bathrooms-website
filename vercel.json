@@ -7,7 +7,8 @@
     { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
     { "source": "/areas/stockport.html", "destination": "/areas/stockport", "permanent": true },
     { "source": "/areas/manchester.html", "destination": "/areas/manchester", "permanent": true },
-    { "source": "/areas/cheadle.html", "destination": "/areas/cheadle", "permanent": true }
+    { "source": "/areas/cheadle.html", "destination": "/areas/stockport", "permanent": true },
+    { "source": "/areas/cheadle", "destination": "/areas/stockport", "permanent": true }
   ],
   "headers": [
     {

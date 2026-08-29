@@ -1,10 +1,10 @@
 # DLS Bathrooms website
 
-Static website for DLS Bathrooms Ltd. The Version 4 recovery lives in `index.html` with real DLS project images, the music-only showreel, standard and remote quote routes, legal pages and a downloadable customer-terms PDF.
+Static website for DLS Bathrooms Ltd. The current production release lives in `index.html` with real DLS project images, the music-only showreel, standard and remote quote routes, legal pages and a downloadable customer-terms PDF.
 
 ## Pages
 
-- `index.html` - main website and 23-image project gallery
+- `index.html` - main website and 80-image project gallery
 - `quote.html` - standard multi-step enquiry form
 - `video-estimate.html` - remote estimate form with photo/video uploads
 - `terms.html` - web terms and downloadable PDF
