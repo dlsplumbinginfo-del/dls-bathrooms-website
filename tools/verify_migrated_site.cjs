@@ -138,8 +138,8 @@ async function noOverflow(page, label) {
     const projectImages = fs.readdirSync(path.join(root, 'projects'))
       .filter((name) => name.endsWith('.webp'));
     check(
-      projectImages.length >= 77,
-      'All 75 gallery images and two design images are stored',
+      projectImages.length >= 82,
+      'All 80 gallery images and two design images are stored',
       String(projectImages.length),
     );
 
@@ -193,16 +193,27 @@ async function noOverflow(page, label) {
       'Correct business email link is present',
     );
 
-    check((await desktop.locator('.gallery-card').count()) === 75, 'All 75 gallery cards are in the page');
+    check((await desktop.locator('.gallery-card').count()) === 80, 'All 80 gallery cards are in the page');
     check((await desktop.locator('.gallery-card:visible').count()) === 10, 'Ten featured photographs show initially');
-    const galleryButton = desktop.getByRole('button', { name: /View All 75 Photographs/i });
+    const galleryButton = desktop.getByRole('button', { name: /View All 80 Photographs/i });
     await galleryButton.click();
-    check((await desktop.locator('.gallery-card:visible').count()) === 75, 'Gallery expands to all 75 photographs');
+    check((await desktop.locator('.gallery-card:visible').count()) === 80, 'Gallery expands to all 80 photographs');
     const sources = await desktop.locator('.gallery-card img')
       .evaluateAll((images) => images.map((image) => image.getAttribute('src')));
+    check(
+      sources.slice(0, 5).every((source) => source?.startsWith('/projects/enhanced-')),
+      'Five enhanced project photographs lead the gallery',
+      JSON.stringify(sources.slice(0, 5)),
+    );
     const missingGallery = sources.filter((source) => !source || !fileFor(source));
-    check(sources.length === 75, 'All 75 gallery image elements are present', String(sources.length));
-    check(missingGallery.length === 0, 'All 75 gallery image files exist', JSON.stringify(missingGallery));
+    check(sources.length === 80, 'All 80 gallery image elements are present', String(sources.length));
+    check(missingGallery.length === 0, 'All 80 gallery image files exist', JSON.stringify(missingGallery));
+    check(!homeText.includes('Cheadle'), 'Homepage only names Stockport and Manchester');
+    check(homeText.includes('Your local bathroom specialist'), 'Personal bathroom specialist wording is visible');
+    check(
+      (await desktop.locator('a[href="https://www.instagram.com/dlstilingand/"]').count()) === 1,
+      'Instagram profile link is present',
+    );
 
     await desktop.locator('.gallery-card').nth(20).click();
     check(await desktop.locator('.lightbox').isVisible(), 'Gallery lightbox opens');
@@ -218,7 +229,6 @@ async function noOverflow(page, label) {
       ['/privacy', 'Privacy'],
       ['/areas/stockport', 'Stockport'],
       ['/areas/manchester', 'Manchester'],
-      ['/areas/cheadle', 'Cheadle'],
     ];
     for (const [route, titlePart] of routes) {
       response = await open(desktop, route);
@@ -260,6 +270,10 @@ async function noOverflow(page, label) {
 
     await open(mobile, '/');
     await noOverflow(mobile, 'Mobile homepage');
+    const comparisonColumns = await mobile.locator('.design-proof-grid').evaluate(
+      (element) => getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+    );
+    check(comparisonColumns === 2, 'AI preview and finished bathroom stay side by side on mobile', String(comparisonColumns));
     check(
       await mobile.getByRole('link', { name: /Get a Quote/i }).first().isVisible(),
       'Mobile quote button is visible',
