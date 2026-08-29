@@ -1,0 +1,51 @@
+.trust-strip a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.trust-strip a:hover {
+  text-decoration: underline;
+}
+
+.whatsapp-float {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 11px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: #1f9d55;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.38);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+}
+
+.whatsapp-float span {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.whatsapp-float strong {
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+@media (max-width: 720px) {
+  .whatsapp-float {
+    right: 12px;
+    bottom: 12px;
+    padding: 10px 14px;
+  }
+}
