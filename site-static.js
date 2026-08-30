@@ -187,6 +187,19 @@
       footerLinks.insertBefore(trustpilotLink, footerLinks.querySelector('a[href="mailto:info@dlsbathrooms.co.uk"]'));
     }
 
+    const trustStrip = document.querySelector('.trust-strip');
+    if (trustStrip && !document.querySelector('.trustpilot-banner')) {
+      const trustpilotBanner = document.createElement('a');
+      trustpilotBanner.className = 'trustpilot-banner';
+      trustpilotBanner.href = 'https://uk.trustpilot.com/review/dlsbathrooms.co.uk';
+      trustpilotBanner.target = '_blank';
+      trustpilotBanner.rel = 'noreferrer';
+      trustpilotBanner.setAttribute('aria-label', 'View the new DLS Bathrooms Trustpilot profile');
+      trustpilotBanner.innerHTML =
+        '<span class="trustpilot-stars" aria-hidden="true">★★★★★</span><span class="trustpilot-title"><strong><i aria-hidden="true">★</i> Trustpilot</strong><small>New profile — customer reviews coming soon</small></span><span class="trustpilot-action">View profile →</span>';
+      trustStrip.insertAdjacentElement('afterend', trustpilotBanner);
+    }
+
     if (!document.querySelector('.whatsapp-float')) {
       const whatsapp = document.createElement('a');
       whatsapp.className = 'whatsapp-float';
