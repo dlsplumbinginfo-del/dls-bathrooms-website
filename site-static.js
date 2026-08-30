@@ -190,14 +190,22 @@
     const trustStrip = document.querySelector('.trust-strip');
     if (trustStrip && !document.querySelector('.trustpilot-banner')) {
       const trustpilotBanner = document.createElement('a');
-      trustpilotBanner.className = 'trustpilot-banner';
+      trustpilotBanner.className = 'trustpilot-banner trustpilot-banner-top';
       trustpilotBanner.href = 'https://uk.trustpilot.com/review/dlsbathrooms.co.uk';
       trustpilotBanner.target = '_blank';
       trustpilotBanner.rel = 'noreferrer';
-      trustpilotBanner.setAttribute('aria-label', 'View the new DLS Bathrooms Trustpilot profile');
+      trustpilotBanner.setAttribute('aria-label', 'View the DLS Bathrooms Trustpilot profile');
       trustpilotBanner.innerHTML =
-        '<span class="trustpilot-stars" aria-hidden="true">★★★★★</span><span class="trustpilot-title"><strong><i aria-hidden="true">★</i> Trustpilot</strong><small>New profile — customer reviews coming soon</small></span><span class="trustpilot-action">View profile →</span>';
+        '<span class="trustpilot-mark" aria-hidden="true">★</span><span class="trustpilot-title"><strong>Find us on <span>Trustpilot</span></strong><small>Our new customer-review profile is now live</small></span><span class="trustpilot-action">View profile →</span>';
       trustStrip.insertAdjacentElement('afterend', trustpilotBanner);
+
+      const callToAction = document.querySelector('.cta-section');
+      if (callToAction && !document.querySelector('.trustpilot-banner-bottom')) {
+        const bottomBanner = trustpilotBanner.cloneNode(true);
+        bottomBanner.className = 'trustpilot-banner trustpilot-banner-bottom';
+        bottomBanner.setAttribute('aria-label', 'View the DLS Bathrooms Trustpilot profile');
+        callToAction.insertAdjacentElement('afterend', bottomBanner);
+      }
     }
 
     if (!document.querySelector('.whatsapp-float')) {
