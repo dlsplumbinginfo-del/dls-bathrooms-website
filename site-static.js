@@ -173,7 +173,18 @@
     const reviewItem = trustItems[2];
     if (reviewItem) {
       reviewItem.innerHTML =
-        '<strong>98% recommend</strong><a href="https://www.facebook.com/DLSBathrooms/" target="_blank" rel="noreferrer">40 Facebook reviews</a>';
+        '<strong>Customer reviews</strong><span class="review-platform-links"><a href="https://www.facebook.com/DLSBathrooms/" target="_blank" rel="noreferrer">Facebook</a><span aria-hidden="true">•</span><a href="https://uk.trustpilot.com/review/dlsbathrooms.co.uk" target="_blank" rel="noreferrer">Trustpilot</a></span>';
+    }
+
+    const footerLinks = document.querySelector('.footer-links');
+    if (footerLinks && !footerLinks.querySelector('[data-trustpilot-link]')) {
+      const trustpilotLink = document.createElement('a');
+      trustpilotLink.href = 'https://uk.trustpilot.com/review/dlsbathrooms.co.uk';
+      trustpilotLink.target = '_blank';
+      trustpilotLink.rel = 'noreferrer';
+      trustpilotLink.dataset.trustpilotLink = 'true';
+      trustpilotLink.textContent = 'Trustpilot';
+      footerLinks.insertBefore(trustpilotLink, footerLinks.querySelector('a[href="mailto:info@dlsbathrooms.co.uk"]'));
     }
 
     if (!document.querySelector('.whatsapp-float')) {
