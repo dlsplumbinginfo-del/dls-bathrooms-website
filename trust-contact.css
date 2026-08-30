@@ -7,6 +7,14 @@
   text-decoration: underline;
 }
 
+.review-platform-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: inherit;
+}
+
 .whatsapp-float {
   position: fixed;
   right: 18px;
