@@ -22,6 +22,10 @@ if(encoded.length!==26532)throw new Error("Preview data did not load completely"
 const bytes=Uint8Array.from(atob(encoded),character=>character.charCodeAt(0));
 const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
 let page=await new Response(stream).text();
+page=page.replace(
+  "topCount:$('#topCount'),mobilebar:$('#mobilebar')",
+  "topCount:$('#topCount'),basketTop:$('#basketTop'),mobilebar:$('#mobilebar')"
+);
 const responsiveStyle=`<style id="dls-mobile-flow-fix">
 html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important;overscroll-behavior-x:none!important}
 body{margin:0!important;position:relative!important;touch-action:pan-y}
