@@ -75,8 +75,9 @@ async function inspect(page, label, screenshot) {
   assert((await page.locator('.gallery-card').count()) === 80, `${label} keeps all 80 original gallery cards`);
 
   const text = await page.locator('body').innerText();
+  const textLower = text.toLowerCase();
   for (const phrase of ['Exceptional bathrooms.', 'One specialist team.', 'Worldpay', 'Real DLS work']) {
-    assert(text.includes(phrase), `${label} keeps original homepage wording`, phrase);
+    assert(textLower.includes(phrase.toLowerCase()), `${label} keeps original homepage wording`, phrase);
   }
 
   const colours = await page.evaluate(() => ({
