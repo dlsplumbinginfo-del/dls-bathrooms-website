@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#080a0b">
+  <title>Build Your Bathroom | DLS Bathrooms Ltd</title>
+  <meta name="description" content="Build a complete bathroom product list with DLS Bathrooms. Search products, save product codes and send the finished list for checking and quotation.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="./shop.css">
+  <script src="./products.js" defer></script>
+  <script src="./shop.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#catalogue">Skip to products</a>
+
+  <header class="shop-header">
+    <a class="brand" href="/" aria-label="Return to DLS Bathrooms homepage">
+      <img src="/dls-badge-cropped.png" alt="" width="50" height="50">
+      <span>
+        <strong>DLS Bathrooms</strong>
+        <small>Build Your Bathroom</small>
+      </span>
+    </a>
+    <nav class="header-actions" aria-label="Page actions">
+      <a class="plain-link" href="/">Main website</a>
+      <button class="basket-button" id="open-basket" type="button" aria-controls="basket-drawer" aria-expanded="false">
+        <span aria-hidden="true">▣</span>
+        My list
+        <b id="header-basket-count" aria-label="0 products">0</b>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="shop-hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">DLS product selector · Preview version</p>
+          <h1>Build your complete bathroom <span>in one simple list.</span></h1>
+          <p class="hero-lead">Search by product, category, finish or code. Add everything you like, then send the complete list to DLS for compatibility checks, current availability and your final quotation.</p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#catalogue">Start choosing products</a>
+            <button class="secondary-button" id="hero-open-basket" type="button">Open my saved list</button>
+          </div>
+          <div class="hero-points" aria-label="How the service works">
+            <span><b>1</b> Choose</span>
+            <span><b>2</b> Save product codes</span>
+            <span><b>3</b> Send to DLS</span>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="DLS compatibility check">
+          <img class="hero-card-image" src="https://www.scudo.co.uk/app/uploads/2022/04/brass_wetrooom_panel.jpg" alt="Bathroom inspiration with brushed brass shower fittings" loading="eager">
+          <div class="hero-card-overlay"></div>
+          <div class="hero-card-content">
+            <span class="status-pill">DLS checked before ordering</span>
+            <h2>We check the details people often miss.</h2>
+            <ul>
+              <li>Product codes and matching finishes</li>
+              <li>Required seats, wastes, panels and frames</li>
+              <li>Room dimensions and installation suitability</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="builder-strip" aria-labelledby="builder-title">
+      <div class="shell">
+        <div class="builder-heading">
+          <div>
+            <p class="eyebrow">Your bathroom checklist</p>
+            <h2 id="builder-title">See what you have chosen and what may still be needed.</h2>
+          </div>
+          <div class="progress-summary" aria-live="polite">
+            <strong id="progress-percent">0%</strong>
+            <span>core list complete</span>
+          </div>
+        </div>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+        <div class="checklist-grid" id="room-checklist"></div>
+      </div>
+    </section>
+
+    <section class="catalogue-section" id="catalogue">
+      <div class="shell">
+        <div class="catalogue-heading">
+          <div>
+            <p class="eyebrow">Bathroom catalogue</p>
+            <h2>Find products without flicking through a full brochure.</h2>
+            <p>Type “toilet”, “brushed brass”, “mirror” or a product code. The product code is kept with every item you add.</p>
+          </div>
+          <div class="catalogue-count"><strong id="result-count">0</strong><span>products shown</span></div>
+        </div>
+
+        <div class="search-panel">
+          <label class="search-field" for="product-search">
+            <span aria-hidden="true">⌕</span>
+            <input id="product-search" type="search" autocomplete="off" placeholder="Search products, finishes or product codes…">
+            <button id="clear-search" type="button" aria-label="Clear search" hidden>×</button>
+          </label>
+          <label class="select-field">
+            <span>Finish</span>
+            <select id="finish-filter"><option value="all">All finishes</option></select>
+          </label>
+          <label class="select-field">
+            <span>Sort</span>
+            <select id="sort-filter">
+              <option value="recommended">Recommended</option>
+              <option value="price-low">Price: low to high</option>
+              <option value="price-high">Price: high to low</option>
+              <option value="name">Name: A to Z</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="category-scroller" id="category-filters" aria-label="Filter by category"></div>
+
+        <div class="catalogue-layout">
+          <section aria-label="Product results">
+            <div class="active-filter-row" id="active-filter-row"></div>
+            <div class="product-grid" id="product-grid"></div>
+            <div class="empty-state" id="empty-state" hidden>
+              <span aria-hidden="true">⌕</span>
+              <h3>No matching products yet</h3>
+              <p>Try a broader word, a different finish, or clear the filters.</p>
+              <button class="secondary-button" id="reset-filters" type="button">Clear all filters</button>
+            </div>
+          </section>
+
+          <aside class="list-summary" aria-labelledby="summary-title">
+            <div class="list-summary-top">
+              <span class="summary-icon" aria-hidden="true">✓</span>
+              <div>
+                <p class="eyebrow">Saved as you go</p>
+                <h3 id="summary-title">Your bathroom list</h3>
+              </div>
+            </div>
+            <div class="summary-number"><strong id="sidebar-item-count">0</strong><span>items selected</span></div>
+            <div class="summary-categories" id="sidebar-category-summary"></div>
+            <div class="summary-price">
+              <span>Guide product total</span>
+              <strong id="sidebar-total">£0.00</strong>
+              <small>Catalogue list prices only. DLS confirms the final supply quotation.</small>
+            </div>
+            <button class="primary-button full-width" id="sidebar-open-basket" type="button">Review and send my list</button>
+            <p class="summary-note">Your selections stay saved on this device while you browse.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-section">
+      <div class="shell how-grid">
+        <div>
+          <p class="eyebrow">What happens next</p>
+          <h2>No blind checkout. <span>A specialist checks the whole list.</span></h2>
+        </div>
+        <div class="steps-grid">
+          <article><b>01</b><h3>Send your selection</h3><p>WhatsApp or email the list with every product code already included.</p></article>
+          <article><b>02</b><h3>DLS checks compatibility</h3><p>We check sizes, required matching parts, finishes and suitability for your room.</p></article>
+          <article><b>03</b><h3>Receive a confirmed quote</h3><p>Prices and availability are confirmed before anything is ordered.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="preview-notice">
+      <div class="shell notice-card">
+        <strong>Preview catalogue</strong>
+        <p>This page is being prepared for DLS Bathrooms customers. Product photographs, details and list prices are shown to help build a selection and remain subject to supplier updates. DLS will confirm current specification, compatibility, availability and price before order.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shop-footer">
+    <div class="shell footer-grid">
+      <div class="footer-brand">
+        <img src="/dls-badge-cropped.png" alt="DLS Bathrooms" width="58" height="58">
+        <div><strong>DLS Bathrooms Ltd</strong><span>Bathroom specialist · Stockport & Manchester</span></div>
+      </div>
+      <div class="footer-contact">
+        <a href="tel:+447539037841">07539 037841</a>
+        <a href="mailto:info@dlsbathrooms.co.uk">info@dlsbathrooms.co.uk</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="mobile-list-button" id="mobile-open-basket" type="button" aria-controls="basket-drawer">
+    <span>My bathroom list</span><b id="mobile-basket-count">0</b><strong id="mobile-total">£0.00</strong>
+  </button>
+
+  <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+  <aside class="basket-drawer" id="basket-drawer" aria-labelledby="basket-title" aria-hidden="true">
+    <header class="drawer-header">
+      <div>
+        <p class="eyebrow">Saved bathroom selection</p>
+        <h2 id="basket-title">My product list</h2>
+      </div>
+      <button class="icon-button" id="close-basket" type="button" aria-label="Close product list">×</button>
+    </header>
+    <div class="drawer-body">
+      <div class="basket-empty" id="basket-empty">
+        <span aria-hidden="true">▣</span>
+        <h3>Your list is empty</h3>
+        <p>Add products and their codes will appear here automatically.</p>
+        <button class="secondary-button" id="empty-start-shopping" type="button">Browse products</button>
+      </div>
+      <div id="basket-content" hidden>
+        <div class="basket-reference"><span>Selection reference</span><strong id="selection-reference"></strong></div>
+        <div class="basket-items" id="basket-items"></div>
+        <div class="basket-total-row"><span>Guide product total</span><strong id="basket-total">£0.00</strong></div>
+        <p class="basket-price-note">List-price guide only; not a payment or confirmed order.</p>
+
+        <section class="customer-section" aria-labelledby="customer-title">
+          <div class="section-mini-heading"><h3 id="customer-title">Details for DLS</h3><span>Optional, but helpful</span></div>
+          <div class="customer-grid">
+            <label><span>Name</span><input id="customer-name" autocomplete="name" placeholder="Your name"></label>
+            <label><span>Postcode</span><input id="customer-postcode" autocomplete="postal-code" placeholder="e.g. SK8"></label>
+            <label class="full"><span>Project notes</span><textarea id="project-notes" rows="4" placeholder="Room size, preferred finish, whether you need supply and fit, and anything else DLS should know."></textarea></label>
+          </div>
+        </section>
+      </div>
+    </div>
+    <footer class="drawer-footer" id="drawer-footer" hidden>
+      <button class="whatsapp-button" id="send-whatsapp" type="button"><span aria-hidden="true">●</span> Send full list on WhatsApp</button>
+      <div class="drawer-secondary-actions">
+        <button type="button" id="copy-list">Copy list</button>
+        <button type="button" id="email-list">Email list</button>
+        <button type="button" id="clear-list">Clear</button>
+      </div>
+      <p>Sending the list asks DLS to check and quote it. It does not place an order.</p>
+    </footer>
+  </aside>
+
+  <dialog class="product-dialog" id="product-dialog" aria-labelledby="dialog-title">
+    <button class="dialog-close icon-button" id="close-dialog" type="button" aria-label="Close product details">×</button>
+    <div id="dialog-content"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
