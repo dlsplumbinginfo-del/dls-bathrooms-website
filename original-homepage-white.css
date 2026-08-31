@@ -1,0 +1,195 @@
+/* Private colour test: the original DLS homepage with a lighter white-led palette. */
+:root{
+  --ink:#ffffff!important;
+  --ink-soft:#f6f3ed!important;
+  --gold:#b78324!important;
+  --gold-light:#9c6910!important;
+  --muted:#6f6a62!important;
+  --line:rgba(31,28,23,.14)!important;
+}
+html,body{max-width:100%;overflow-x:clip!important;background:#fff!important;color:#181714!important}
+body{touch-action:pan-y}
+body::after{
+  content:"PRIVATE WHITE COLOUR TEST · LIVE SITE UNCHANGED";
+  position:fixed;
+  z-index:120;
+  left:14px;
+  bottom:14px;
+  max-width:calc(100vw - 150px);
+  padding:8px 11px;
+  border:1px solid rgba(183,131,36,.42);
+  border-radius:999px;
+  background:rgba(255,255,255,.94);
+  color:#6d4908;
+  box-shadow:0 10px 30px rgba(36,28,12,.15);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+  line-height:1.25;
+  text-transform:uppercase;
+  backdrop-filter:blur(10px)
+}
+main{background:#fff!important;color:#181714!important}
+.site-header{
+  background:rgba(255,255,255,.95)!important;
+  border-bottom:1px solid #ded8cd!important;
+  box-shadow:0 8px 30px rgba(42,34,19,.08)!important;
+  color:#171613!important
+}
+.brand strong{color:#171613!important}
+.brand small{color:#9b680f!important}
+.brand-mark{border-color:#b78324!important;color:#9b680f!important;background:#fff!important}
+.site-header nav{color:#47433c!important}
+.site-header nav a:hover{color:#8f5e08!important}
+.button{border-color:#b78324!important;background:linear-gradient(135deg,#d4ac58,#aa7516)!important;color:#fff!important;box-shadow:0 10px 25px rgba(168,113,18,.16)!important}
+.button-outline{border-color:#bdb5a9!important;background:rgba(255,255,255,.88)!important;color:#191714!important;box-shadow:none!important}
+.hero{background:#f7f3eb!important}
+.hero-image{filter:saturate(.92) contrast(.96) brightness(1.05)!important}
+.hero-shade{
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.97) 35%,rgba(255,255,255,.78) 54%,rgba(255,255,255,.12) 78%,rgba(255,255,255,.04) 100%),
+    linear-gradient(180deg,rgba(255,255,255,.04) 55%,rgba(255,255,255,.76) 100%)!important
+}
+.hero-content{color:#171613!important}
+.eyebrow{color:#9a660c!important}
+.hero h1{color:#12110f!important;text-shadow:0 2px 18px rgba(255,255,255,.8)}
+.hero h1 span,h2 span{color:#9b680f!important}
+.hero-copy{color:#4f4a42!important;text-shadow:0 1px 10px rgba(255,255,255,.9)}
+.hero-services{color:#28251f!important;text-shadow:0 1px 8px rgba(255,255,255,.9)}
+.trust-strip{
+  border-color:#ded7cb!important;
+  background:rgba(255,255,255,.97)!important;
+  box-shadow:0 24px 70px rgba(54,42,20,.13)!important
+}
+.trust-strip div{border-right-color:#e1dacf!important}
+.trust-strip strong{color:#8f5f0c!important}
+.trust-strip span,.trust-strip a{color:#676159!important}
+.trustpilot-banner{
+  border-top-color:#d9d4ca!important;
+  border-bottom-color:rgba(0,182,122,.45)!important;
+  background:#fff!important;
+  color:#171613!important;
+  box-shadow:0 12px 35px rgba(32,25,13,.07)!important
+}
+.trustpilot-mark{background:#00b67a!important;color:#fff!important;border-radius:6px!important}
+.trustpilot-title strong,.trustpilot-action{color:#171613!important}
+.trustpilot-title strong span{color:#008f62!important}
+.trustpilot-title small{color:#6f6a62!important}
+.payment-section{background:linear-gradient(180deg,#fff 0%,#f8f5ef 100%)!important}
+.payment-card{
+  border-color:#ded4c3!important;
+  background:linear-gradient(145deg,#fff 0%,#f7f1e7 100%)!important;
+  color:#171613!important;
+  box-shadow:0 28px 80px rgba(47,36,16,.12)!important
+}
+.payment-card::after{border-color:rgba(183,131,36,.22)!important}
+.payment-copy h2,.payment-copy strong{color:#171613!important}
+.payment-copy .lead{color:#5f5a52!important}
+.payment-tags span{border-color:rgba(183,131,36,.28)!important;background:rgba(183,131,36,.08)!important;color:#6e4a0b!important}
+.credit-flex-panel{border-color:rgba(183,131,36,.29)!important;background:rgba(183,131,36,.08)!important}
+.credit-flex-icon{background:#b78324!important;color:#fff!important}
+.credit-flex-panel strong{color:#7d5208!important}
+.credit-flex-panel p{color:#575149!important}
+.credit-flex-panel small{color:#777168!important}
+.payment-options{color:#171613!important}
+.worldpay-panel{border-color:#ddd7cd!important;background:#fff!important;box-shadow:0 10px 28px rgba(40,31,15,.08)!important}
+.card-payment-panel{border-color:#d9c18c!important;background:linear-gradient(135deg,#f5dfad,#d9b768)!important;box-shadow:0 10px 28px rgba(40,31,15,.08)!important}
+.payment-faq{border-color:#ded7cc!important;background:#ded7cc!important}
+.payment-faq article{background:#fff!important}
+.payment-faq strong{color:#24211d!important}
+.payment-faq p{color:#6c665e!important}
+.section{background:#fff!important;color:#181714!important}
+.section-soft{border-block-color:#e3ddd3!important;background:#f6f3ed!important}
+h2,h3{color:#171613!important}
+.lead{color:#605b53!important}
+.feature-panel{
+  border-color:#ddd6ca!important;
+  background:linear-gradient(145deg,#fff,#f7f3ec)!important;
+  color:#171613!important;
+  box-shadow:0 18px 50px rgba(44,34,16,.09)!important
+}
+.panel-kicker{color:#94620c!important}
+.trade-list span{background:#fff!important;color:#25221d!important;border:1px solid #e2dcd2!important}
+.mini-features{border-top-color:#ddd6ca!important}
+.mini-features p{color:#6e685f!important}
+.service-card,
+.local-area-grid article,
+.faq-grid article,
+.process-grid article,
+.visualisation-steps article{
+  border-color:#ded8ce!important;
+  background:#fff!important;
+  color:#171613!important;
+  box-shadow:0 11px 33px rgba(44,34,16,.07)!important
+}
+.service-card p,.local-area-grid p,.faq-grid p,.process-grid p,.visualisation-steps p{color:#6d675f!important}
+.service-card>span,.local-area-grid article>span,.process-grid article>span,.visualisation-steps article>span{color:#94620c!important}
+.local-area-check{border-color:#ded8ce!important;background:#f7f3ec!important;color:#27241f!important}
+.text-link{color:#8f5f0b!important}
+.remote-section{
+  background:radial-gradient(circle at 83% 35%,rgba(183,131,36,.11),transparent 31%),#f6f3ed!important;
+  color:#171613!important
+}
+.remote-copy,.remote-copy p{color:#5f5a52!important}
+.remote-copy h2{color:#171613!important}
+.remote-panel{
+  border-color:#dcd4c7!important;
+  background:#fff!important;
+  color:#171613!important;
+  box-shadow:0 18px 50px rgba(44,34,16,.09)!important
+}
+.remote-panel strong{color:#211f1b!important}
+.remote-panel span,.remote-panel p,.estimate-note p{color:#69635b!important}
+.estimate-checklist li{border-color:#e3ddd3!important}
+.estimate-note{border-color:#dfd6c8!important;background:#f7f3ec!important}
+.remote-disclaimer{color:#777168!important}
+.design-preview-section{background:#fff!important;color:#171613!important}
+.design-preview-copy p{color:#5f5a52!important}
+.design-speedline{border-color:#ddd6ca!important;background:#f7f3ec!important}
+.design-speedline span{border-color:#e2dcd2!important}
+.design-speedline strong{color:#24211d!important}
+.design-speedline small{color:#716b62!important}
+.design-match-panel{
+  border-color:#d7c394!important;
+  background:linear-gradient(145deg,#1a1916,#11100e)!important;
+  color:#fff!important;
+  box-shadow:0 20px 60px rgba(40,30,12,.16)!important
+}
+.design-match-panel h3,.design-match-panel strong{color:#f6f2e9!important}
+.design-match-panel p,.design-match-panel small{color:#beb8ae!important}
+.design-match-tags span{border-color:rgba(255,255,255,.15)!important;background:rgba(255,255,255,.06)!important;color:#f4efe6!important}
+.design-match-source{border-color:rgba(255,255,255,.14)!important;background:rgba(255,255,255,.055)!important}
+.design-proof{color:#171613!important}
+.design-proof-heading p{color:#625d55!important}
+.design-proof-pair{border-color:#d6c7a6!important;background:#171613!important;box-shadow:0 25px 65px rgba(44,34,16,.15)!important}
+.work-section{background:#f6f3ed!important;color:#171613!important}
+.work-heading p,.gallery-actions p{color:#686259!important}
+.gallery-card{border-color:#ddd6ca!important;background:#fff!important;box-shadow:0 10px 30px rgba(44,34,16,.08)!important}
+.gallery-actions .button-outline{background:#fff!important}
+.video-section{background:#fff!important;color:#171613!important}
+.video-copy p{color:#625d55!important}
+.video-frame{border-color:#d8d0c4!important;box-shadow:0 20px 60px rgba(42,32,14,.13)!important}
+#process{background:#fff!important}
+.faq-section{background:#f6f3ed!important}
+.cta-section{background:linear-gradient(135deg,#f3ead8,#fff)!important;border-top:1px solid #ded6c9!important;color:#171613!important}
+.cta-inner h2,.cta-inner p{color:#171613!important}
+.cta-payment-note{color:#6b655c!important}
+footer{background:#151412!important;color:#fff!important}
+footer p,footer a,footer span{color:#bbb6ad!important}
+footer strong{color:#fff!important}
+.footer-legal{border-top-color:rgba(255,255,255,.13)!important}
+.lightbox{color:#fff!important}
+.lightbox-panel{background:#111!important}
+.whatsapp-float{border-color:rgba(255,255,255,.5)!important;box-shadow:0 14px 38px rgba(0,0,0,.22)!important}
+@media(max-width:720px){
+  body::after{left:8px;bottom:8px;max-width:calc(100vw - 125px);font-size:7px;padding:7px 9px}
+  .site-header{background:rgba(255,255,255,.97)!important}
+  .hero-shade{
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.96) 48%,rgba(255,255,255,.78) 67%,rgba(255,255,255,.17) 100%),
+      linear-gradient(90deg,rgba(255,255,255,.95),rgba(255,255,255,.45))!important
+  }
+  .hero h1{max-width:96%!important}
+  .trust-strip{background:#fff!important}
+  .trustpilot-banner{background:#fff!important}
+}
