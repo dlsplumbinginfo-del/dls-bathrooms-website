@@ -1,3 +1,2 @@
-
-
-Vercel production retry: 2026-08-28 21:51:22 UTC
+Vercel production refresh: 2026-08-31 07:35 UTC
+Reason: ensure before-and-after design preview pair is visible on live site.
