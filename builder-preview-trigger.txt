@@ -1,0 +1,4 @@
+DLS bathroom builder preview deployment
+Branch: builder-preview
+Generated: 2026-08-31
+Production main remains unchanged.
