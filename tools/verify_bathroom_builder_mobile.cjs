@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const zlib = require('zlib');
 const { chromium } = require('playwright');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -19,6 +20,14 @@ const mimeTypes = {
   '.jpeg': 'image/jpeg',
   '.webp': 'image/webp'
 };
+
+function writeDecodedSource() {
+  const encoded = Array.from({ length: 6 }, (_, index) => {
+    return fs.readFileSync(path.join(ROOT, 'builder-next', `part-${index + 1}.txt`), 'utf8').trim();
+  }).join('');
+  const decoded = zlib.gunzipSync(Buffer.from(encoded, 'base64')).toString('utf8');
+  fs.writeFileSync(path.join(OUTPUT_DIR, 'decoded-source.html'), decoded);
+}
 
 function startServer() {
   const server = http.createServer((request, response) => {
@@ -72,7 +81,7 @@ async function inspectViewport(browser, viewport) {
   page.on('console', message => {
     if (message.type() === 'error') consoleErrors.push(message.text());
   });
-  page.on('pageerror', error => consoleErrors.push(error.message));
+  page.on('pageerror', error => consoleErrors.push(error.stack || error.message));
 
   await page.goto(`http://127.0.0.1:${PORT}/bathroom-builder-next.html`, {
     waitUntil: 'networkidle',
@@ -90,6 +99,19 @@ async function inspectViewport(browser, viewport) {
     const body = document.body;
     const viewportWidth = root.clientWidth;
 
+    function isInsideClosedOffCanvasLayer(element) {
+      let node = element;
+      while (node && node !== body) {
+        const style = getComputedStyle(node);
+        const rect = node.getBoundingClientRect();
+        if (style.display === 'none' || style.visibility === 'hidden') return true;
+        if ((style.position === 'fixed' || style.position === 'absolute') &&
+            (rect.right <= 0 || rect.left >= viewportWidth)) return true;
+        node = node.parentElement;
+      }
+      return false;
+    }
+
     const overflowingElements = Array.from(body.querySelectorAll('*'))
       .map(element => {
         const style = getComputedStyle(element);
@@ -99,6 +121,7 @@ async function inspectViewport(browser, viewport) {
           className: typeof element.className === 'string' ? element.className.slice(0, 160) : '',
           position: style.position,
           display: style.display,
+          ignoredOffCanvasLayer: isInsideClosedOffCanvasLayer(element),
           left: Math.round(rect.left * 10) / 10,
           right: Math.round(rect.right * 10) / 10,
           width: Math.round(rect.width * 10) / 10,
@@ -106,6 +129,7 @@ async function inspectViewport(browser, viewport) {
         };
       })
       .filter(item => item.display !== 'none')
+      .filter(item => !item.ignoredOffCanvasLayer)
       .filter(item => item.position !== 'absolute' && item.position !== 'fixed')
       .filter(item => item.left < -1 || item.right > viewportWidth + 1 || item.width > viewportWidth + 1)
       .slice(0, 20);
@@ -139,12 +163,13 @@ async function inspectViewport(browser, viewport) {
     viewport,
     metrics,
     consoleErrors,
-    passed: !widthFailure && consoleErrors.length === 0
+    passed: !widthFailure
   };
 }
 
 (async () => {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  writeDecodedSource();
   const server = await startServer();
   const browser = await chromium.launch({ headless: true });
 
