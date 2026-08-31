@@ -1,0 +1,47 @@
+name: Bathroom builder mobile flow
+
+on:
+  push:
+    branches:
+      - feature/bathroom-builder-2026-08-31
+    paths:
+      - bathroom-builder-next.html
+      - builder-next/**
+      - tools/verify_bathroom_builder_mobile.cjs
+      - .github/workflows/bathroom-builder-mobile.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mobile-flow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install test dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify single-column mobile flow
+        run: node tools/verify_bathroom_builder_mobile.cjs
+
+      - name: Upload mobile screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bathroom-builder-mobile-flow
+          path: tmp/bathroom-builder-mobile
+          if-no-files-found: ignore
+          retention-days: 7
