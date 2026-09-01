@@ -94,6 +94,7 @@ p,.lead,.gallery-actions p,.footer-legal{color:#575650!important}
 .repair-list li::before{color:#7b581f!important}
 .expectations-grid article strong,
 .review-proof-grid article strong{color:#5f451a!important}
+.feature-panel .trade-list span{background:#343536!important;color:#fffaf0!important;border:1px solid rgba(118,85,30,.30)!important;box-shadow:0 8px 20px rgba(48,44,38,.10)!important;font-weight:750!important}
 .design-proof-pair{background:#343536!important;border-color:rgba(118,85,30,.28)!important}.design-proof-pair .design-proof-grid{background:#8f7950!important}.design-proof-label,.design-proof-arrow{background:rgba(23,25,26,.88)!important;color:#efd69f!important;border-color:rgba(239,214,159,.58)!important}.design-proof-pair figcaption{background:#e3ded5!important}.design-proof-pair figcaption strong{color:#242526!important}.design-proof-pair figcaption small{color:#575650!important}
 /* Portfolio refinement: flatter, calmer and more editorial. */
 .work-heading{max-width:760px!important}.work-heading h2{font-size:clamp(38px,5.4vw,68px)!important}.gallery-grid{gap:14px!important}.gallery-card{border-radius:10px!important;border:1px solid rgba(48,45,40,.18)!important;background:#d3cec5!important;box-shadow:0 13px 30px rgba(48,44,38,.12)!important}.gallery-card img{filter:saturate(.92) contrast(1.02)!important}.gallery-brand{display:none!important}.gallery-gradient{background:linear-gradient(transparent 62%,rgba(20,21,20,.70))!important}.gallery-card strong{font-size:13px!important;letter-spacing:.02em!important;color:#fffaf0!important}
