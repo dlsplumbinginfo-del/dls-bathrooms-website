@@ -183,4 +183,6 @@ input,select,textarea{background:#f0ece4!important;color:#242526!important;borde
   .gallery-card strong{font-size:11px!important}
   .mobile-contact-bar{padding:8px 10px!important;gap:8px!important}
   .mobile-contact-bar a{min-height:48px!important}
+  .mobile-contact-bar{opacity:0!important;pointer-events:none!important;transform:translateY(calc(100% + 12px))!important;transition:opacity .24s ease,transform .24s ease!important}
+  .mobile-contact-bar.is-visible{opacity:1!important;pointer-events:auto!important;transform:translateY(0)!important}
 }
