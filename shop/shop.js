@@ -420,9 +420,20 @@
 
   function visibleProducts() {
     const room = state.answers.room;
+    const coordinatedMetalFinishes = new Set([
+      "Chrome",
+      "Matte Black",
+      "Brushed Brass",
+      "Gunmetal",
+      "Brushed Bronze",
+      "Brushed Nickel"
+    ]);
+    const finishSensitiveGroups = new Set(["shower", "screen", "tap", "mirror", "heating", "details"]);
     const filtered = products.filter(product => {
       const categoryMatch = state.category === "All products" || product.category === state.category;
-      const finishMatch = state.finish === "all" || product.finishes.includes(state.finish) || product.finishes.some(finish => finish.toLowerCase().includes(state.finish.toLowerCase()));
+      const productHasCoordinatedFinish = product.finishes.some(finish => coordinatedMetalFinishes.has(finish));
+      const finishApplies = finishSensitiveGroups.has(product.roomGroup) && productHasCoordinatedFinish;
+      const finishMatch = state.finish === "all" || !finishApplies || product.finishes.includes(state.finish) || product.finishes.some(finish => finish.toLowerCase().includes(state.finish.toLowerCase()));
       const haystack = [product.name, product.sku, product.category, product.description, product.dimensions, ...product.finishes, ...product.tags].join(" ").toLowerCase();
       const searchMatch = !state.search || haystack.includes(state.search);
       return categoryMatch && finishMatch && searchMatch;
