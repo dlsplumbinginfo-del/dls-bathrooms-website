@@ -10,7 +10,7 @@
 html,body{background:#aaa59b!important;color:#242526!important}
 body::before{content:"FULL HYBRID PREVIEW Â· NOT LIVE";position:fixed;z-index:99999;right:12px;bottom:74px;padding:8px 11px;border:1px solid rgba(239,214,159,.34);border-radius:999px;background:rgba(23,25,26,.94);color:#efd69f;font:800 8px/1.2 Arial,sans-serif;letter-spacing:.09em;box-shadow:0 8px 26px rgba(0,0,0,.2)}
 .site-header{background:rgba(23,25,26,.97)!important;border-color:rgba(239,214,159,.22)!important;box-shadow:0 12px 34px rgba(0,0,0,.16)!important}
-.site-header nav a,.brand strong{color:#fffaf0!important}.brand small{color:#d8b96f!important}.brand-mark{background:#202223!important;border-color:#c99f55!important;color:#efd69f!important}
+.site-header nav a,.brand strong{color:#fffaf0!important}.brand small{color:#d8b96f!important}.brand-mark{background:#202223 url("dls-badge-cropped.png") center/cover no-repeat!important;border-color:#c99f55!important;color:transparent!important;font-size:0!important;box-shadow:0 6px 20px rgba(0,0,0,.24)!important}
 .hero-shade{background:linear-gradient(90deg,rgba(20,22,23,.98),rgba(46,45,42,.76) 52%,rgba(20,20,18,.12))!important}
 .hero h1,.hero-copy{color:#fffaf0!important}.hero h1 span,.hero .eyebrow{color:#efd69f!important}.hero-services{color:#e8e2d8!important}
 .trust-strip{background:#645f57!important;border-color:rgba(255,242,216,.22)!important}.trust-strip>div+div{border-color:rgba(255,242,216,.20)!important}.trust-strip strong{color:#f5dfb0!important}.trust-strip span{color:#e5ded2!important}
