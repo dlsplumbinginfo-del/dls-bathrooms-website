@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#e8e7e3">
+<title>DLS Current Homepage Colour Test</title>
+<style>
+html,body{min-height:100%;margin:0;background:#e8e7e3;color:#1b1b19;font-family:Arial,Helvetica,sans-serif}
+.loader{min-height:100vh;display:grid;place-items:center;padding:28px;text-align:center}
+.loader-card{width:min(100%,520px);padding:32px;border:1px solid #d4d0c7;border-radius:24px;background:#fff;box-shadow:0 20px 60px rgba(30,25,15,.12)}
+.loader-mark{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 16px;border:1px solid #af7d28;border-radius:50%;color:#8a5d16;font-size:12px;font-weight:800;letter-spacing:.08em}
+.loader h1{margin:0;font-size:26px}.loader p{margin:12px 0 0;color:#69655f;line-height:1.55}.bar{height:5px;margin-top:22px;overflow:hidden;border-radius:99px;background:#ece9e3}.bar::after{content:"";display:block;width:42%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#b68431,#dfbc74);animation:load 1.1s ease-in-out infinite alternate}@keyframes load{to{transform:translateX(138%)}}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><div class="loader-card"><div class="loader-mark">DLS</div><h1>Opening the current DLS homepage</h1><p>Applying the private light-grey colour test. The live website is not being changed.</p><div class="bar"></div></div></div>
+<script>
+(async()=>{
+  try{
+    const response=await fetch('/index.html?colour-preview-source=1',{cache:'no-store'});
+    if(!response.ok)throw new Error('Could not load the current homepage');
+    let page=await response.text();
+
+    page=page
+      .replace(/<meta name="robots"[^>]*>/i,'<meta name="robots" content="noindex,nofollow"/>')
+      .replace(/<meta name="googlebot"[^>]*>/i,'<meta name="googlebot" content="noindex,nofollow"/>')
+      .replace(/<link rel="canonical"[^>]*>/i,'')
+      .replace(/<head>/i,'<head><base href="/">')
+      .replace(/<body([^>]*)>/i,'<body$1 class="dls-colour-preview theme-warm-grey">');
+
+    const themeCSS=`<style id="dls-colour-preview-css">
+:root{color-scheme:light}
+body.dls-colour-preview{--preview-page:#e8e7e3;--preview-soft:#f2f1ed;--preview-card:#ffffff;--preview-text:#1d1c19;--preview-muted:#68645e;--preview-line:#d3cfc6;--preview-gold:#a87928;--preview-gold-2:#c09648;--preview-shadow:0 18px 55px rgba(41,34,20,.11)}
+body.dls-colour-preview.theme-mid-grey{--preview-page:#d5d6d3;--preview-soft:#e4e5e2;--preview-card:#f8f8f6;--preview-text:#181a19;--preview-muted:#5e625f;--preview-line:#c3c7c3;--preview-gold:#94691f;--preview-gold-2:#b17f2d;--preview-shadow:0 18px 50px rgba(30,32,30,.13)}
+body.dls-colour-preview.theme-white{--preview-page:#ffffff;--preview-soft:#f5f5f2;--preview-card:#ffffff;--preview-text:#171715;--preview-muted:#66635d;--preview-line:#dedbd4;--preview-gold:#a87928;--preview-gold-2:#c09648;--preview-shadow:0 18px 50px rgba(31,27,19,.09)}
+body.dls-colour-preview:not(.theme-original){background:var(--preview-page)!important;color:var(--preview-text)!important;--ink:var(--preview-page)!important;--ink-soft:var(--preview-soft)!important;--muted:var(--preview-muted)!important;--line:var(--preview-line)!important;--gold:var(--preview-gold)!important;--gold-light:var(--preview-gold-2)!important}
+body.dls-colour-preview:not(.theme-original) main{background:var(--preview-page)!important;color:var(--preview-text)!important}
+body.dls-colour-preview:not(.theme-original) .section{background:var(--preview-page)!important;color:var(--preview-text)!important}
+body.dls-colour-preview:not(.theme-original) .section-soft{background:var(--preview-soft)!important;border-color:var(--preview-line)!important}
+body.dls-colour-preview:not(.theme-original) .payment-section{background:linear-gradient(180deg,var(--preview-page),var(--preview-soft))!important}
+body.dls-colour-preview:not(.theme-original) .remote-section{background:linear-gradient(145deg,var(--preview-soft),var(--preview-page))!important;color:var(--preview-text)!important}
+body.dls-colour-preview:not(.theme-original) .eyebrow,
+body.dls-colour-preview:not(.theme-original) .panel-kicker,
+body.dls-colour-preview:not(.theme-original) .service-card>span,
+body.dls-colour-preview:not(.theme-original) .local-area-grid article>span{color:var(--preview-gold)!important}
+body.dls-colour-preview:not(.theme-original) h2,
+body.dls-colour-preview:not(.theme-original) h3,
+body.dls-colour-preview:not(.theme-original) .section strong{color:var(--preview-text)!important}
+body.dls-colour-preview:not(.theme-original) h2 span,
+body.dls-colour-preview:not(.theme-original) .text-link{color:var(--preview-gold)!important}
+body.dls-colour-preview:not(.theme-original) .lead,
+body.dls-colour-preview:not(.theme-original) .section p,
+body.dls-colour-preview:not(.theme-original) .section span,
+body.dls-colour-preview:not(.theme-original) .remote-copy p{color:var(--preview-muted)!important}
+body.dls-colour-preview:not(.theme-original) .trust-strip{background:rgba(255,255,255,.97)!important;border-color:var(--preview-line)!important;box-shadow:var(--preview-shadow)!important}
+body.dls-colour-preview:not(.theme-original) .trust-strip div{border-color:var(--preview-line)!important}
+body.dls-colour-preview:not(.theme-original) .trust-strip strong{color:var(--preview-gold)!important}
+body.dls-colour-preview:not(.theme-original) .trust-strip span{color:var(--preview-muted)!important}
+body.dls-colour-preview:not(.theme-original) .service-card,
+body.dls-colour-preview:not(.theme-original) .local-area-grid article,
+body.dls-colour-preview:not(.theme-original) .faq-grid article,
+body.dls-colour-preview:not(.theme-original) .process-grid article,
+body.dls-colour-preview:not(.theme-original) .process-step,
+body.dls-colour-preview:not(.theme-original) .local-area-check,
+body.dls-colour-preview:not(.theme-original) .review-card,
+body.dls-colour-preview:not(.theme-original) .work-card,
+body.dls-colour-preview:not(.theme-original) .contact-card,
+body.dls-colour-preview:not(.theme-original) .quote-card{background:var(--preview-card)!important;border-color:var(--preview-line)!important;color:var(--preview-text)!important;box-shadow:0 8px 28px rgba(40,33,20,.055)!important}
+body.dls-colour-preview:not(.theme-original) .service-card p,
+body.dls-colour-preview:not(.theme-original) .local-area-grid p,
+body.dls-colour-preview:not(.theme-original) .faq-grid p,
+body.dls-colour-preview:not(.theme-original) .process-grid p,
+body.dls-colour-preview:not(.theme-original) .process-step p{color:var(--preview-muted)!important}
+body.dls-colour-preview:not(.theme-original) .feature-panel{background:linear-gradient(145deg,#252829,#17191a)!important;border-color:rgba(168,121,40,.34)!important;box-shadow:var(--preview-shadow)!important}
+body.dls-colour-preview:not(.theme-original) .feature-panel h3,
+body.dls-colour-preview:not(.theme-original) .feature-panel strong,
+body.dls-colour-preview:not(.theme-original) .feature-panel .trade-list span{color:#f5f2eb!important}
+body.dls-colour-preview:not(.theme-original) .feature-panel p,
+body.dls-colour-preview:not(.theme-original) .feature-panel .mini-features p{color:#aaa79f!important}
+body.dls-colour-preview:not(.theme-original) .feature-panel .panel-kicker{color:#d9b66b!important}
+body.dls-colour-preview:not(.theme-original) .feature-panel .trade-list span{background:rgba(255,255,255,.065)!important}
+body.dls-colour-preview:not(.theme-original) .payment-card{background:linear-gradient(135deg,#222526,#111314 72%)!important;border-color:rgba(217,182,107,.35)!important;box-shadow:var(--preview-shadow)!important}
+body.dls-colour-preview:not(.theme-original) .payment-card h2,
+body.dls-colour-preview:not(.theme-original) .payment-card h3,
+body.dls-colour-preview:not(.theme-original) .payment-card strong{color:#f4f1e9!important}
+body.dls-colour-preview:not(.theme-original) .payment-card h2 span,
+body.dls-colour-preview:not(.theme-original) .payment-card .eyebrow,
+body.dls-colour-preview:not(.theme-original) .payment-card .credit-flex-panel strong{color:#e2bd6a!important}
+body.dls-colour-preview:not(.theme-original) .payment-card .lead,
+body.dls-colour-preview:not(.theme-original) .payment-card p{color:#c4c0b8!important}
+body.dls-colour-preview:not(.theme-original) .payment-card small{color:#9e9a91!important}
+body.dls-colour-preview:not(.theme-original) .payment-faq article{background:#16191a!important}
+body.dls-colour-preview:not(.theme-original) .remote-panel{background:linear-gradient(145deg,#252829,#17191a)!important;border-color:rgba(168,121,40,.34)!important;box-shadow:var(--preview-shadow)!important}
+body.dls-colour-preview:not(.theme-original) .remote-panel h3,
+body.dls-colour-preview:not(.theme-original) .remote-panel strong{color:#f4f1e9!important}
+body.dls-colour-preview:not(.theme-original) .remote-panel p,
+body.dls-colour-preview:not(.theme-original) .remote-panel span{color:#aaa79f!important}
+body.dls-colour-preview:not(.theme-original) .remote-panel .panel-kicker{color:#d9b66b!important}
+body.dls-colour-preview:not(.theme-original) .design-proof-pair{background:#1c1f20!important;border-color:rgba(168,121,40,.4)!important;box-shadow:var(--preview-shadow)!important}
+body.dls-colour-preview:not(.theme-original) .design-proof-pair figcaption strong{color:#f1eee6!important}
+body.dls-colour-preview:not(.theme-original) .design-proof-pair figcaption small{color:#aaa69c!important}
+body.dls-colour-preview:not(.theme-original) .gallery-grid,
+body.dls-colour-preview:not(.theme-original) .work-grid{border-color:var(--preview-line)!important}
+body.dls-colour-preview:not(.theme-original) .site-header{background:rgba(20,22,22,.94)!important;border-bottom-color:rgba(255,255,255,.11)!important}
+body.dls-colour-preview:not(.theme-original) .site-header nav{color:#d7d4ce!important}
+body.dls-colour-preview:not(.theme-original) .site-header .brand strong{color:#f7f4ed!important}
+body.dls-colour-preview:not(.theme-original) .site-header .brand small{color:#d9b66b!important}
+body.dls-colour-preview:not(.theme-original) .site-header .brand-mark{border-color:#d9b66b!important;color:#f0d592!important}
+body.dls-colour-preview:not(.theme-original) .hero{--gold:#d9b66b!important;--gold-light:#f0d592!important;color:#f7f4ed!important}
+body.dls-colour-preview:not(.theme-original) .hero h1{color:#f7f4ed!important}
+body.dls-colour-preview:not(.theme-original) .hero h1 span{color:#f0d592!important}
+body.dls-colour-preview:not(.theme-original) .hero .eyebrow{color:#d9b66b!important}
+body.dls-colour-preview:not(.theme-original) .hero-copy{color:#d7d4cc!important}
+body.dls-colour-preview:not(.theme-original) .hero-services{color:#eeece6!important}
+body.dls-colour-preview:not(.theme-original) .site-footer,
+body.dls-colour-preview:not(.theme-original) footer{background:#141616!important;color:#f5f2eb!important}
+body.dls-colour-preview:not(.theme-original) footer h2,
+body.dls-colour-preview:not(.theme-original) footer h3,
+body.dls-colour-preview:not(.theme-original) footer strong{color:#f5f2eb!important}
+body.dls-colour-preview:not(.theme-original) footer p,
+body.dls-colour-preview:not(.theme-original) footer span,
+body.dls-colour-preview:not(.theme-original) footer a{color:#b8b4ac!important}
+body.dls-colour-preview:not(.theme-original) footer .brand small,
+body.dls-colour-preview:not(.theme-original) footer .eyebrow{color:#d9b66b!important}
+body.dls-colour-preview:not(.theme-original) input,
+body.dls-colour-preview:not(.theme-original) select,
+body.dls-colour-preview:not(.theme-original) textarea{background:#fff!important;color:#1c1b18!important;border-color:var(--preview-line)!important}
+body.dls-colour-preview:not(.theme-original) .button-outline{color:#fff!important;background:rgba(7,8,8,.34)!important;border-color:rgba(255,255,255,.3)!important}
+body.dls-colour-preview:not(.theme-original) .lightbox{background:rgba(15,16,16,.96)!important;color:#fff!important}
+.dls-colour-toolbar{position:fixed;z-index:1000;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;align-items:center;gap:6px;width:max-content;max-width:calc(100% - 20px);padding:7px;border:1px solid rgba(112,103,86,.28);border-radius:16px;background:rgba(255,255,255,.95);box-shadow:0 14px 45px rgba(20,18,13,.22);backdrop-filter:blur(14px);color:#171715;font-family:Arial,Helvetica,sans-serif}
+.dls-colour-toolbar strong{padding:0 8px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.dls-colour-toolbar button{min-height:38px;padding:0 11px;border:1px solid #d8d3ca;border-radius:10px;background:#f5f3ee;color:#26231e;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap}
+.dls-colour-toolbar button[aria-pressed="true"]{border-color:#a87928;background:#1d1f1f;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+.dls-colour-note{position:fixed;z-index:999;top:88px;left:50%;transform:translateX(-50%);padding:7px 12px;border:1px solid rgba(217,182,107,.35);border-radius:999px;background:rgba(20,22,22,.91);color:#f1eee7;font:800 10px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.05em;text-transform:uppercase;box-shadow:0 8px 25px rgba(0,0,0,.18);white-space:nowrap;pointer-events:none}
+@media(max-width:720px){
+ .dls-colour-toolbar{left:10px;right:10px;bottom:max(8px,env(safe-area-inset-bottom));transform:none;width:auto;overflow-x:auto;justify-content:flex-start;border-radius:14px}
+ .dls-colour-toolbar strong{display:none}
+ .dls-colour-toolbar button{flex:0 0 auto;padding-inline:10px;font-size:10px}
+ .dls-colour-note{top:82px;font-size:8px;max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis}
+ body.dls-colour-preview{padding-bottom:68px}
+}
+</style>`;
+
+    const toolbar=`<div class="dls-colour-note">Private colour test — live site unchanged</div><div class="dls-colour-toolbar" role="group" aria-label="Homepage colour options"><strong>Background test</strong><button type="button" data-theme="theme-warm-grey" aria-pressed="true">Warm light grey</button><button type="button" data-theme="theme-mid-grey" aria-pressed="false">Mid grey</button><button type="button" data-theme="theme-white" aria-pressed="false">White</button><button type="button" data-theme="theme-original" aria-pressed="false">Original dark</button></div>`;
+
+    const themeJS=`<script id="dls-colour-preview-js">(()=>{const body=document.body;const buttons=[...document.querySelectorAll('.dls-colour-toolbar button')];const themes=['theme-warm-grey','theme-mid-grey','theme-white','theme-original'];function apply(theme){themes.forEach(item=>body.classList.remove(item));body.classList.add(theme);buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.theme===theme)));try{localStorage.setItem('dls-preview-theme',theme)}catch(e){}}buttons.forEach(button=>button.addEventListener('click',()=>apply(button.dataset.theme)));let saved='theme-warm-grey';try{const stored=localStorage.getItem('dls-preview-theme');if(themes.includes(stored))saved=stored}catch(e){}apply(saved)})();<\/script>`;
+
+    page=page.replace(/<\/head>/i,themeCSS+'</head>');
+    page=page.replace(/<\/body>/i,toolbar+themeJS+'</body>');
+    document.open();
+    document.write(page);
+    document.close();
+  }catch(error){
+    console.error(error);
+    document.getElementById('loader').innerHTML='<div class="loader-card"><div class="loader-mark">DLS</div><h1>The colour preview could not open</h1><p>Please refresh the page. The live DLS website has not been changed.</p></div>';
+  }
+})();
+</script>
+</body>
+</html>
