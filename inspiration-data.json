@@ -1,0 +1,692 @@
+[
+  {
+    "n": 1,
+    "name": "Sandstone & Bronze",
+    "style": "Natural",
+    "room": "Shower room",
+    "metal": "Brushed Bronze",
+    "kelvin": 3000,
+    "palette": [
+      "#D8C8B4",
+      "#B59470",
+      "#8C6850"
+    ],
+    "description": "Soft sandstone tones, oak furniture and bronze details, brought together by warm niche lighting.",
+    "furniture": "Oak curved fluted vanity",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-01",
+    "image": "/inspiration-images/look-01.webp",
+    "thumbnail": "/inspiration-images/look-01-small.webp",
+    "new": false
+  },
+  {
+    "n": 2,
+    "name": "Botanical Brass",
+    "style": "Colourful",
+    "room": "Bathroom",
+    "metal": "Brushed Brass",
+    "kelvin": 3000,
+    "palette": [
+      "#244D3F",
+      "#D8C8B4",
+      "#B59A62"
+    ],
+    "description": "Bottle-green tile, green furniture and brushed brass, with a freestanding bath for a relaxed botanical feel.",
+    "furniture": "Green curved fluted vanity",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Hoxton Bottle Green Gloss Porcelain",
+        "url": "https://www.mandarinstone.com/product/hoxton-bottle-green-gloss-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Other walls",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-02",
+    "image": "/inspiration-images/look-02.webp",
+    "thumbnail": "/inspiration-images/look-02-small.webp",
+    "new": false
+  },
+  {
+    "n": 3,
+    "name": "Blush & Bronze",
+    "style": "Colourful",
+    "room": "Shower room",
+    "metal": "Brushed Bronze",
+    "kelvin": 3000,
+    "palette": [
+      "#D7AFAC",
+      "#664936",
+      "#9A745E"
+    ],
+    "description": "Soft pink tile meets walnut furniture and bronze. A warm, tactile shower room with a gentle glow.",
+    "furniture": "Walnut curved fluted vanity",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Hoxton Pink Gloss Porcelain",
+        "url": "https://www.mandarinstone.com/product/hoxton-pink-gloss-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion White Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-white-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Other walls",
+        "name": "Fusion White Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-white-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-03",
+    "image": "/inspiration-images/look-03.webp",
+    "thumbnail": "/inspiration-images/look-03-small.webp",
+    "new": false
+  },
+  {
+    "n": 4,
+    "name": "Charcoal Retreat",
+    "style": "Dark",
+    "room": "Bathroom",
+    "metal": "Gunmetal",
+    "kelvin": 3000,
+    "palette": [
+      "#343535",
+      "#191919",
+      "#646868"
+    ],
+    "description": "Deep charcoal surfaces and dark furniture, balanced with a sculptural white bath and gunmetal details.",
+    "furniture": "Black curved fluted vanity",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Fusion Black Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-black-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion Black Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-black-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-04",
+    "image": "/inspiration-images/look-04.webp",
+    "thumbnail": "/inspiration-images/look-04-small.webp",
+    "new": false
+  },
+  {
+    "n": 5,
+    "name": "Carrara & Chrome",
+    "style": "Minimal",
+    "room": "Shower room",
+    "metal": "Chrome",
+    "kelvin": 6000,
+    "palette": [
+      "#F1F2F0",
+      "#B7BEC3",
+      "#202222"
+    ],
+    "description": "White marble, black furniture and polished chrome create a bright, crisp shower room.",
+    "furniture": "Black curved fluted vanity",
+    "light": "Cool white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Carrara Honed Marble",
+        "url": "https://www.mandarinstone.com/product/carrara-honed-marble/"
+      },
+      {
+        "role": "Floor",
+        "name": "Carrara Honed Marble",
+        "url": "https://www.mandarinstone.com/product/carrara-honed-marble/"
+      }
+    ],
+    "id": "DLS-05",
+    "image": "/inspiration-images/look-05.webp",
+    "thumbnail": "/inspiration-images/look-05-small.webp",
+    "new": false
+  },
+  {
+    "n": 6,
+    "name": "Midnight Blue",
+    "style": "Dark",
+    "room": "Shower room",
+    "metal": "Gunmetal",
+    "kelvin": 4000,
+    "palette": [
+      "#254551",
+      "#706051",
+      "#D5D7D6"
+    ],
+    "description": "Rich blue tile and walnut furniture, with gunmetal fittings and cooler lighting for a bold evening mood.",
+    "furniture": "Walnut curved fluted vanity",
+    "light": "Neutral white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Zen Blue Gloss Porcelain",
+        "url": "https://www.mandarinstone.com/product/zen-blue-gloss-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion Light Grey Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-light-grey-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Other walls",
+        "name": "Fusion Light Grey Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-light-grey-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-06",
+    "image": "/inspiration-images/look-06.webp",
+    "thumbnail": "/inspiration-images/look-06-small.webp",
+    "new": false
+  },
+  {
+    "n": 7,
+    "name": "Terrazzo & Black",
+    "style": "Minimal",
+    "room": "Shower room",
+    "metal": "Matte Black",
+    "kelvin": 4000,
+    "palette": [
+      "#E5E0D8",
+      "#BDAB98",
+      "#252525"
+    ],
+    "description": "Pale terrazzo, oak and black details: a graphic, practical shower room with plenty of texture.",
+    "furniture": "Oak curved fluted vanity",
+    "light": "Neutral white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Pebble White Terrazzo Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/pebble-white-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Pebble White Terrazzo Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/pebble-white-porcelain/"
+      },
+      {
+        "role": "Other walls",
+        "name": "Fusion White Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-white-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-07",
+    "image": "/inspiration-images/look-07.webp",
+    "thumbnail": "/inspiration-images/look-07-small.webp",
+    "new": false
+  },
+  {
+    "n": 8,
+    "name": "Oak & Cloud",
+    "style": "Natural",
+    "room": "Shower room",
+    "metal": "Chrome",
+    "kelvin": 4000,
+    "palette": [
+      "#E8E5DD",
+      "#C1A17B",
+      "#BFC6CA"
+    ],
+    "description": "Pale stone, oak drawer storage and polished chrome, with a quietly balanced neutral lighting scheme.",
+    "furniture": "Oak two-drawer fluted vanity",
+    "light": "Neutral white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Fusion White Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-white-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion Light Grey Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-light-grey-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-08",
+    "image": "/inspiration-images/look-08.webp",
+    "thumbnail": "/inspiration-images/look-08-small.webp",
+    "new": false
+  },
+  {
+    "n": 9,
+    "name": "Violetta & Bronze",
+    "style": "Colourful",
+    "room": "Bathroom",
+    "metal": "Brushed Bronze",
+    "kelvin": 3000,
+    "palette": [
+      "#E6DAD1",
+      "#633D48",
+      "#7D5544"
+    ],
+    "description": "Expressive purple-veined marble-effect tile, walnut and bronze, with a smooth freestanding bath.",
+    "furniture": "Walnut curved fluted vanity",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Violetta Nouveau Matt Marble Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/violetta-nouveau-matt-marble-effect-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Other walls",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-09",
+    "image": "/inspiration-images/look-09.webp",
+    "thumbnail": "/inspiration-images/look-09-small.webp",
+    "new": false
+  },
+  {
+    "n": 10,
+    "name": "Ivory & Clay",
+    "style": "Natural",
+    "room": "Bathroom",
+    "metal": "Brushed Brass",
+    "kelvin": 3000,
+    "palette": [
+      "#EAE3D6",
+      "#B49B87",
+      "#B79B61"
+    ],
+    "description": "Ivory herringbone tile, stone-coloured furniture and a clay-coloured bath, finished with warm brass.",
+    "furniture": "Stone two-drawer fluted vanity",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Hoxton Ivory Gloss Porcelain",
+        "url": "https://www.mandarinstone.com/product/hoxton-ivory-gloss-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Other walls",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-10",
+    "image": "/inspiration-images/look-10.webp",
+    "thumbnail": "/inspiration-images/look-10-small.webp",
+    "new": false
+  },
+  {
+    "n": 11,
+    "name": "Arctic & Olive",
+    "style": "Traditional",
+    "room": "Bathroom",
+    "metal": "Chrome",
+    "kelvin": 3000,
+    "palette": [
+      "#F1F0E8",
+      "#284D40",
+      "#5B6060"
+    ],
+    "description": "Classic white furniture, bottle-green walls and a crisp checkerboard floor. A calm, characterful room with a separate bath and shower.",
+    "furniture": "White shaker floor-standing vanity",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Hoxton Bottle Green Gloss Porcelain",
+        "url": "https://www.mandarinstone.com/product/hoxton-bottle-green-gloss-porcelain/"
+      },
+      {
+        "role": "Checkerboard floor",
+        "name": "Fusion White Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-white-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Checkerboard floor",
+        "name": "Fusion Black Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-black-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-11",
+    "image": "/inspiration-images/look-11.webp",
+    "thumbnail": "/inspiration-images/look-11-small.webp",
+    "new": true
+  },
+  {
+    "n": 12,
+    "name": "Floating Oak",
+    "style": "Natural",
+    "room": "Bathroom",
+    "metal": "Brushed Bronze",
+    "kelvin": 3000,
+    "palette": [
+      "#D7C5AD",
+      "#B58F64",
+      "#826247"
+    ],
+    "description": "Open oak shelving, a bronze countertop basin and a sculptural fluted bath. Warm lighting brings out the stone and timber tones.",
+    "furniture": "Oak floating shelf and bronze countertop basin",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Jakob Ash Wood Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/jakob-ash-wood-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-12",
+    "image": "/inspiration-images/look-12.webp",
+    "thumbnail": "/inspiration-images/look-12-small.webp",
+    "new": true
+  },
+  {
+    "n": 13,
+    "name": "Earth & Brass",
+    "style": "Colourful",
+    "room": "Bathroom",
+    "metal": "Brushed Brass",
+    "kelvin": 3000,
+    "palette": [
+      "#8C4E42",
+      "#D8CAAD",
+      "#B89A5B"
+    ],
+    "description": "Earth-red statement furniture on slim brass legs, paired with ivory tile and a fluted back-to-wall bath.",
+    "furniture": "Earth-red cabinet on brass legs",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Hoxton Ivory Gloss Porcelain",
+        "url": "https://www.mandarinstone.com/product/hoxton-ivory-gloss-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Other walls",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-13",
+    "image": "/inspiration-images/look-13.webp",
+    "thumbnail": "/inspiration-images/look-13-small.webp",
+    "new": true
+  },
+  {
+    "n": 14,
+    "name": "Amber Noir",
+    "style": "Colourful",
+    "room": "Shower room",
+    "metal": "Matte Black",
+    "kelvin": 3000,
+    "palette": [
+      "#AE572F",
+      "#242625",
+      "#D6CBBB"
+    ],
+    "description": "Burnt-orange tile and black open-storage furniture create a bold shower room with a warm, inviting glow.",
+    "furniture": "Black fluted vanity with open shelving",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Hoxton Burnt Orange Gloss Porcelain",
+        "url": "https://www.mandarinstone.com/product/hoxton-burnt-orange-gloss-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Other walls",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-14",
+    "image": "/inspiration-images/look-14.webp",
+    "thumbnail": "/inspiration-images/look-14-small.webp",
+    "new": true
+  },
+  {
+    "n": 15,
+    "name": "Cool Compact",
+    "style": "Minimal",
+    "room": "Compact en suite",
+    "metal": "Chrome",
+    "kelvin": 5000,
+    "palette": [
+      "#EEF0EE",
+      "#BFC7C8",
+      "#637376"
+    ],
+    "description": "A shallow white vanity and clear shower enclosure keep a compact en suite feeling open. Crisp cool-white lighting completes the look.",
+    "furniture": "Shallow white wall-hung vanity",
+    "light": "Cool white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Fusion Light Grey Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-light-grey-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion Light Grey Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-light-grey-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-15",
+    "image": "/inspiration-images/look-15.webp",
+    "thumbnail": "/inspiration-images/look-15-small.webp",
+    "new": true
+  },
+  {
+    "n": 16,
+    "name": "Soft Grey Sanctuary",
+    "style": "Minimal",
+    "room": "Bathroom",
+    "metal": "Chrome",
+    "kelvin": 4000,
+    "palette": [
+      "#A2A4A2",
+      "#F0EDE5",
+      "#CBD1CE"
+    ],
+    "description": "Generous drawer storage, a smooth back-to-wall bath and quiet grey tones make an understated everyday bathroom.",
+    "furniture": "Grey two-drawer wall-hung vanity",
+    "light": "Neutral white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Fusion White Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-white-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion Light Grey Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-light-grey-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-16",
+    "image": "/inspiration-images/look-16.webp",
+    "thumbnail": "/inspiration-images/look-16-small.webp",
+    "new": true
+  },
+  {
+    "n": 17,
+    "name": "The Double Suite",
+    "style": "Traditional",
+    "room": "Double basin",
+    "metal": "Brushed Brass",
+    "kelvin": 3000,
+    "palette": [
+      "#EEEAE0",
+      "#C0A46E",
+      "#8E7D63"
+    ],
+    "description": "Two basins, two illuminated mirrors and classic white cabinetry, with marble walls and a parquet-effect porcelain floor.",
+    "furniture": "Classic white double-basin vanity",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Carrara Honed Marble",
+        "url": "https://www.mandarinstone.com/product/carrara-honed-marble/"
+      },
+      {
+        "role": "Floor",
+        "name": "Jakob Ash Parquet Wood Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/jakob-ash-parquet-wood-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-17",
+    "image": "/inspiration-images/look-17.webp",
+    "thumbnail": "/inspiration-images/look-17-small.webp",
+    "new": true
+  },
+  {
+    "n": 18,
+    "name": "Small Room, Big Colour",
+    "style": "Colourful",
+    "room": "Cloakroom",
+    "metal": "Brushed Brass",
+    "kelvin": 3000,
+    "palette": [
+      "#536A56",
+      "#E1C2BA",
+      "#B69B5C"
+    ],
+    "description": "Reed-green compact furniture against pink tile, with a softly lit niche. A characterful scheme for a downstairs cloakroom.",
+    "furniture": "Green compact floor-standing vanity",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Hoxton Pink Gloss Porcelain",
+        "url": "https://www.mandarinstone.com/product/hoxton-pink-gloss-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Pebble White Terrazzo Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/pebble-white-porcelain/"
+      }
+    ],
+    "id": "DLS-18",
+    "image": "/inspiration-images/look-18.webp",
+    "thumbnail": "/inspiration-images/look-18-small.webp",
+    "new": true
+  },
+  {
+    "n": 19,
+    "name": "Forest & Oak",
+    "style": "Natural",
+    "room": "Bathroom",
+    "metal": "Matte Black",
+    "kelvin": 3000,
+    "palette": [
+      "#244B40",
+      "#C3A57C",
+      "#282B2A"
+    ],
+    "description": "Deep green marble-effect walls, oak drawer storage and black details. A fluted bath adds another layer of texture.",
+    "furniture": "Oak floor-standing drawer vanity",
+    "light": "Warm white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Nordic Green Matt Marble Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/nordic-green-matt-marble-effect-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      },
+      {
+        "role": "Other walls",
+        "name": "Fusion Sand Matt Stone Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/fusion-sand-matt-stone-effect-porcelain/"
+      }
+    ],
+    "id": "DLS-19",
+    "image": "/inspiration-images/look-19.webp",
+    "thumbnail": "/inspiration-images/look-19-small.webp",
+    "new": true
+  },
+  {
+    "n": 20,
+    "name": "Blue Porcelain",
+    "style": "Colourful",
+    "room": "Shower room",
+    "metal": "Chrome",
+    "kelvin": 5000,
+    "palette": [
+      "#344C70",
+      "#ECF0EC",
+      "#A8B8C4"
+    ],
+    "description": "Twilight-blue furniture, ivory brick tile and a pale terrazzo floor. A bright shower room with cooler lighting and polished chrome.",
+    "furniture": "Blue floor-standing two-door vanity",
+    "light": "Cool white",
+    "tiles": [
+      {
+        "role": "Feature / main wall",
+        "name": "Hoxton Ivory Gloss Porcelain",
+        "url": "https://www.mandarinstone.com/product/hoxton-ivory-gloss-porcelain/"
+      },
+      {
+        "role": "Floor",
+        "name": "Pebble White Terrazzo Effect Porcelain",
+        "url": "https://www.mandarinstone.com/product/pebble-white-porcelain/"
+      }
+    ],
+    "id": "DLS-20",
+    "image": "/inspiration-images/look-20.webp",
+    "thumbnail": "/inspiration-images/look-20-small.webp",
+    "new": true
+  }
+]

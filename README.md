@@ -9,6 +9,16 @@ Static website for DLS Bathrooms Ltd. The current production release lives in `i
 - `video-estimate.html` - remote estimate form with photo/video uploads
 - `terms.html` - web terms and downloadable PDF
 - `privacy.html` - privacy policy
+- `inspiration.html` - 20 AI-labelled bathroom concepts, filters, browser-saved favourites and enquiries carrying the chosen DLS design IDs
+- `inspiration-magazine.pdf` - the matching 22-page customer inspiration magazine
+
+## Inspiration collection
+
+Edit `inspiration-data.json`, then run `python tools/build_inspiration.py` to regenerate the static page. The page remains usable without JavaScript. `inspiration.js` enhances filtering, favourites and the image dialog. `inspiration-quote.js` carries validated look numbers into the existing quote form. No enquiry is sent automatically.
+
+Images are stored in `inspiration-images/` with full and small WebP versions. To rebuild the magazine, run `python tools/build_inspiration_magazine.py` with Pillow and ReportLab installed, then visually review all pages. Public copy describes concepts and tile suggestions; final products, samples, room dimensions, availability and price are confirmed individually. The internal manufacturer sourcing schedule is kept outside this public repository.
+
+The October 2026 collection was checked in Chromium at desktop and 390px mobile widths, including filters and empty states, favourites persistence, dialog close, no-JavaScript content, selected-ID quote prefill and the generated WhatsApp URL without sending a message. The original 80-photo completed-work gallery was preserved.
 
 ## Local review
 
