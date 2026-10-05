@@ -31,7 +31,11 @@ function fileFor(urlPath) {
   let clean = decodeURIComponent(urlPath.split('?')[0]);
   if (clean === '/') clean = '/index.html';
   const direct = path.join(root, clean.replace(/^\//, ''));
-  if (fs.existsSync(direct) && fs.statSync(direct).isFile()) return direct;
+  if (fs.existsSync(direct)) {
+    if (fs.statSync(direct).isFile()) return direct;
+    const index = path.join(direct, 'index.html');
+    if (fs.existsSync(index)) return index;
+  }
   if (!path.extname(clean)) {
     const html = `${direct}.html`;
     if (fs.existsSync(html) && fs.statSync(html).isFile()) return html;
@@ -129,7 +133,7 @@ async function noOverflow(page, label) {
     const requiredPages = [
       'index.html', 'quote.html', 'video-estimate.html', 'terms.html',
       'privacy.html', 'areas/stockport.html', 'areas/manchester.html',
-      'areas/cheadle.html',
+      'areas/cheadle.html', 'ideas/index.html',
     ];
     requiredPages.forEach((page) => {
       check(fs.existsSync(path.join(root, page)), `${page} exists`);
@@ -228,6 +232,7 @@ async function noOverflow(page, label) {
 
     const routes = [
       ['/quote', 'DLS Bathrooms'],
+      ['/ideas', 'DLS Bathroom Ideas'],
       ['/video-estimate', 'Remote Video Estimate'],
       ['/terms', 'Terms'],
       ['/privacy', 'Privacy'],
@@ -242,11 +247,16 @@ async function noOverflow(page, label) {
       await noOverflow(desktop, `Desktop ${route}`);
     }
 
+    await open(desktop, '/ideas');
+    check((await desktop.locator('article.look').count()) === 20, 'Bathroom Ideas shows all 20 looks');
+    check((await desktop.locator('a[href$="DLS_Bathroom_Inspiration_20_Looks.pdf"]').count()) >= 1, 'Bathroom Ideas links to its catalogue');
+
     await open(desktop, '/quote');
     await desktop.route('https://wa.me/**', (route) => route.abort());
     await desktop.locator('[name="name"]').fill('Website Test');
     await desktop.locator('[name="postcode"]').fill('SK4 4DP');
     await desktop.locator('[name="details"]').fill('Test bathroom enquiry');
+    await desktop.locator('[name="referralSource"]').selectOption({ label: 'Google Search' });
     const whatsappRequest = desktop.waitForRequest(
       (request) => request.url().startsWith('https://wa.me/447539037841?text='),
       { timeout: 8000 },
