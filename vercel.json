@@ -43,8 +43,18 @@
     },
     {
       "source": "/inspiration.html",
-      "destination": "/inspiration",
+      "destination": "/ideas",
       "permanent": true
+    },
+    {
+      "source": "/inspiration",
+      "destination": "/ideas",
+      "permanent": true
+    },
+    {
+      "source": "/inspiration-magazine.pdf",
+      "destination": "https://dls-bathroom-ideas.dlstilingandplumbing.chatgpt.site/DLS_Bathroom_Inspiration_20_Looks.pdf",
+      "permanent": false
     }
   ],
   "headers": [

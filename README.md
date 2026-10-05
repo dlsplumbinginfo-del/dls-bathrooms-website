@@ -9,16 +9,16 @@ Static website for DLS Bathrooms Ltd. The current production release lives in `i
 - `video-estimate.html` - remote estimate form with photo/video uploads
 - `terms.html` - web terms and downloadable PDF
 - `privacy.html` - privacy policy
-- `inspiration.html` - 20 AI-labelled bathroom concepts, filters, browser-saved favourites and enquiries carrying the chosen DLS design IDs
-- `inspiration-magazine.pdf` - the matching 22-page customer inspiration magazine
+- `ideas/index.html` - mobile bathroom ideas, saved looks, guided suggestions and product shortlists
+- `inspiration-magazine.pdf` - the matching 42-page customer inspiration catalogue
 
-## Inspiration collection
+## Bathroom Ideas
 
-Edit `inspiration-data.json`, then run `python tools/build_inspiration.py` to regenerate the static page. The page remains usable without JavaScript. `inspiration.js` enhances filtering, favourites and the image dialog. `inspiration-quote.js` carries validated look numbers into the existing quote form. No enquiry is sent automatically.
+`/ideas` is the current mobile bathroom collection, linked from the homepage, navigation and quote route. The original `/inspiration` URL redirects to it. The collection includes 20 AI-labelled concepts, a 42-page linked PDF, 563 numbered specification rows and 139 distinct supplier URLs. Source checks were completed on 5 October 2026; live stock remains subject to DLS confirmation.
 
-Images are stored in `inspiration-images/` with full and small WebP versions. To rebuild the magazine, run `python tools/build_inspiration_magazine.py` with Pillow and ReportLab installed, then visually review all pages. Public copy describes concepts and tile suggestions; final products, samples, room dimensions, availability and price are confirmed individually. The internal manufacturer sourcing schedule is kept outside this public repository.
+Phone visitors can swipe, save looks locally, follow a three-question style guide, inspect products in a dismissible panel, and send an exact product shortlist through WhatsApp. Shared look URLs have per-look Open Graph images. The browser Back button dismisses open panels. No enquiry is sent automatically.
 
-The October 2026 collection was checked in Chromium at desktop and 390px mobile widths, including filters and empty states, favourites persistence, dialog close, no-JavaScript content, selected-ID quote prefill and the generated WhatsApp URL without sending a message. The original 80-photo completed-work gallery was preserved.
+The standalone collection remains at `https://dls-bathroom-ideas.dlstilingandplumbing.chatgpt.site`. Its source is maintained separately; `export_main.py` copies the same assets here with the `/ideas/` base path and DLS-domain preview metadata. Preserve existing product references when updating because shared shortlists use those stable references. Product changes require link and code rechecking.
 
 ## Local review
 
