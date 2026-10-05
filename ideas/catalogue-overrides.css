@@ -1,0 +1,33 @@
+.card-actions .customise-link {
+  width: 100%;
+  padding: 13px;
+  font-size: 15px;
+}
+
+.variation-badge {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  padding: 7px 9px;
+  border-radius: 3px;
+  background: #f4dfaeed;
+  color: #4d3517;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  line-height: 1;
+}
+
+.curated-badge {
+  background: #dcefe7ed;
+  color: #153d38;
+}
+
+.style-variation .image-caption {
+  display: none;
+}
+
+.variant-schedule .primary {
+  width: 100%;
+  margin: 8px 0 4px;
+}

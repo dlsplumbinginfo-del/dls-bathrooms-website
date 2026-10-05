@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Make it yours | DLS Bathroom Ideas</title>
+    <meta name="description" content="Choose your bathroom finish, wall and floor tiles, basin size, worktop, tap position and niche detail. Send your choices to DLS for a personalised price.">
+    <base href="/ideas/">
+    <link rel="stylesheet" href="customiser.css">
+    <link rel="stylesheet" href="customiser-overrides.css">
+    <link rel="icon" href="favicon.svg">
+    <script defer src="customiser.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#choices">Skip to choices</a>
+    <header>
+      <a class="brand" href="/ideas/">DLS <span>BATHROOM IDEAS</span></a>
+      <a id="back" href="/ideas/">Back to collection</a>
+    </header>
+    <main>
+      <div id="loading" role="status">Opening your bathroom choices…</div>
+      <div id="app" hidden>
+        <div class="heading">
+          <div><span id="ref" class="eyebrow"></span><h1 id="title">Make it yours</h1></div>
+          <button id="reset" type="button">Start again</button>
+        </div>
+        <section class="quick-guide" aria-label="How to use the bathroom visualiser">
+          <div><b>1</b><span><strong>Choose the metal</strong><small>Black, chrome, brass and more</small></span></div>
+          <div><b>2</b><span><strong>Choose the wall</strong><small>Tap the tile you like</small></span></div>
+          <div><b>3</b><span><strong>Choose the floor</strong><small>Then send the look to DLS</small></span></div>
+        </section>
+        <div class="workspace">
+          <section class="preview" aria-label="Bathroom design preview">
+            <div id="room-stage" class="room-stage">
+              <img id="room-image" alt="">
+              <img id="floor-layer" class="visual-layer" alt="" aria-hidden="true" hidden>
+              <img id="finish-layer" class="visual-layer" alt="" aria-hidden="true" hidden>
+              <span id="visual-badge" class="visual-badge" hidden>Live style preview</span>
+            </div>
+            <div class="preview-caption">
+              <strong id="preview-label">Starting room illustration</strong>
+              <p id="preview-note">AI style inspiration. Your selected products are shown below.</p>
+            </div>
+            <div id="choice-summary" class="choice-summary" aria-label="Current choices"></div>
+            <div class="exact-products-heading">
+              <strong>Your selected supplier products</strong>
+              <span>Photographs, names, links and Scudo codes</span>
+            </div>
+            <div id="selected-board" class="material-board" aria-label="Exact selected products"></div>
+            <p class="small">The room above is a design preview. The supplier photos, names and codes below define what DLS will quote. Screen colours vary; approve tile and finish samples before ordering.</p>
+          </section>
+          <section id="choices" class="choices">
+            <div class="step">
+              <span class="eyebrow">1 of 3</span>
+              <h2>Pick your metal colour</h2>
+              <p id="finish-help">Tap a colour. Matching Scudo products update together.</p>
+              <div id="finish-options" class="finish-options"></div>
+              <p id="finish-note" class="small"></p>
+            </div>
+            <div class="step">
+              <span class="eyebrow">2 of 3</span>
+              <h2>Pick your wall tile</h2>
+              <p id="wall-help">Tap the wall tile you prefer.</p>
+              <div id="wall-options" class="tile-options" aria-label="Wall tile choices"></div>
+              <label class="native-select">Wall tile<select id="wall-select"></select></label>
+            </div>
+            <div class="step">
+              <span class="eyebrow">3 of 3</span>
+              <h2>Pick your floor tile</h2>
+              <p id="floor-help">Choose the floor separately. Your other choices stay as they are.</p>
+              <div id="floor-options" class="tile-options" aria-label="Floor tile choices"></div>
+              <label class="native-select">Floor tile<select id="floor-select"></select></label>
+              <p id="tile-note" class="small"></p>
+            </div>
+            <details class="advanced-options">
+              <summary>Optional: change sizes and layout details</summary>
+              <p class="small">You can leave all of this to DLS. Open it only if you already know what you want.</p>
+              <div class="step">
+                <span class="eyebrow">Basin and furniture</span>
+                <h2>Change the basin area</h2>
+                <label class="field">Basin with matching unit or shelf<select id="basin-select"></select></label>
+                <label class="field">Preferred size (DLS confirms the exact product)<select id="width-select"></select></label>
+                <label class="field">Worktop preference (DLS confirms a compatible code)<select id="worktop-select"></select></label>
+                <p id="basin-note" class="small"></p>
+                <label class="field">Tap position<select id="tap-select"></select></label>
+              </div>
+              <div class="step">
+                <span class="eyebrow">Shower detail</span>
+                <h2>Niche or clean wall?</h2>
+                <label class="field">Niche detail<select id="niche-select"></select></label>
+                <p class="small">DLS confirms the wall depth, size, lighting and waterproofing before adding a niche.</p>
+              </div>
+            </details>
+            <aside class="pricing">
+              <span class="eyebrow">Finished choosing?</span>
+              <h2>Send your bathroom to DLS</h2>
+              <p>Your colours, tiles and product list are placed into the message for you. Nothing is ordered until DLS checks it with you.</p>
+              <a id="whatsapp" class="primary" target="_blank" rel="noopener noreferrer">Send my bathroom on WhatsApp</a>
+              <button id="share" type="button">Copy my chosen bathroom link</button>
+              <button id="download" type="button">Download my product list</button>
+              <p class="small">WhatsApp opens a message for you to send. Nothing is ordered or sent automatically.</p>
+            </aside>
+          </section>
+        </div>
+        <section class="specification">
+          <details id="spec-details">
+            <summary>Your selected products <span id="item-count"></span></summary>
+            <p>Proposed specification for a DLS quotation. Measurements, water pressure, waterproofing, stock and installation are confirmed before ordering.</p>
+            <ol id="product-list"></ol>
+            <div id="review-notes"></div>
+          </details>
+        </section>
+      </div>
+      <div id="error" hidden>
+        <h1>This bathroom couldn’t load</h1>
+        <p>Your saved selections are safe in this browser. Try reloading, or return to the collection.</p>
+        <a href="/">Return to bathroom ideas</a>
+      </div>
+    </main>
+    <a id="mobile-whatsapp" class="mobile-whatsapp" target="_blank" rel="noopener noreferrer">Send my bathroom to DLS</a>
+    <div id="status" role="status"></div>
+    <footer>
+      <a href="https://dlsbathrooms.co.uk">DLS Bathrooms Ltd</a>
+      <a href="tel:+447539037841">07539 037841</a>
+      <a href="mailto:info@dlsbathrooms.co.uk">info@dlsbathrooms.co.uk</a>
+    </footer>
+    <noscript><p>Please enable JavaScript to customise a bathroom, or browse the linked product lists in the main collection.</p></noscript>
+  </body>
+</html>

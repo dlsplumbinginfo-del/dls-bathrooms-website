@@ -10,13 +10,13 @@ Static website for DLS Bathrooms Ltd. The current production release lives in `i
 - `terms.html` - web terms and downloadable PDF
 - `privacy.html` - privacy policy
 - `ideas/index.html` - mobile bathroom ideas, saved looks, guided suggestions and product shortlists
-- `inspiration-magazine.pdf` - the matching 42-page customer inspiration catalogue
+- `inspiration-magazine.pdf` - redirects to the current 102-page customer inspiration catalogue
 
 ## Bathroom Ideas
 
-`/ideas` is the current mobile bathroom collection, linked from the homepage, navigation and quote route. The original `/inspiration` URL redirects to it. The collection includes 20 AI-labelled concepts, a 42-page linked PDF, 563 numbered specification rows and 139 distinct supplier URLs. Source checks were completed on 5 October 2026; live stock remains subject to DLS confirmation.
+`/ideas` is the current mobile bathroom collection, linked from the homepage, navigation and quote route. The original `/inspiration` URL redirects to it. The collection includes 50 individually illustrated bathroom concepts, a 102-page linked PDF, 1,400 numbered specification rows and 139 distinct supplier URLs. Source checks were completed on 5 October 2026; live stock remains subject to DLS confirmation.
 
-Phone visitors can swipe, save looks locally, follow a three-question style guide, inspect products in a dismissible panel, and send an exact product shortlist through WhatsApp. Shared look URLs have per-look Open Graph images. The browser Back button dismisses open panels. No enquiry is sent automatically.
+Phone visitors can browse vertically, save looks locally, filter the collection, customise finishes, tiles and furniture requests, inspect linked products, and send an exact product list through WhatsApp. Shared look URLs have per-look Open Graph images. The browser Back button dismisses open panels. No enquiry is sent automatically.
 
 The standalone collection remains at `https://dls-bathroom-ideas.dlstilingandplumbing.chatgpt.site`. Its source is maintained separately; `export_main.py` copies the same assets here with the `/ideas/` base path and DLS-domain preview metadata. Preserve existing product references when updating because shared shortlists use those stable references. Product changes require link and code rechecking.
 
