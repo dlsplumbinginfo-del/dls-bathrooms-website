@@ -1,22 +1,78 @@
 {
   "cleanUrls": true,
   "redirects": [
-    { "source": "/quote.html", "destination": "/quote", "permanent": true },
-    { "source": "/video-estimate.html", "destination": "/video-estimate", "permanent": true },
-    { "source": "/terms.html", "destination": "/terms", "permanent": true },
-    { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
-    { "source": "/areas/stockport.html", "destination": "/areas/stockport", "permanent": true },
-    { "source": "/areas/manchester.html", "destination": "/areas/manchester", "permanent": true },
-    { "source": "/areas/cheadle.html", "destination": "/areas/stockport", "permanent": true },
-    { "source": "/areas/cheadle", "destination": "/areas/stockport", "permanent": true }
+    {
+      "source": "/quote.html",
+      "destination": "/quote",
+      "permanent": true
+    },
+    {
+      "source": "/video-estimate.html",
+      "destination": "/video-estimate",
+      "permanent": true
+    },
+    {
+      "source": "/terms.html",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/privacy.html",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/areas/stockport.html",
+      "destination": "/areas/stockport",
+      "permanent": true
+    },
+    {
+      "source": "/areas/manchester.html",
+      "destination": "/areas/manchester",
+      "permanent": true
+    },
+    {
+      "source": "/areas/cheadle.html",
+      "destination": "/areas/stockport",
+      "permanent": true
+    },
+    {
+      "source": "/areas/cheadle",
+      "destination": "/areas/stockport",
+      "permanent": true
+    },
+    {
+      "source": "/inspiration.html",
+      "destination": "/ideas",
+      "permanent": true
+    },
+    {
+      "source": "/inspiration",
+      "destination": "/ideas",
+      "permanent": true
+    },
+    {
+      "source": "/inspiration-magazine.pdf",
+      "destination": "https://dls-bathroom-ideas.dlstilingandplumbing.chatgpt.site/DLS_Bathroom_Inspiration_20_Looks.pdf",
+      "permanent": false
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
       ]
     }
   ]
