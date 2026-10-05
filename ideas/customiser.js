@@ -24,7 +24,7 @@
   if(!['room','450','500','550','600','700','750','800','900','1200','1200-double'].includes(state.width))state.width='room';
   if(!['matched','pure-white','marble-light','oak','dark-stone'].includes(state.worktop))state.worktop='matched';
   if(!['auto','with','without'].includes(state.niche))state.niche='auto';
-  $('title').textContent=room.name+' · make it yours';$('ref').textContent=room.id+' / Your choices';$('back').href='/?look='+room.n;document.title=room.id+' · Make it yours | DLS Bathrooms';
+  $('title').textContent=room.name+' · make it yours';$('ref').textContent=room.id+' / Your choices';$('back').href=new URL('./?look='+room.n,document.baseURI).href;document.title=room.id+' · Make it yours | DLS Bathrooms';
   const colours={'Brushed Bronze':'#a88465','Brushed Brass':'#c3a66b','Chrome':'linear-gradient(135deg,#777,#eee,#aaa)','Matte Black':'#242424','Gunmetal':'#666b6d','Brushed Nickel':'#aaa99e'};
   config.finishes.forEach(f=>{const b=node('button',null);b.type='button';b.dataset.finish=f;const sw=node('span',null,'finish-swatch');sw.style.setProperty('--swatch',colours[f]);sw.setAttribute('aria-hidden','true');b.append(sw,node('span',f));b.addEventListener('click',()=>{state.finish=f;render();});$('finish-options').append(b);});
   const slug=t=>new URL(t.url).pathname.split('/').filter(Boolean).pop();
@@ -51,7 +51,6 @@
   options($('width-select'),Object.entries(widthLabels),state.width);
   options($('worktop-select'),Object.entries(worktopLabels),state.worktop);
   options($('niche-select'),Object.entries(nicheLabels),state.niche);
-  const finishOf=p=>p.finish||p.scheme_finish;
   const fixedProductFinish=p=>{const text=(p.finish+' '+p.name+' '+p.code).toLowerCase();if(text.includes('matte black')||text.includes('matt black')||p.code==='SHELPH-BRA-BLACK')return 'Matte Black';if(text.includes('brushed brass'))return 'Brushed Brass';if(text.includes('brushed bronze'))return 'Brushed Bronze';if(text.includes('gunmetal'))return 'Gunmetal';if(text.includes('chrome'))return 'Chrome';return null;};
   function replacement(p){
    if(p.category==='Basin tap'){
