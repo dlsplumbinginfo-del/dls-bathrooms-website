@@ -192,8 +192,8 @@ async function noOverflow(page, label) {
     check((await desktop.locator('h1').first().innerText()).trim().length > 10, 'Homepage heading is visible');
     const homeText = await desktop.locator('body').innerText();
     check(homeText.includes('Worldpay'), 'Worldpay information is visible');
-    check(homeText.includes('98% recommend'), 'Verified Facebook recommendation is visible');
-    check(homeText.includes('40 Facebook reviews'), 'Verified Facebook review count is visible');
+    check(homeText.includes('Read Facebook feedback'), 'Facebook feedback invitation is visible');
+    check((await desktop.locator('a[href*="facebook.com"]').count()) > 0, 'Facebook feedback link is present');
     check((await desktop.locator('.whatsapp-float').count()) === 1, 'Floating WhatsApp quote button is present');
     check(homeText.includes('07539 037841'), 'Correct phone is visible');
     check(
@@ -251,6 +251,26 @@ async function noOverflow(page, label) {
     check((await desktop.locator('article.look').count()) === 70, 'Bathroom Ideas shows all 70 looks');
     check((await desktop.locator('a[href$=".pdf"]').count()) >= 1, 'Bathroom Ideas links to its catalogue');
 
+    // Test actual picker interactions, not merely the presence of the 70 catalogue cards.
+    await open(desktop, '/ideas/customise/?look=1');
+    await desktop.locator('#app').waitFor({ state: 'visible', timeout: 15000 });
+    check((await desktop.locator('#finish-options [data-finish]').count()) >= 5, 'Picker offers metal finishes');
+    await desktop.locator('#finish-options [data-finish="Chrome"]').click();
+    check(await desktop.locator('#finish-options [data-finish="Chrome"]').getAttribute('aria-pressed') === 'true', 'Metal finish button becomes selected');
+    check((await desktop.locator('#choice-summary').innerText()).includes('Metal: Chrome'), 'Metal finish updates the picker state and summary');
+    check((await desktop.locator('#selected-board a').count()) >= 3, 'Linked supplier products remain visible after finish changes');
+    const firstWall = await desktop.evaluate(() => window.dlsCustomiser?.state?.wall);
+    await desktop.locator('#wall-options [data-wall]').filter({ hasNotText: 'Starting floor' }).nth(1).click();
+    check((await desktop.evaluate(() => window.dlsCustomiser?.state?.wall)) !== firstWall, 'Wall tile swatch changes selection');
+    await desktop.locator('#floor-options [data-floor]').nth(1).click();
+    check((await desktop.evaluate(() => window.dlsCustomiser?.state?.floor)) !== 'original', 'Floor tile swatch changes selection');
+    await desktop.locator('#mirror-select').selectOption({ index: 1 });
+    check((await desktop.evaluate(() => window.dlsCustomiser?.state?.mirror)) !== 'original', 'Mirror selection changes independently');
+    check((await desktop.locator('#selected-board').innerText()).includes('Mirror'), 'Selected mirror is shown in the exact-products board');
+    check((await desktop.locator('#selected-board').innerText()).includes('Vanity'), 'Selected vanity is shown in the exact-products board');
+    check((await desktop.evaluate(() => window.dlsCustomiser?.shareUrl || '')).includes('finish=Chrome'), 'Share link preserves selected metal finish');
+    await noOverflow(desktop, 'Desktop bathroom picker');
+
     await open(desktop, '/quote');
     await desktop.route('https://wa.me/**', (route) => route.abort());
     await desktop.locator('[name="name"]').fill('Website Test');
@@ -297,6 +317,15 @@ async function noOverflow(page, label) {
       await open(mobile, route);
       await noOverflow(mobile, `Mobile ${route}`);
     }
+    await open(mobile, '/ideas/customise/?look=51');
+    await mobile.locator('#app').waitFor({ state: 'visible', timeout: 15000 });
+    check((await mobile.evaluate(() => window.dlsCustomiser?.room)) === 51, 'Extended bathroom collection opens in the picker on mobile');
+    const mobileFinish = await mobile.evaluate(() => window.dlsCustomiser?.state?.finish);
+    const otherFinish = await mobile.locator('#finish-options [data-finish]').evaluateAll((els, current) => els.find(el => el.dataset.finish !== current)?.dataset.finish, mobileFinish);
+    await mobile.locator('#finish-options [data-finish="' + otherFinish + '"]').click();
+    check((await mobile.evaluate(() => window.dlsCustomiser?.state?.finish)) === otherFinish, 'Mobile finish button updates configuration');
+    check((await mobile.locator('#choice-summary').innerText()).includes('Metal: ' + otherFinish), 'Mobile selection summary refreshes');
+    await noOverflow(mobile, 'Mobile bathroom picker');
 
     check(consoleErrors.length === 0, 'No browser console errors', JSON.stringify(consoleErrors));
     check(failedRequests.length === 0, 'No failed script or stylesheet requests', JSON.stringify(failedRequests));
