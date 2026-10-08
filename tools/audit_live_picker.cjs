@@ -42,8 +42,8 @@ async function screenshot(page,prefix,label){
     await page.locator('#app').waitFor({state:'visible',timeout:30000});
     await page.waitForTimeout(500);
     const browserHealth=await page.evaluate(()=>({canvasCount:document.querySelectorAll('#live-room canvas').length,modelStatus:document.querySelector('#model-loading')?.textContent,errorVisible:!document.querySelector('#error')?.hidden,script:[...document.querySelectorAll('script')].map(x=>x.src),userAgent:navigator.userAgent,webglSupported:!!document.createElement('canvas').getContext('webgl2')}));
-    console.log('LIVE_BROWSER_HEALTH '+JSON.stringify({look,device,health:browserHealth,errors}));
-    if(!browserHealth.canvasCount){await page.screenshot({path:path.join(out,device+'-'+look+'-no-canvas.png')});throw Error('No 3D canvas; check health output');}
+    console.log('LIVE_BROWSER_HEALTH '+JSON.stringify({look,device,health:browserHealth,errors,href:page.url(),liveRoomHtml:(await page.locator('#live-room').innerHTML()).slice(0,1400),htmlBeginning:(await page.content()).slice(0,2000),responseHeaders:response.headers()}));
+    if(!browserHealth.canvasCount){const snap=await page.screenshot({path:path.join(out,device+'-'+look+'-no-canvas.jpg'),type:'jpeg',quality:32});console.log('PAGE_JPEG '+snap.toString('base64'));throw Error('No 3D canvas; check health output');}
     await page.locator('#live-room canvas').waitFor({state:'visible',timeout:7000});
     await page.waitForTimeout(1500);
     const prefix=device+'-'+look;
