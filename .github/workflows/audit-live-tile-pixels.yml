@@ -1,0 +1,26 @@
+name: Audit live bathroom tile visuals
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live-pixels:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: node tools/audit_live_picker.cjs
+      - name: Save before and after pictures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: picker-live-visual-audit
+          path: tmp/picker-live-audit
+          if-no-files-found: ignore
