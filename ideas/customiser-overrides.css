@@ -253,3 +253,7 @@
     text-decoration: none;
   }
 }
+
+/* Surface selection must be visible beside the tile swatches. */
+.coverage-explainer{padding:11px 13px;background:#edf3ee;border-left:3px solid #153d38;border-radius:5px;color:#153d38;font-size:14px;font-weight:600}
+.match-floor{display:flex;gap:10px;align-items:center;margin:13px 0 4px;font-weight:600;font-size:14px;cursor:pointer}.match-floor input{width:19px;height:19px;accent-color:#153d38;flex:0 0 19px}
