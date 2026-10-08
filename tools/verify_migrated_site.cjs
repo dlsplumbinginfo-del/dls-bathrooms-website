@@ -268,6 +268,9 @@ async function noOverflow(page, label) {
     check((await desktop.evaluate(() => window.dlsCustomiser?.state?.mirror)) !== 'original', 'Mirror selection changes independently');
     check((await desktop.locator('#selected-board').innerText()).includes('Mirror'), 'Selected mirror is shown in the exact-products board');
     check((await desktop.locator('#selected-board').innerText()).includes('Vanity'), 'Selected vanity is shown in the exact-products board');
+    await desktop.locator('#basin-select').selectOption('package-5');
+    check((await desktop.evaluate(() => window.dlsCustomiser?.state?.basin)) === 'package-5', 'Changing Scudo furniture switches the selected cabinet package');
+    check((await desktop.locator('#selected-board').innerText()).includes('Matte Black'), 'Exact-products board reflects the chosen replacement vanity');
     check((await desktop.evaluate(() => window.dlsCustomiser?.shareUrl || '')).includes('finish=Chrome'), 'Share link preserves selected metal finish');
     await noOverflow(desktop, 'Desktop bathroom picker');
 
