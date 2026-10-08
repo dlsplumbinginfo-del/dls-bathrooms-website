@@ -6,7 +6,7 @@
   const responses=await Promise.all([fetch('catalogue-data.json'),fetch('customiser-data.json')]);
   if(responses.some(r=>!r.ok))throw new Error('Catalogue unavailable');
   const [looks,config]=await Promise.all(responses.map(r=>r.json()));
-  const {RoomPreview,illustratedTile}=await import('./room-preview.js');
+  const {RoomPreview,illustratedTile}=await import('./room-preview.js?v=20261008-4k');
   const room=looks.find(d=>d.n===Number(query.get('look')))||looks[0],key='dls-customiser-v2-'+room.n;
   const visual=config.room_visualiser?.[String(room.n)];
   const originalWall=room.products.find(p=>p.category==='Feature / main wall tile'),originalFloors=room.products.filter(p=>p.category.toLowerCase().includes('floor tile'));
