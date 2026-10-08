@@ -11,7 +11,7 @@
   const visual=config.room_visualiser?.[String(room.n)];
   const originalWall=room.products.find(p=>p.category==='Feature / main wall tile'),originalFloors=room.products.filter(p=>p.category.toLowerCase().includes('floor tile'));
   const tileById=id=>config.tiles.find(t=>t.id===id),tileByURL=url=>config.tiles.find(t=>t.url===url);
-  const preset=room.customiser||{},originalWallTile=tileByURL(originalWall.url);
+  const preset=room.customiser||{},originalWallTile=tileByURL(originalWall?.url)||config.tiles[0];
   const initial={finish:preset.finish||room.metal,wall:preset.wall||originalWallTile.id,floor:preset.floor||'original',basin:preset.basin||'original',tap:preset.tap||'original',width:preset.width||'room',worktop:preset.worktop||'matched',niche:preset.niche||'auto',mirror:preset.mirror||'original',roomWidth:String(room.layout?.width||2.4),roomDepth:String(room.layout?.depth||2.9),shape:preset.shape||room.layout?.shape||'rectangle',structure:preset.structure||'half',toilet:preset.toilet||'wall',coverage:preset.coverage||'all',pattern:'stacked',grout:'matched',lighting:room.light==='Cool white'?'cool':'warm',showerFloor:preset.showerFloor||'tray'};
   let stored={};try{stored=JSON.parse(localStorage.getItem(key)||'{}');}catch{}
   const shareKeys=Object.keys(initial);
@@ -30,7 +30,7 @@
   if(!Number.isFinite(Number(state.roomWidth))||Number(state.roomWidth)<.9||Number(state.roomWidth)>5)state.roomWidth=initial.roomWidth;
   if(!Number.isFinite(Number(state.roomDepth))||Number(state.roomDepth)<1.4||Number(state.roomDepth)>6)state.roomDepth=initial.roomDepth;
   if(state.mirror!=='original'&&!config.bank.some(p=>p.category==='Mirror'&&p.code===state.mirror))state.mirror='original';
-  let model=null;try{model=new RoomPreview($('live-room'),config,info=>{$('fit-notes').textContent=info.warnings.join(' ');$('model-loading').hidden=true;if(model?.renderer){$('mobile-room-image').src=model.renderer.domElement.toDataURL('image/png');}});}catch(error){$('model-loading').textContent='The live model is unavailable on this device. Your product choices still work.';console.warn(error);}
+  let model=null;try{model=new RoomPreview($('live-room'),config,info=>{$('fit-notes').textContent=info.warnings.join(' ');$('model-loading').hidden=true;$('mobile-room-image').src=room.image;});}catch(error){$('model-loading').textContent='The live model is unavailable on this device. Your product choices still work.';console.warn(error);}
   $('room-stage').style.display='none';
   new IntersectionObserver(entries=>{$('mobile-room-preview').hidden=entries[0].isIntersecting;}).observe($('live-room'));
   $('mobile-room-preview').addEventListener('click',()=>{$('view-live').click();$('live-room').scrollIntoView({behavior:'smooth',block:'start'});});
@@ -49,7 +49,8 @@
    items.forEach(({id,tile,label})=>{if(!tile)return;const button=node('button',null);button.type='button';button.dataset[kind]=id;button.setAttribute('aria-pressed',String(id===value));const photo=config.photos[tile.url];if(photo){const image=node('img');image.src=photo.image;image.alt='';image.loading='lazy';image.addEventListener('error',()=>{image.replaceWith(illustratedTile(tile));});button.append(image);}else button.append(illustratedTile(tile));button.append(node('strong',label||tile.name),node('small',(tile.tier||'Premium')+(tile.price_reference?' · guide £'+tile.price_reference.toFixed(2)+'/m²':'')+' · '+(photo?'Supplier sample':'Illustrative swatch')));button.addEventListener('click',()=>{state[kind]=id;render();const selected=container.querySelector('[data-'+kind+'="'+id+'"]');selected?.focus({preventScroll:true});});container.append(button);});
   }
   const wallPool=()=>config.tiles.filter(t=>(range==='all'||t.tier===range)&&(!search||t.name.toLowerCase().includes(search)));
-  function renderTiles(){tileButtons('wall-options','wall',wallPool().map(t=>({id:t.id,tile:t})),state.wall);if(!wallPool().length)$('wall-options').append(node('p','No tiles match. Try another word or All ranges.'));}
+  let renderedWallPool='';
+  function renderTiles(){const tiles=wallPool(),pool=tiles.map(t=>t.id).join('|');if(pool!==renderedWallPool){tileButtons('wall-options','wall',tiles.map(t=>({id:t.id,tile:t})),state.wall);renderedWallPool=pool;}document.querySelectorAll('#wall-options [data-wall]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.wall===state.wall)));if(!tiles.length)$('wall-options').replaceChildren(node('p','No tiles match. Try another word or All ranges.'));}
   options($('wall-select'),wallPool().map(t=>[t.id,t.name]),state.wall);
   const selectedPackage=()=>state.basin==='original'?null:config.packages.find(p=>p.id===state.basin);
   const packageWidth=p=>{const match=[p.name,...p.products.map(x=>x.name+' '+x.code+' '+(x.size||''))].join(' ').match(/\b(450|500|550|600|700|750|800|900|1200)\b/);return match?match[1]:null;};
@@ -144,6 +145,7 @@
   const structureLabels={clean:'Clean wall / no continuous boxing',half:'Half-height service wall and ledge',full:'Full-height service wall',ledge:'Slim ledge only'},coverageLabels={all:'All walls tiled',feature:'Feature wall with pale side walls',half:'Half-height tiles with painted upper walls'};
   let history=[JSON.stringify(state)],historyIndex=0,replaying=false;
   let toastTimer;function toast(message){$('status').textContent=message;$('status').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('status').classList.remove('show'),3500);}
+  let renderedFloorPool='';
   function render(){
    for(const [id,k] of [['shape-select','shape'],['structure-select','structure'],['toilet-select','toilet'],['coverage-select','coverage'],['pattern-select','pattern'],['grout-select','grout'],['lighting-select','lighting'],['shower-floor-select','showerFloor'],['mirror-select','mirror'],['room-width','roomWidth'],['room-depth','roomDepth']])$(id).value=state[k];
    $('shower-floor-field').hidden=room.room==='Cloakroom'||room.layout?.bath==='inset';
@@ -152,13 +154,13 @@
    options($('floor-select'),[['original','Keep '+tileByURL(originalFloors[0].url).name],...floorChoices.map(t=>[t.id,t.name])],state.floor);
    if(!$('floor-select').value){state.floor='original';$('floor-select').value='original';}
    options($('wall-select'),config.tiles.map(t=>[t.id,t.name]),state.wall);renderTiles();
-   tileButtons('floor-options','floor',[{id:'original',tile:tileByURL(originalFloors[0].url),label:'Starting floor'},...floorChoices.map(t=>({id:t.id,tile:t}))],state.floor);
+   const floorPoolKey=floorChoices.map(t=>t.id).join('|');if(floorPoolKey!==renderedFloorPool){tileButtons('floor-options','floor',[{id:'original',tile:tileByURL(originalFloors[0].url),label:'Starting floor'},...floorChoices.map(t=>({id:t.id,tile:t}))],state.floor);renderedFloorPool=floorPoolKey;}document.querySelectorAll('#floor-options [data-floor]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.floor===state.floor)));
    const pkg=selectedPackage(),mount=pkg?.tap_mount|| (room.products.find(p=>p.category==='Basin tap').name.toLowerCase().includes('wall')?'wall':'mono');
    const tapOptions=[['original',mount==='wall'?'Keep the starting wall-mounted position':'Keep the starting basin-mounted position'],['mono','Basin-mounted mono tap'],['wall','Wall-mounted tap'],['tall','Tall countertop tap']];
    if(!tapOptions.some(t=>t[0]===state.tap))state.tap='original';
    options($('tap-select'),tapOptions,state.tap);
    selectedProducts=specification();
-   model?.update(room,state,selectedProducts);
+   try{model?.update(room,state,selectedProducts);}catch(error){console.warn('3D preview failed; product choices remain available',error);model=null;$('model-loading').hidden=false;$('model-loading').textContent='The 3D preview is unavailable on this device. Your chosen products and finishes remain selected.';$('view-inspiration').click();$('view-live').disabled=true;$('view-plan').disabled=true;}
    review.push(...(model?.warnings||[]));
    $('finish-help').textContent='Tap a colour. The live room and available coordinated Scudo products update together.';
    $('wall-help').textContent='Choose from '+config.tiles.length+' tiles. The live room changes immediately.';
@@ -167,7 +169,7 @@
    $('basin-note').textContent=(pkg?.note||'The original basin and furniture are kept together. Other combinations include their own matching unit or shelf; final dimensions are checked for your room.')+' Size and worktop selections are requests until DLS confirms a compatible Scudo product code.';
    const floor=state.floor==='original'?tileByURL(originalFloors[0].url):tileById(state.floor);
    $('tile-note').textContent='These are supplier tile samples. DLS will confirm the real samples, quantities and floor suitability before ordering.';
-   $('room-image').src=room.image;$('floor-layer').hidden=true;$('finish-layer').hidden=true;$('visual-badge').hidden=true;
+   $('room-image').src=config.room_previews?.[String(room.n)]?.[state.finish]||room.image;$('floor-layer').hidden=true;$('finish-layer').hidden=true;$('visual-badge').hidden=true;
    $('room-image').alt='Starting inspiration: '+room.description;
    $('finish-help').textContent='Tap a colour. The live room and available coordinated Scudo products update together.';
    $('wall-help').textContent='Choose a tile to see it in the live room.';
@@ -178,12 +180,14 @@
    const summary=$('choice-summary');summary.replaceChildren();[
     'Metal: '+state.finish,
     'Wall: '+tileById(state.wall).name,
-    'Floor: '+(state.floor==='original'?'Original floor':floor.name)
+    'Floor: '+(state.floor==='original'?'Original floor':floor.name),
+     'Vanity: '+(selectedProducts.find(p=>p.category==='Vanity')?.name||pkg?.name||room.furniture),
+     'Mirror: '+(selectedProducts.find(p=>p.category==='Mirror')?.name||'DLS to confirm')
    ].forEach(value=>summary.append(node('span',value,'choice-chip')));
    const board=$('selected-board');board.replaceChildren();const wall=tileById(state.wall);
    board.append(material('Wall tile',{...wall},true),material('Floor tile',{...floor},true));
    const basin=selectedProducts.find(p=>p.category==='Basin'),tap=selectedProducts.find(p=>p.category==='Basin tap');
-   if(basin)board.append(material('Basin',basin));if(tap)board.append(material('Tap · '+state.finish,tap));
+   if(basin)board.append(material('Basin',basin));if(tap)board.append(material('Tap · '+state.finish,tap));const vanity=selectedProducts.find(p=>p.category==='Vanity'),mirror=selectedProducts.find(p=>p.category==='Mirror');if(vanity)board.append(material('Vanity',vanity));if(mirror)board.append(material('Mirror',mirror));
    const list=$('product-list');list.replaceChildren();selectedProducts.forEach(p=>{const li=node('li'),a=node('a',p.category+': '+p.name+(p.optional?' · optional':''));a.href=p.url;a.target='_blank';a.rel='noopener noreferrer';li.append(a,node('p',[p.brand,p.code,p.finish,p.size,'Qty: '+p.quantity].filter(Boolean).join(' · ')));if(p.note)li.append(node('p',p.note));list.append(li);});
    $('item-count').textContent=selectedProducts.length+' linked items';$('review-notes').replaceChildren(node('strong','DLS to confirm'));for(const note of [...new Set(review)])$('review-notes').append(node('p',note));
    $('whatsapp').href='https://wa.me/447539037841?text='+encodeURIComponent('Hi DLS, please price my customised bathroom, including the available DLS discounts.\n\n'+room.id+' — '+room.name+'\nFinish: '+state.finish+'\nWall: '+wall.name+'\nFloor: '+(state.floor==='original'?'Original floor scheme':floor.name)+'\nBasin: '+(pkg?.name||room.furniture)+'\nRequested basin/furniture width: '+widthLabels[state.width]+'\nWorktop preference: '+worktopLabels[state.worktop]+'\nNiche: '+nicheLabels[state.niche]+'\nTap position: '+$('tap-select').selectedOptions[0].textContent+'\n\nView my chosen bathroom and all its product links:\n'+shareURL()+'\n\nBrowse the full DLS bathroom ideas catalogue:\n'+catalogueURL()+'\n\nPlease confirm exact Scudo codes, sizes, availability and fitting details.');
