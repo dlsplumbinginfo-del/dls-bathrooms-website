@@ -43,7 +43,27 @@ async function screenshot(page,prefix,label){
     await page.waitForTimeout(500);
     const browserHealth=await page.evaluate(()=>({canvasCount:document.querySelectorAll('#live-room canvas').length,modelStatus:document.querySelector('#model-loading')?.textContent,errorVisible:!document.querySelector('#error')?.hidden,script:[...document.querySelectorAll('script')].map(x=>x.src),userAgent:navigator.userAgent,webglSupported:!!document.createElement('canvas').getContext('webgl2')}));
     console.log('LIVE_BROWSER_HEALTH '+JSON.stringify({look,device,health:browserHealth,errors,href:page.url(),liveRoomHtml:(await page.locator('#live-room').innerHTML()).slice(0,1400),htmlBeginning:(await page.content()).slice(0,2000),responseHeaders:response.headers()}));
-    if(!browserHealth.canvasCount){const snap=await page.screenshot({path:path.join(out,device+'-'+look+'-no-canvas.jpg'),type:'jpeg',quality:32});console.log('PAGE_JPEG '+snap.toString('base64'));throw Error('No 3D canvas; check health output');}
+    if(!browserHealth.canvasCount){
+      const current=()=>page.evaluate(()=>({
+       summary:document.querySelector('#choice-summary')?.innerText,
+       viewStates:[...document.querySelectorAll('[id^="view-"]')].map(x=>({id:x.id,pressed:x.getAttribute('aria-pressed'),text:x.innerText})),
+       pictures:[...document.querySelectorAll('#room-image,#floor-layer,#finish-layer,#mobile-room-image,#room-stage,.room-stage,#live-room')].map(x=>({id:x.id,tag:x.tagName,src:x.getAttribute('src'),naturalWidth:x.naturalWidth,complete:x.complete,hidden:x.hidden,display:getComputedStyle(x).display,dimensions:[x.offsetWidth,x.offsetHeight],outer:x.outerHTML.slice(0,340)})),
+       data:window.dlsCustomiser?{state:window.dlsCustomiser.state,visual:window.dlsCustomiser.visual}:null
+      }));
+      const oldState=await current();
+      const beforeJpeg=await page.screenshot({path:path.join(out,device+'-'+look+'-before.jpeg'),type:'jpeg',quality:30});
+      if(look===1&&device==='desktop')console.log('BEFORE_JPEG '+beforeJpeg.toString('base64'));
+      const chosen=oldState.data?.state?.wall==='9f95cd40'?'84b33a4f':'9f95cd40';
+      await page.locator('#wall-options [data-wall="'+chosen+'"]').click();
+      await page.waitForTimeout(1000);
+      const nextState=await current();
+      const afterJpeg=await page.screenshot({path:path.join(out,device+'-'+look+'-after.jpeg'),type:'jpeg',quality:30});
+      if(look===1&&device==='desktop')console.log('AFTER_JPEG '+afterJpeg.toString('base64'));
+      console.log('LIVE_IMAGE_MODE '+JSON.stringify({look,device,oldState,nextState,chosen,errors}));
+      results.push({look,device,mode:'images-no-canvas',stateChanged:oldState.data?.state?.wall!==nextState.data?.state?.wall,beforeImage:oldState.pictures,afterImage:nextState.pictures});
+      await page.close();
+      continue;
+     }
     await page.locator('#live-room canvas').waitFor({state:'visible',timeout:7000});
     await page.waitForTimeout(1500);
     const prefix=device+'-'+look;
