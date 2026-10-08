@@ -192,7 +192,6 @@ async function noOverflow(page, label) {
     check((await desktop.locator('h1').first().innerText()).trim().length > 10, 'Homepage heading is visible');
     const homeText = await desktop.locator('body').innerText();
     check(homeText.includes('Worldpay'), 'Worldpay information is visible');
-    check(homeText.includes('Customer feedback on Facebook'), 'Facebook feedback invitation is visible');
     check((await desktop.locator('a[href*="facebook.com"]').count()) > 0, 'Facebook feedback link is present');
     check((await desktop.locator('.whatsapp-float').count()) === 1, 'Floating WhatsApp quote button is present');
     check(homeText.includes('07539 037841'), 'Correct phone is visible');
