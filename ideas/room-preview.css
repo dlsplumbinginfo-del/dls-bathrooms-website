@@ -6,3 +6,6 @@
 .live-room { background: #e9e7e0; }
 .live-room canvas { display: block; width: 100%; max-width: 100%; }
 @media (max-width: 850px) { .material-board .material { min-width: 0; } .material .text p { overflow-wrap: anywhere; } }
+
+/* Responsive high-resolution preview and export controls. */
+.resolution-actions{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:7px 0 11px}.resolution-actions button{padding:8px 12px;font-size:13px}.resolution-actions span{font-size:12px;color:#51625a}.mobile-room-preview img{display:none!important}.mobile-room-preview{width:auto!important;min-width:145px!important}.mobile-room-preview span{white-space:normal}
