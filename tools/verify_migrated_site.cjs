@@ -261,6 +261,25 @@ async function noOverflow(page, label) {
     const firstWall = await desktop.evaluate(() => window.dlsCustomiser?.state?.wall);
     await desktop.locator('#wall-options [data-wall]').filter({ hasNotText: 'Starting floor' }).nth(1).click();
     check((await desktop.evaluate(() => window.dlsCustomiser?.state?.wall)) !== firstWall, 'Wall tile swatch changes selection');
+    const firstWallGeometry=await desktop.evaluate(()=>window.dlsCustomiser?.visual);
+    const selectedWall=await desktop.evaluate(()=>window.dlsCustomiser.state.wall);
+    check(firstWallGeometry?.wallSurfaces?.length>=3 && firstWallGeometry.wallSurfaces.every(x=>x.tileId===selectedWall), 'All three visible walls and built-out walls receive selected tile', JSON.stringify(firstWallGeometry?.wallSurfaces));
+    await desktop.locator('#coverage-select').selectOption('feature');
+    const feature=await desktop.evaluate(()=>window.dlsCustomiser.visual.wallSurfaces);
+    check(feature.find(x=>x.name==='back')?.tileId===selectedWall && feature.filter(x=>['left','right'].includes(x.name)).every(x=>x.tileId==='c5851da6'), 'Feature-wall mode intentionally keeps both side walls pale', JSON.stringify(feature));
+    await desktop.locator('#coverage-select').selectOption('all');
+    const restored=await desktop.evaluate(()=>window.dlsCustomiser.visual.wallSurfaces);
+    check(restored.length>=3 && restored.every(x=>x.tileId===selectedWall), 'Returning to All visible walls immediately retiles all wall faces');
+    await desktop.locator('#view-inspiration').click();
+    await desktop.locator('#wall-options [data-wall="84b33a4f"]').click();
+    check((await desktop.locator('#view-live').getAttribute('aria-pressed'))==='true', 'Changing tile automatically returns to updating 3D scene from static inspiration');
+    check((await desktop.evaluate(()=>window.dlsCustomiser.visual.wallSurfaces)).every(x=>x.tileId==='84b33a4f'), 'Whole room consistently uses chosen supplier tile');
+    await desktop.locator('#match-floor').check();
+    check((await desktop.evaluate(()=>window.dlsCustomiser.state.floor))==='84b33a4f', 'Optional matching applies floor-safe wall tile to floor too');
+    check((await desktop.evaluate(()=>window.dlsCustomiser.visual.floorTileId))==='84b33a4f', 'Floor mesh material uses the matched tile, not merely the product list');
+    await desktop.locator('#match-floor').uncheck();
+
+
     await desktop.locator('#floor-options [data-floor]').nth(1).click();
     check((await desktop.evaluate(() => window.dlsCustomiser?.state?.floor)) !== 'original', 'Floor tile swatch changes selection');
     await desktop.locator('#mirror-select').selectOption({ index: 1 });
@@ -271,6 +290,12 @@ async function noOverflow(page, label) {
     check((await desktop.evaluate(() => window.dlsCustomiser?.state?.basin)) === 'package-5', 'Changing Scudo furniture switches the selected cabinet package');
     check((await desktop.locator('#selected-board').innerText()).includes('Matte Black'), 'Exact-products board reflects the chosen replacement vanity');
     check((await desktop.evaluate(() => window.dlsCustomiser?.shareUrl || '')).includes('finish=Chrome'), 'Share link preserves selected metal finish');
+    const exportDownload=desktop.waitForEvent('download',{timeout:60000});
+    await desktop.locator('#export-4k').click();
+    const imageDownload=await exportDownload;
+    const imageFile=fs.readFileSync(await imageDownload.path());
+    check(imageFile.subarray(1,4).toString()==='PNG'&&imageFile.readUInt32BE(16)===3840&&imageFile.readUInt32BE(20)===2160, '4K PNG export has actual 3840 × 2160 pixels', imageFile.length+' bytes');
+
     await noOverflow(desktop, 'Desktop bathroom picker');
 
     await open(desktop, '/quote');
@@ -327,6 +352,10 @@ async function noOverflow(page, label) {
     await mobile.locator('#finish-options [data-finish="' + otherFinish + '"]').click();
     check((await mobile.evaluate(() => window.dlsCustomiser?.state?.finish)) === otherFinish, 'Mobile finish button updates configuration');
     check((await mobile.locator('#choice-summary').innerText()).includes('Metal: ' + otherFinish), 'Mobile selection summary refreshes');
+    await mobile.locator('#wall-options [data-wall="9f95cd40"]').click();
+    check((await mobile.evaluate(()=>window.dlsCustomiser?.visual?.wallSurfaces||[])).every(x=>x.tileId==='9f95cd40'), 'Mobile wall tile selection updates every visible wall');
+    check((await mobile.locator('#wall-application').innerText()).includes('back, left, right'), 'Mobile clearly explains full-wall coverage');
+
     await noOverflow(mobile, 'Mobile bathroom picker');
 
     check(consoleErrors.length === 0, 'No browser console errors', JSON.stringify(consoleErrors));

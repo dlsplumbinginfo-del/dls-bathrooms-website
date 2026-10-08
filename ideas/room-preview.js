@@ -24,11 +24,11 @@ export class RoomPreview{
   this.scene=new T.Scene();this.scene.background=new T.Color('#e9e7e0');
   this.camera=new T.PerspectiveCamera(60,1,.02,40);
   this.renderer=new T.WebGLRenderer({antialias:true,preserveDrawingBuffer:true,alpha:false,powerPreference:'low-power'});
-  this.renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=T.PCFSoftShadowMap;
+  this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=T.PCFSoftShadowMap;
   this.renderer.outputColorSpace=T.SRGBColorSpace;this.renderer.toneMapping=T.ACESFilmicToneMapping;this.renderer.toneMappingExposure=.95;
   this.renderer.domElement.setAttribute('aria-label','Live three-dimensional bathroom layout preview');this.renderer.domElement.setAttribute('role','img');container.append(this.renderer.domElement);
   this.scene.add(new T.HemisphereLight(0xffffff,0x8c877a,1.8));
-  this.sun=new T.DirectionalLight(0xfff5e4,2.3);this.sun.position.set(-1.5,4,3);this.sun.castShadow=true;this.sun.shadow.mapSize.set(1024,1024);this.sun.shadow.camera.left=-5;this.sun.shadow.camera.right=5;this.sun.shadow.camera.top=5;this.sun.shadow.camera.bottom=-5;this.sun.shadow.bias=-.0005;this.scene.add(this.sun);
+  this.sun=new T.DirectionalLight(0xfff5e4,2.3);this.sun.position.set(-1.5,4,3);this.sun.castShadow=true;this.sun.shadow.mapSize.set(2048,2048);this.sun.shadow.camera.left=-5;this.sun.shadow.camera.right=5;this.sun.shadow.camera.top=5;this.sun.shadow.camera.bottom=-5;this.sun.shadow.bias=-.0005;this.scene.add(this.sun);
   this.fill=new T.PointLight(0xffeac9,8,8,2);this.scene.add(this.fill);
   this.group=new T.Group();this.scene.add(this.group);this.view='room';this.yaw=0;
   const observer=new ResizeObserver(()=>this.resize());observer.observe(container);this.observer=observer;
@@ -42,17 +42,17 @@ export class RoomPreview{
  tileMat(tile,w,h,state,rotate=false){
   const key=tile.id+'|'+w+'|'+h+'|'+state.pattern+'|'+state.grout+'|'+rotate;
   if(this.materials.has(key))return this.materials.get(key);
-  const a=tileAppearance(tile),canvas=illustratedTile(tile,512),cx=canvas.getContext('2d');
+  const a=tileAppearance(tile),size=1024,canvas=illustratedTile(tile,size),cx=canvas.getContext('2d');
   const sample=this.config.photos[tile.url],cached=this.textures.get(tile.id);
-  if(cached)cx.drawImage(cached,0,0,512,512);
+  if(cached)cx.drawImage(cached,0,0,size,size);
   else if(sample&&!this.textures.has(tile.id)){this.textures.set(tile.id,null);const im=new Image();im.onload=()=>{this.textures.set(tile.id,im);for(const [k,m] of this.materials)if(k.startsWith(tile.id+'|')){m.map?.dispose();m.dispose();this.materials.delete(k);}if(this.current)this.update(...this.current);};im.src=sample.image;}
   // Grout and laying pattern are material directions; final tile sizes remain supplier specifications.
-  cx.strokeStyle=state.grout==='dark'?'#5e5d57':state.grout==='white'?'#f4f2ea':'#b6ada0';cx.lineWidth=3;cx.strokeRect(0,0,512,512);
+  cx.strokeStyle=state.grout==='dark'?'#5e5d57':state.grout==='white'?'#f4f2ea':'#b6ada0';cx.lineWidth=3;cx.strokeRect(1.5,1.5,size-3,size-3);
   const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;texture.wrapS=texture.wrapT=T.RepeatWrapping;
   const dims=tile.wall_format_mm||tile.selected_size_mm||[1200,600];let tw=dims[0]/1000,th=dims[1]/1000;
   if(a.kind==='brick'){tw=.48;th=.24;}
   if(rotate||state.pattern==='vertical'){[tw,th]=[th,tw];texture.rotation=Math.PI/2;}
-  texture.repeat.set(w/Math.max(.1,tw),h/Math.max(.1,th));texture.anisotropy=4;
+  texture.repeat.set(w/Math.max(.1,tw),h/Math.max(.1,th));texture.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());
   const material=new T.MeshStandardMaterial({map:texture,roughness:a.gloss?.22:.75,color:'#ffffff',side:T.DoubleSide});this.materials.set(key,material);return material;
  }
  add(geometry,material,pos,parent=this.group){const mesh=new T.Mesh(geometry,material);mesh.position.set(...pos);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;}
@@ -111,15 +111,24 @@ export class RoomPreview{
   this.w=w;this.d=d;const tile=id=>this.config.tiles.find(t=>t.id===id)||this.config.tiles[0];
   const wall=tile(state.wall),floor=state.floor==='original'?this.config.tiles.find(t=>room.products.some(p=>p.category.toLowerCase().includes('floor tile')&&p.url===t.url))||tile('84b33a4f'):tile(state.floor);
   const wm=this.tileMat(wall,w,h,state),fm=this.tileMat(floor,w,d,state),paint=this.mat('#ebe9e1');
-  const half=state.coverage==='half';this.plane(w,half?1.2:h,[0,(half?1.2:h)/2,0],[0,0,0],wm);
+  this.wallSurfaces=[];
+  const tiled=(mesh,tileId,name)=>{mesh.userData.tileId=tileId;mesh.userData.tiledSurface=name;this.wallSurfaces.push({name,tileId});return mesh;};
+  const half=state.coverage==='half';
+  tiled(this.plane(w,half?1.2:h,[0,(half?1.2:h)/2,0],[0,0,0],wm),wall.id,'back');
   if(half)this.plane(w,1.2,[0,1.8,-.002],[0,0,0],paint);
-  for(const side of [-1,1]){const sideMat=state.coverage==='feature'?this.tileMat(tile('c5851da6'),d,h,state):wm;this.plane(d,half?1.2:h,[side*w/2,(half?1.2:h)/2,d/2],[0,-side*Math.PI/2,0],sideMat);if(half)this.plane(d,1.2,[side*w/2,1.8,d/2],[0,-side*Math.PI/2,0],paint);}
+  for(const side of [-1,1]){
+   const sideTile=state.coverage==='feature'?tile('c5851da6'):wall;
+   const sideMat=this.tileMat(sideTile,d,h,state);
+   tiled(this.plane(d,half?1.2:h,[side*w/2,(half?1.2:h)/2,d/2],[0,-side*Math.PI/2,0],sideMat),sideTile.id,side<0?'left':'right');
+   if(half)this.plane(d,1.2,[side*w/2,1.8,d/2],[0,-side*Math.PI/2,0],paint);
+  }
+  this.floorTileId=floor.id;
   this.plane(w,d,[0,0,d/2],[-Math.PI/2,0,0],fm);
   const structure=state.structure||room.layout?.structure||'half',boxDepth=structure==='full'?.22:structure==='half'?.2:0;
-  if(boxDepth){const height=structure==='full'?h:1.12;this.box(w,height,boxDepth,[0,height/2,boxDepth/2],wm);if(structure==='half')this.box(w+.015,.025,.25,[0,1.14,.11],this.mat('#e4ded0'));}
+  if(boxDepth){const height=structure==='full'?h:1.12;tiled(this.box(w,height,boxDepth,[0,height/2,boxDepth/2],wm),wall.id,'service wall');if(structure==='half')this.box(w+.015,.025,.25,[0,1.14,.11],this.mat('#e4ded0'));}
   if(structure==='ledge')this.box(w,.045,.14,[0,1.14,.08],wm);
-  if(state.shape==='offset')this.box(.25,h,.55,[-w/2+.125,h/2,d-.275],wm);
-  if(state.shape==='L-shaped'){this.box(.65,h,.7,[w/2-.325,h/2,.35],wm);}
+  if(state.shape==='offset')tiled(this.box(.25,h,.55,[-w/2+.125,h/2,d-.275],wm),wall.id,'offset wall');
+  if(state.shape==='L-shaped'){tiled(this.box(.65,h,.7,[w/2-.325,h/2,.35],wm),wall.id,'return wall');}
   if(state.shape==='loft'){const left=-w/2,span=Math.min(.85,w*.65),geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute([left,1.75,0,left,1.75,d,left+span,h,d,left,1.75,0,left+span,h,d,left+span,h,0],3));geometry.computeVertexNormals();const roof=this.add(geometry,this.mat('#ebe9e1',{side:T.DoubleSide}),[0,0,0]);roof.userData.ceiling=true;}
   if(room.layout?.window){this.rounded(.65,.48,.025,[w/2-.5,1.85,boxDepth+.02],this.mat('#526561'));this.rounded(.57,.4,.025,[w/2-.5,1.85,boxDepth+.04],this.mat('#d9e8e4',{emissive:'#dae8e5',emissiveIntensity:.2}));}
   const mt=this.mat(palettes[state.finish]||'#c5cbd0',{metalness:.8,roughness:.3});const shower=room.room!=='Cloakroom',hasBath=products.some(p=>p.category==='Bath')||room.layout?.bath;
@@ -153,4 +162,16 @@ export class RoomPreview{
  positionCamera(){if(!this.w)return;this.group.traverse(o=>{if(o.userData.ceiling)o.visible=this.view!=='plan';});if(this.view==='plan'){this.camera.position.set(0,Math.max(this.w,this.d)*1.6,this.d/2+.001);this.camera.up.set(0,0,-1);this.camera.lookAt(0,0,this.d/2);}else{this.camera.up.set(0,1,0);this.camera.position.set(this.yaw*this.w,1.7,this.d+.8);this.camera.lookAt(0,1.05,.65);}this.camera.updateProjectionMatrix();this.draw();}
  setView(view){this.view=view;this.positionCamera();}
  draw(){if(this.renderer)this.renderer.render(this.scene,this.camera);}
+ async capture4K(){
+  const gl=this.renderer.getContext(),limit=Math.min(gl.getParameter(gl.MAX_RENDERBUFFER_SIZE),gl.getParameter(gl.MAX_TEXTURE_SIZE));
+  if(limit<3840)throw new Error('This device cannot render a 4K image.');
+  const previousRatio=this.renderer.getPixelRatio(),previousAspect=this.camera.aspect;
+  const width=this.container.clientWidth||640,height=Math.max(260,width*.75);
+  try{
+   this.renderer.setPixelRatio(1);this.renderer.setSize(3840,2160,false);this.camera.aspect=3840/2160;this.camera.updateProjectionMatrix();this.draw();
+   return await new Promise((resolve,reject)=>this.renderer.domElement.toBlob(blob=>blob?resolve(blob):reject(new Error('Image export failed on this device.')),'image/png'));
+  }finally{
+   this.renderer.setPixelRatio(previousRatio);this.renderer.setSize(width,height,false);this.camera.aspect=previousAspect;this.camera.updateProjectionMatrix();this.draw();
+  }
+ }
 }

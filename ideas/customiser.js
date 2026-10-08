@@ -12,11 +12,12 @@
   const originalWall=room.products.find(p=>p.category==='Feature / main wall tile'),originalFloors=room.products.filter(p=>p.category.toLowerCase().includes('floor tile'));
   const tileById=id=>config.tiles.find(t=>t.id===id),tileByURL=url=>config.tiles.find(t=>t.url===url);
   const preset=room.customiser||{},originalWallTile=tileByURL(originalWall?.url)||config.tiles[0];
-  const initial={finish:preset.finish||room.metal,wall:preset.wall||originalWallTile.id,floor:preset.floor||'original',basin:preset.basin||'original',tap:preset.tap||'original',width:preset.width||'room',worktop:preset.worktop||'matched',niche:preset.niche||'auto',mirror:preset.mirror||'original',roomWidth:String(room.layout?.width||2.4),roomDepth:String(room.layout?.depth||2.9),shape:preset.shape||room.layout?.shape||'rectangle',structure:preset.structure||'half',toilet:preset.toilet||'wall',coverage:preset.coverage||'all',pattern:'stacked',grout:'matched',lighting:room.light==='Cool white'?'cool':'warm',showerFloor:preset.showerFloor||'tray'};
+  const initial={finish:preset.finish||room.metal,wall:preset.wall||originalWallTile.id,floor:preset.floor||'original',basin:preset.basin||'original',tap:preset.tap||'original',width:preset.width||'room',worktop:preset.worktop||'matched',niche:preset.niche||'auto',mirror:preset.mirror||'original',roomWidth:String(room.layout?.width||2.4),roomDepth:String(room.layout?.depth||2.9),shape:preset.shape||room.layout?.shape||'rectangle',structure:preset.structure||'half',toilet:preset.toilet||'wall',coverage:preset.coverage||'all',matchFloor:'off',pattern:'stacked',grout:'matched',lighting:room.light==='Cool white'?'cool':'warm',showerFloor:preset.showerFloor||'tray'};
   let stored={};try{stored=JSON.parse(localStorage.getItem(key)||'{}');}catch{}
   const shareKeys=Object.keys(initial);
   const shared=shareKeys.some(k=>query.has(k));
   let state={...initial,...(shared?Object.fromEntries(shareKeys.filter(k=>query.has(k)).map(k=>[k,query.get(k)])):stored)};
+  let coverageUserChosen=query.has('coverage');try{coverageUserChosen ||= localStorage.getItem(key+'-coverage-explicit')==='1';}catch{}
   if(!config.finishes.includes(state.finish))state.finish=initial.finish;
   if(!tileById(state.wall))state.wall=initial.wall;
   if(state.floor!=='original'&&!tileById(state.floor))state.floor='original';
@@ -25,7 +26,7 @@
   if(!['room','450','500','550','600','700','750','800','900','1200','1200-double'].includes(state.width))state.width='room';
   if(!['matched','pure-white','marble-light','oak','dark-stone'].includes(state.worktop))state.worktop='matched';
   if(!['auto','with','without'].includes(state.niche))state.niche='auto';
-  const allowed={shape:['rectangle','L-shaped','loft','offset'],structure:['clean','half','full','ledge'],toilet:['wall','close'],coverage:['all','feature','half'],pattern:['stacked','vertical'],grout:['matched','white','dark'],lighting:['warm','cool'],showerFloor:['tray','wet']};
+  const allowed={shape:['rectangle','L-shaped','loft','offset'],structure:['clean','half','full','ledge'],toilet:['wall','close'],coverage:['all','feature','half'],pattern:['stacked','vertical'],grout:['matched','white','dark'],lighting:['warm','cool'],showerFloor:['tray','wet'],matchFloor:['on','off']};
   for(const [k,values] of Object.entries(allowed))if(!values.includes(state[k]))state[k]=initial[k];
   if(!Number.isFinite(Number(state.roomWidth))||Number(state.roomWidth)<.9||Number(state.roomWidth)>5)state.roomWidth=initial.roomWidth;
   if(!Number.isFinite(Number(state.roomDepth))||Number(state.roomDepth)<1.4||Number(state.roomDepth)>6)state.roomDepth=initial.roomDepth;
@@ -43,10 +44,17 @@
   config.finishes.forEach(f=>{const b=node('button',null);b.type='button';b.dataset.finish=f;const sw=node('span',null,'finish-swatch');sw.style.setProperty('--swatch',colours[f]);sw.setAttribute('aria-hidden','true');b.append(sw,node('span',f));b.addEventListener('click',()=>{state.finish=f;render();});$('finish-options').append(b);});
   const slug=t=>new URL(t.url).pathname.split('/').filter(Boolean).pop();
   const floorIdsFor=()=>config.tiles.filter(t=>state.showerFloor==='wet'?t.wet_room_floors===true:t.bathroom_floors===true);
+  function syncFloorFromWall(){
+   if(state.matchFloor!=='on')return;
+   const wall=tileById(state.wall),eligible=wall&&floorIdsFor().some(t=>t.id===wall.id)&&!/\bgloss\b/i.test(wall.name);
+   if(eligible)state.floor=wall.id;
+   else{state.matchFloor='off';$('match-help').textContent='Selected wall tile is not confirmed for floor use; previous floor retained.';toast('This tile cannot automatically be matched to the floor.');}
+  }
+  $('match-floor').addEventListener('change',()=>{state.matchFloor=$('match-floor').checked?'on':'off';syncFloorFromWall();render();});
   function options(select,items,value){select.replaceChildren();items.forEach(([id,label])=>{const o=node('option',label);o.value=id;select.append(o);});select.value=value;}
   function tileButtons(containerId,kind,items,value){
    const container=$(containerId);container.replaceChildren();
-   items.forEach(({id,tile,label})=>{if(!tile)return;const button=node('button',null);button.type='button';button.dataset[kind]=id;button.setAttribute('aria-pressed',String(id===value));const photo=config.photos[tile.url];if(photo){const image=node('img');image.src=photo.image;image.alt='';image.loading='lazy';image.addEventListener('error',()=>{image.replaceWith(illustratedTile(tile));});button.append(image);}else button.append(illustratedTile(tile));button.append(node('strong',label||tile.name),node('small',(tile.tier||'Premium')+(tile.price_reference?' · guide £'+tile.price_reference.toFixed(2)+'/m²':'')+' · '+(photo?'Supplier sample':'Illustrative swatch')));button.addEventListener('click',()=>{state[kind]=id;render();const selected=container.querySelector('[data-'+kind+'="'+id+'"]');selected?.focus({preventScroll:true});});container.append(button);});
+   items.forEach(({id,tile,label})=>{if(!tile)return;const button=node('button',null);button.type='button';button.dataset[kind]=id;button.setAttribute('aria-pressed',String(id===value));const photo=config.photos[tile.url];if(photo){const image=node('img');image.src=photo.image;image.alt='';image.loading='lazy';image.addEventListener('error',()=>{image.replaceWith(illustratedTile(tile));});button.append(image);}else button.append(illustratedTile(tile));button.append(node('strong',label||tile.name),node('small',(tile.tier||'Premium')+(tile.price_reference?' · guide £'+tile.price_reference.toFixed(2)+'/m²':'')+' · '+(photo?'Supplier sample':'Illustrative swatch')));button.addEventListener('click',()=>{state[kind]=id;if(kind==='wall'){if(!coverageUserChosen)state.coverage='all';syncFloorFromWall();}else state.matchFloor='off';render();const selected=container.querySelector('[data-'+kind+'="'+id+'"]');selected?.focus({preventScroll:true});});container.append(button);});
   }
   const wallPool=()=>config.tiles.filter(t=>(range==='all'||t.tier===range)&&(!search||t.name.toLowerCase().includes(search)));
   let renderedWallPool='';
@@ -147,10 +155,13 @@
   let toastTimer;function toast(message){$('status').textContent=message;$('status').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('status').classList.remove('show'),3500);}
   let renderedFloorPool='';
   function render(){
+   $('match-floor').checked=state.matchFloor==='on';
+   $('match-help').textContent=state.matchFloor==='on'?'Wall and floor match where tile suitability is recorded. Check physical samples with DLS.':'Walls and floor are separate unless you choose to match them.';
+   $('wall-application').textContent=state.coverage==='feature'?'Only the back wall changes. The two side walls stay pale by design.':state.coverage==='half'?'The new tile is on the lower half of every wall.':'This tile covers the back, left, right and built-out walls.';
    for(const [id,k] of [['shape-select','shape'],['structure-select','structure'],['toilet-select','toilet'],['coverage-select','coverage'],['pattern-select','pattern'],['grout-select','grout'],['lighting-select','lighting'],['shower-floor-select','showerFloor'],['mirror-select','mirror'],['room-width','roomWidth'],['room-depth','roomDepth']])$(id).value=state[k];
    $('shower-floor-field').hidden=room.room==='Cloakroom'||room.layout?.bath==='inset';
    $('wall-select').value=state.wall;$('width-select').value=state.width;$('worktop-select').value=state.worktop;$('niche-select').value=state.niche;
-   const floorChoices=floorIdsFor(tileById(state.wall)).filter(t=>t.url!==originalFloors[0].url);
+   const floorChoices=floorIdsFor().filter(t=>t.url!==originalFloors[0].url || (state.matchFloor==='on'&&t.id===state.wall));
    options($('floor-select'),[['original','Keep '+tileByURL(originalFloors[0].url).name],...floorChoices.map(t=>[t.id,t.name])],state.floor);
    if(!$('floor-select').value){state.floor='original';$('floor-select').value='original';}
    options($('wall-select'),config.tiles.map(t=>[t.id,t.name]),state.wall);renderTiles();
@@ -160,7 +171,7 @@
    if(!tapOptions.some(t=>t[0]===state.tap))state.tap='original';
    options($('tap-select'),tapOptions,state.tap);
    selectedProducts=specification();
-   try{model?.update(room,state,selectedProducts);}catch(error){console.warn('3D preview failed; product choices remain available',error);model=null;$('model-loading').hidden=false;$('model-loading').textContent='The 3D preview is unavailable on this device. Your chosen products and finishes remain selected.';$('view-inspiration').click();$('view-live').disabled=true;$('view-plan').disabled=true;}
+   try{model?.update(room,state,selectedProducts);if(model&&$('view-inspiration').getAttribute('aria-pressed')==='true')$('view-live').click();}catch(error){console.warn('3D preview failed; product choices remain available',error);model=null;$('model-loading').hidden=false;$('model-loading').textContent='The 3D preview is unavailable on this device. Your chosen products and finishes remain selected.';$('view-inspiration').click();$('view-live').disabled=true;$('view-plan').disabled=true;}
    review.push(...(model?.warnings||[]));
    $('finish-help').textContent='Tap a colour. The live room and available coordinated Scudo products update together.';
    $('wall-help').textContent='Choose from '+config.tiles.length+' tiles. The live room changes immediately.';
@@ -172,7 +183,7 @@
    $('room-image').src=config.room_previews?.[String(room.n)]?.[state.finish]||room.image;$('floor-layer').hidden=true;$('finish-layer').hidden=true;$('visual-badge').hidden=true;
    $('room-image').alt='Starting inspiration: '+room.description;
    $('finish-help').textContent='Tap a colour. The live room and available coordinated Scudo products update together.';
-   $('wall-help').textContent='Choose a tile to see it in the live room.';
+   $('wall-help').textContent='Pick a tile and it will update every wall when All visible walls is selected.';
    $('finish-note').textContent='The live finish changes. Fixed-colour furniture parts are flagged below.';
    $('tile-note').textContent='Supplier photos and labelled illustrative swatches show material directions. Confirm physical samples and suitability with DLS.';
    $('preview-label').textContent='Your live layout and material choices';
@@ -196,17 +207,27 @@
    $('undo-design').disabled=historyIndex===0;$('redo-design').disabled=historyIndex===history.length-1;
    $('quote-form').href='/quote?design='+encodeURIComponent(shareURL());
    try{localStorage.setItem(key,snapshot);}catch{}
-   window.dlsCustomiser={room:room.n,state:{...state},products:selectedProducts.map(p=>({...p})),review:[...review],shareUrl:shareURL(),visual:model?{type:'live-3d',serial:model.serial,warnings:model.warnings}:null};
+   window.dlsCustomiser={room:room.n,state:{...state},products:selectedProducts.map(p=>({...p})),review:[...review],shareUrl:shareURL(),visual:model?{type:'live-3d',serial:model.serial,warnings:model.warnings,wallSurfaces:model.wallSurfaces.map(x=>({...x})),floorTileId:model.floorTileId}:null};
   }
-  $('wall-select').addEventListener('change',()=>{state.wall=$('wall-select').value;render();});$('floor-select').addEventListener('change',()=>{state.floor=$('floor-select').value;render();});$('basin-select').addEventListener('change',()=>{state.basin=$('basin-select').value;const pkg=selectedPackage(),width=packageWidth(pkg||{name:'',products:[]});state.width=width||'room';state.tap='original';render();});$('tap-select').addEventListener('change',()=>{state.tap=$('tap-select').value;render();});$('width-select').addEventListener('change',()=>{state.width=$('width-select').value;render();});$('worktop-select').addEventListener('change',()=>{state.worktop=$('worktop-select').value;render();});$('niche-select').addEventListener('change',()=>{state.niche=$('niche-select').value;render();});
-  for(const [id,k] of [['shape-select','shape'],['structure-select','structure'],['toilet-select','toilet'],['coverage-select','coverage'],['pattern-select','pattern'],['grout-select','grout'],['lighting-select','lighting'],['shower-floor-select','showerFloor'],['mirror-select','mirror'],['room-width','roomWidth'],['room-depth','roomDepth']])$(id).addEventListener('change',()=>{const value=$(id).value;if(k==='roomWidth'||k==='roomDepth'){if(!$(id).checkValidity()){toast('Enter dimensions within the shown range');$(id).value=state[k];return;}}state[k]=value;render();});
+  $('wall-select').addEventListener('change',()=>{state.wall=$('wall-select').value;if(!coverageUserChosen)state.coverage='all';syncFloorFromWall();render();});$('floor-select').addEventListener('change',()=>{state.floor=$('floor-select').value;state.matchFloor='off';render();});$('basin-select').addEventListener('change',()=>{state.basin=$('basin-select').value;const pkg=selectedPackage(),width=packageWidth(pkg||{name:'',products:[]});state.width=width||'room';state.tap='original';render();});$('tap-select').addEventListener('change',()=>{state.tap=$('tap-select').value;render();});$('width-select').addEventListener('change',()=>{state.width=$('width-select').value;render();});$('worktop-select').addEventListener('change',()=>{state.worktop=$('worktop-select').value;render();});$('niche-select').addEventListener('change',()=>{state.niche=$('niche-select').value;render();});
+  for(const [id,k] of [['shape-select','shape'],['structure-select','structure'],['toilet-select','toilet'],['coverage-select','coverage'],['pattern-select','pattern'],['grout-select','grout'],['lighting-select','lighting'],['shower-floor-select','showerFloor'],['mirror-select','mirror'],['room-width','roomWidth'],['room-depth','roomDepth']])$(id).addEventListener('change',()=>{const value=$(id).value;if(k==='roomWidth'||k==='roomDepth'){if(!$(id).checkValidity()){toast('Enter dimensions within the shown range');$(id).value=state[k];return;}}state[k]=value;if(k==='coverage'){coverageUserChosen=true;try{localStorage.setItem(key+'-coverage-explicit','1');}catch{}}if(k==='showerFloor')syncFloorFromWall();render();});
   $('undo-design').addEventListener('click',()=>{if(historyIndex>0){state=JSON.parse(history[--historyIndex]);replaying=true;render();$('basin-select').value=state.basin;replaying=false;}});
   $('redo-design').addEventListener('click',()=>{if(historyIndex<history.length-1){state=JSON.parse(history[++historyIndex]);replaying=true;render();$('basin-select').value=state.basin;replaying=false;}});
   const versionsKey=key+'-versions';let versions=[];try{versions=JSON.parse(localStorage.getItem(versionsKey)||'[]').filter(v=>v&&typeof v.url==='string'&&v.url.startsWith(location.origin+'/ideas/customise/')).slice(0,6);}catch{}
   function showVersions(){$('saved-designs').replaceChildren();versions.forEach((v,i)=>{const row=node('div'),a=node('a',v.label),remove=node('button','Remove');a.href=v.url;remove.type='button';remove.addEventListener('click',()=>{versions.splice(i,1);try{localStorage.setItem(versionsKey,JSON.stringify(versions));}catch{}showVersions();});row.append(a,remove);$('saved-designs').append(row);});}
   $('save-design').addEventListener('click',()=>{versions.unshift({label:tileById(state.wall).name+' · '+state.finish,url:shareURL()});versions=versions.slice(0,6);try{localStorage.setItem(versionsKey,JSON.stringify(versions));toast('Version saved on this device');}catch{toast('Device storage unavailable. Copy your design link instead.');}showVersions();});showVersions();
-  $('reset').addEventListener('click',()=>{state={...initial};$('wall-select').value=state.wall;$('basin-select').value=state.basin;render();toast('Starting choices restored');});
+  $('reset').addEventListener('click',()=>{state={...initial};coverageUserChosen=false;try{localStorage.removeItem(key+'-coverage-explicit');}catch{}$('wall-select').value=state.wall;$('basin-select').value=state.basin;render();toast('Starting choices restored');});
   $('share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(shareURL());toast('Your chosen bathroom link is copied');}catch{const t=node('textarea');t.value=shareURL();document.body.append(t);t.select();const ok=document.execCommand('copy');t.remove();toast(ok?'Your chosen bathroom link is copied':'Use Download my product list to save your choices');}});
+  $('export-4k').addEventListener('click',async()=>{
+   if(!model){toast('The 3D renderer is unavailable on this device.');return;}
+   const button=$('export-4k');button.disabled=true;button.textContent='Creating 4K image…';
+   try{
+    const blob=await model.capture4K(),link=node('a'),url=URL.createObjectURL(blob);
+    link.href=url;link.download=room.id+'-DLS-3D-concept-3840x2160.png';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
+    toast('4K concept image saved. Approve supplier samples before ordering.');
+   }catch(error){console.warn('4K export unavailable:',error);toast('4K export is not supported on this device. Try Chrome on a computer.');}
+   finally{button.disabled=false;button.textContent='Save 4K design image';}
+  });
   $('download').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([textList()],{type:'text/plain;charset=utf-8'})),a=node('a');a.href=url;a.download=room.id+'-my-bathroom-choices.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);});
   render();$('loading').hidden=true;$('app').hidden=false;
  }catch(e){console.error(e);$('loading').hidden=true;$('error').hidden=false;}
