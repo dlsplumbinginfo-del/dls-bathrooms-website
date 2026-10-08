@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#ffffff">
+<title>White Homepage Concept | DLS Bathrooms Ltd</title>
+<style>
+:root{
+  --ink:#12110f;
+  --muted:#67635c;
+  --paper:#ffffff;
+  --warm:#f7f4ee;
+  --warm-2:#eee8dd;
+  --line:#e4ded3;
+  --gold:#b98016;
+  --gold-dark:#8e600b;
+  --gold-soft:#ead39b;
+  --green:#15843d;
+  --shadow:0 18px 55px rgba(41,31,12,.10);
+  --radius:24px;
+  --shell:1180px;
+}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;overflow-x:clip;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;touch-action:pan-y}
+img,svg,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,select,input,textarea{font:inherit}
+button,a,select{touch-action:manipulation}
+.shell{width:min(calc(100% - 40px),var(--shell));margin-inline:auto}
+.preview-ribbon{background:#111;color:#fff;text-align:center;padding:8px 16px;font-size:12px;letter-spacing:.03em}
+.preview-ribbon strong{color:#e9c36a}
+.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(228,222,211,.9)}
+.header-inner{min-height:84px;display:flex;align-items:center;gap:28px}
+.brand{display:flex;flex-direction:column;line-height:.8;flex:0 0 auto}
+.brand-word{font-size:42px;font-weight:950;letter-spacing:-.07em}
+.brand-sub{margin-top:8px;color:var(--gold);font-size:10px;font-weight:850;letter-spacing:.17em}
+.main-nav{display:flex;align-items:center;justify-content:center;gap:23px;margin-left:auto;font-size:14px;font-weight:720}
+.main-nav a{padding:10px 0;color:#34312d}
+.main-nav a:hover{color:var(--gold-dark)}
+.header-actions{display:flex;align-items:center;gap:10px}
+.icon-button,.menu-button{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:#fff;color:#171512;cursor:pointer}
+.menu-button{display:none;font-size:22px}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 22px;border:1px solid var(--gold);border-radius:13px;background:linear-gradient(135deg,#c18a1c,#a76f0b);color:#fff;font-weight:820;box-shadow:0 10px 25px rgba(174,118,12,.18);cursor:pointer}
+.button:hover{filter:brightness(.97);transform:translateY(-1px)}
+.button-dark{border-color:#151412;background:#151412;box-shadow:none}
+.button-light{border-color:var(--line);background:#fff;color:var(--ink);box-shadow:none}
+.button-small{min-height:44px;padding-inline:17px;font-size:14px}
+.hero{padding:54px 0 34px;background:linear-gradient(180deg,#fff 0%,#fbfaf7 100%)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(360px,.96fr);gap:52px;align-items:center}
+.kicker{margin:0 0 15px;color:var(--gold-dark);font-size:12px;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+h1,h2,h3,p{overflow-wrap:anywhere}
+h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.035em}
+h1{max-width:760px;margin:0;font-size:clamp(46px,6.4vw,82px);line-height:.98;font-weight:760}
+h1 span,h2 span{color:var(--gold-dark)}
+.hero-copy{max-width:690px}
+.hero-lead{max-width:630px;margin:24px 0 0;color:var(--muted);font-size:clamp(17px,2vw,20px);line-height:1.62}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:29px}
+.hero-points{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:24px;color:#4f4a43;font-size:13px;font-weight:700}
+.hero-points span::before{content:"✓";margin-right:7px;color:var(--gold);font-weight:900}
+.hero-visual{position:relative;min-height:570px;border-radius:32px;overflow:hidden;background:#ddd3c3;box-shadow:var(--shadow)}
+.hero-visual>img{width:100%;height:100%;min-height:570px;object-fit:cover;object-position:center 47%}
+.hero-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 58%,rgba(13,11,8,.45))}
+.visual-badge{position:absolute;z-index:2;left:20px;right:20px;bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 18px;border:1px solid rgba(255,255,255,.35);border-radius:18px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);box-shadow:0 12px 35px rgba(0,0,0,.16)}
+.visual-badge strong{display:block;font-size:15px}
+.visual-badge span{display:block;margin-top:3px;color:var(--muted);font-size:12px}
+.visual-badge b{display:grid;place-items:center;width:43px;height:43px;border-radius:50%;background:#171512;color:#fff;font-size:19px}
+.builder-wrap{position:relative;z-index:6;margin-top:-4px;padding:0 0 38px;background:linear-gradient(180deg,#fbfaf7 0%,#fff 100%)}
+.builder-card{padding:28px;border:1px solid var(--line);border-radius:28px;background:#fff;box-shadow:var(--shadow)}
+.builder-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:22px}
+.builder-heading h2{margin:0;font-size:clamp(31px,4vw,47px);line-height:1.03}
+.builder-heading p{max-width:520px;margin:0;color:var(--muted);line-height:1.55}
+.brief-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.field{display:block}
+.field-label{display:flex;align-items:center;gap:7px;margin:0 0 7px;color:#393630;font-size:12px;font-weight:820}
+.field-label i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(185,128,22,.12)}
+.field select{width:100%;height:58px;padding:0 38px 0 15px;border:1px solid #dcd5ca;border-radius:14px;background-color:#fff;color:#191714;font-size:15px;font-weight:760;outline:none}
+.field select:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(185,128,22,.12)}
+.builder-actions{display:flex;align-items:center;gap:12px;margin-top:15px}
+.builder-actions .button{flex:1}
+.brief-result{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px;margin-top:18px;padding:17px 18px;border-radius:17px;background:var(--warm);border:1px solid var(--warm-2)}
+.brief-result strong{display:block;font-size:15px}
+.brief-result p{margin:5px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
+.result-count{padding:9px 12px;border-radius:999px;background:#fff;color:var(--gold-dark);font-size:12px;font-weight:850;white-space:nowrap;border:1px solid var(--line)}
+.builder-note{margin:12px 2px 0;color:#777168;font-size:11px}
+.trust-strip{padding:22px 0 52px}
+.trust-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:21px;overflow:hidden;background:#fff}
+.trust-item{padding:23px 20px;border-right:1px solid var(--line)}
+.trust-item:last-child{border-right:0}
+.trust-item strong{display:block;font-size:15px}
+.trust-item span{display:block;margin-top:6px;color:var(--muted);font-size:12px;line-height:1.45}
+.section{padding:78px 0}
+.section-warm{background:var(--warm)}
+.section-heading{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:30px}
+.section-heading>div{max-width:720px}
+.section-heading h2{margin:0;font-size:clamp(38px,5.3vw,66px);line-height:1.02}
+.section-heading p{max-width:540px;margin:0;color:var(--muted);font-size:15px;line-height:1.62}
+.matches-status{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#3c3934;font-size:12px;font-weight:800}
+.matches-status::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.ideas-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.idea-card{overflow:hidden;border:1px solid var(--line);border-radius:21px;background:#fff;box-shadow:0 8px 26px rgba(45,35,18,.06);transition:.2s ease}
+.idea-card[hidden]{display:none!important}
+.idea-card:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(45,35,18,.11)}
+.idea-image{aspect-ratio:1.12/1;overflow:hidden;background:#ddd}
+.idea-image img{width:100%;height:100%;object-fit:cover}
+.idea-body{padding:18px}
+.idea-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.idea-tags span{padding:6px 8px;border-radius:999px;background:var(--warm);color:#5e5648;font-size:10px;font-weight:820}
+.idea-card h3{margin:0;font-size:21px;line-height:1.15}
+.idea-card p{margin:9px 0 0;color:var(--muted);font-size:13px;line-height:1.55}
+.empty-state{display:none;padding:24px;border:1px dashed #cfc5b5;border-radius:18px;background:#fff;text-align:center;color:var(--muted)}
+.empty-state.show{display:block}
+.split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:55px;align-items:start}
+.split h2{margin:0;font-size:clamp(39px,5vw,63px);line-height:1.03}
+.split .lead{margin:20px 0 0;color:var(--muted);font-size:17px;line-height:1.65}
+.feature-panel{padding:28px;border-radius:25px;background:#151412;color:#fff;box-shadow:var(--shadow)}
+.feature-panel h3{margin:0;font-size:27px;line-height:1.15}
+.feature-panel p{margin:10px 0 0;color:#bfbab2;line-height:1.58}
+.check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:24px}
+.check-grid span{display:flex;align-items:center;gap:9px;padding:13px;border:1px solid rgba(255,255,255,.13);border-radius:13px;color:#f5f1e9;font-size:13px;font-weight:760}
+.check-grid span::before{content:"✓";display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--gold);color:#fff;font-size:12px}
+.service-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.service-card{padding:24px;border:1px solid var(--line);border-radius:20px;background:#fff}
+.service-number{display:grid;place-items:center;width:39px;height:39px;border-radius:12px;background:var(--warm);color:var(--gold-dark);font-size:12px;font-weight:900}
+.service-card h3{margin:19px 0 0;font-size:20px}
+.service-card p{margin:9px 0 0;color:var(--muted);font-size:13px;line-height:1.57}
+.process-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:32px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#fff}
+.process-step{position:relative;padding:25px 22px;border-right:1px solid var(--line)}
+.process-step:last-child{border-right:0}
+.process-step b{color:var(--gold-dark);font-size:12px;letter-spacing:.09em}
+.process-step h3{margin:12px 0 0;font-size:19px}
+.process-step p{margin:8px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+.remote-card{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:24px;padding:35px;border-radius:28px;background:#151412;color:#fff;overflow:hidden}
+.remote-card h2{margin:0;font-size:clamp(38px,5vw,62px);line-height:1.02}
+.remote-card h2 span{color:#e4bd65}
+.remote-card p{max-width:690px;margin:18px 0 0;color:#c7c2bb;line-height:1.66}
+.remote-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}
+.remote-list{align-self:stretch;padding:23px;border:1px solid rgba(255,255,255,.14);border-radius:19px;background:rgba(255,255,255,.055)}
+.remote-list strong{display:block;margin-bottom:14px}
+.remote-list span{display:flex;gap:10px;padding:10px 0;border-top:1px solid rgba(255,255,255,.1);color:#d7d2ca;font-size:13px;line-height:1.45}
+.remote-list span::before{content:"✓";color:#e4bd65;font-weight:900}
+.final-section{padding:82px 0;background:linear-gradient(180deg,#fff 0%,#f4eee3 100%)}
+.final-card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:28px;padding:34px;border:1px solid #ded5c6;border-radius:27px;background:#fff;box-shadow:var(--shadow)}
+.final-card h2{margin:0;font-size:clamp(35px,4.6vw,57px);line-height:1.04}
+.final-card p{margin:14px 0 0;color:var(--muted);line-height:1.6}
+.final-actions{display:grid;gap:10px;min-width:260px}
+.whatsapp{border-color:#b9ddc6;background:#f4fbf6;color:var(--green);box-shadow:none}
+.site-footer{padding:38px 0;background:#12110f;color:#fff}
+.footer-grid{display:grid;grid-template-columns:1.3fr .7fr .7fr;gap:30px}
+.footer-brand .brand-word{font-size:38px}
+.footer-brand p{max-width:420px;margin:18px 0 0;color:#aaa59d;font-size:13px;line-height:1.6}
+.footer-col strong{display:block;margin-bottom:12px;color:#e6c169;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.footer-col a,.footer-col span{display:block;margin:8px 0;color:#cac5bd;font-size:13px}
+.footer-bottom{display:flex;justify-content:space-between;gap:20px;margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);color:#88837b;font-size:11px}
+.mobile-nav{display:none}
+.floating-wa{position:fixed;z-index:55;right:18px;bottom:18px;display:grid;place-items:center;width:57px;height:57px;border-radius:50%;background:#1da851;color:#fff;font-size:24px;box-shadow:0 13px 31px rgba(0,0,0,.22)}
+@media(max-width:980px){
+  .main-nav{display:none}
+  .menu-button{display:grid}
+  .mobile-nav.open{display:grid;gap:2px;padding:8px 20px 18px;border-top:1px solid var(--line);background:#fff}
+  .mobile-nav a{padding:12px 4px;border-bottom:1px solid #eee9e1;font-size:14px;font-weight:720}
+  .hero-grid{grid-template-columns:1fr;gap:30px}
+  .hero-visual{min-height:460px}
+  .hero-visual>img{min-height:460px}
+  .builder-heading,.section-heading{align-items:start;flex-direction:column}
+  .ideas-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .split{grid-template-columns:1fr;gap:30px}
+  .service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .process-step:nth-child(2){border-right:0}
+  .process-step:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .remote-card{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .shell{width:min(calc(100% - 26px),var(--shell))}
+  .preview-ribbon{font-size:10px}
+  .header-inner{min-height:70px;gap:10px}
+  .brand-word{font-size:34px}
+  .brand-sub{font-size:8px;margin-top:7px}
+  .header-actions{margin-left:auto}
+  .icon-button{display:none}
+  .header-actions .button{display:none}
+  .hero{padding:34px 0 24px}
+  h1{font-size:clamp(43px,13.3vw,64px)}
+  .hero-lead{font-size:16px;margin-top:18px}
+  .hero-actions{display:grid;grid-template-columns:1fr 1fr}
+  .hero-actions .button{padding-inline:12px;font-size:13px}
+  .hero-visual{min-height:390px;border-radius:23px}
+  .hero-visual>img{min-height:390px}
+  .visual-badge{left:12px;right:12px;bottom:12px;padding:13px}
+  .builder-wrap{padding-bottom:27px}
+  .builder-card{padding:18px 13px;border-radius:22px}
+  .builder-heading{margin-bottom:16px}
+  .builder-heading h2{font-size:34px}
+  .builder-heading p{font-size:13px}
+  .brief-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+  .field-label{font-size:10px;gap:5px}
+  .field-label i{width:7px;height:7px;box-shadow:0 0 0 3px rgba(185,128,22,.11)}
+  .field select{height:51px;padding:0 23px 0 8px;border-radius:11px;font-size:11px;font-weight:780}
+  .builder-actions{display:grid;grid-template-columns:1fr;margin-top:10px}
+  .builder-actions .button{width:100%;font-size:13px}
+  .builder-actions .button-light{display:none}
+  .brief-result{grid-template-columns:1fr;gap:10px;padding:14px}
+  .result-count{justify-self:start}
+  .trust-strip{padding:10px 0 38px}
+  .trust-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .trust-item{padding:18px 14px}
+  .trust-item:nth-child(2){border-right:0}
+  .trust-item:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .section{padding:58px 0}
+  .section-heading{gap:14px;margin-bottom:22px}
+  .section-heading h2,.split h2{font-size:43px}
+  .section-heading p{font-size:14px}
+  .ideas-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .idea-card{border-radius:16px}
+  .idea-body{padding:13px 11px 15px}
+  .idea-tags{gap:4px;margin-bottom:9px}
+  .idea-tags span{padding:5px 6px;font-size:8px}
+  .idea-card h3{font-size:16px}
+  .idea-card p{font-size:11px;line-height:1.45}
+  .feature-panel{padding:20px;border-radius:20px}
+  .check-grid{grid-template-columns:1fr 1fr;gap:7px}
+  .check-grid span{padding:10px 8px;font-size:11px}
+  .service-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .service-card{padding:17px 14px;border-radius:16px}
+  .service-card h3{font-size:17px}
+  .service-card p{font-size:11px}
+  .process-grid{grid-template-columns:1fr}
+  .process-step,.process-step:nth-child(2){border-right:0;border-bottom:1px solid var(--line)}
+  .process-step:last-child{border-bottom:0}
+  .remote-card{padding:24px 18px;border-radius:22px}
+  .remote-card h2{font-size:42px}
+  .final-section{padding:58px 0}
+  .final-card{grid-template-columns:1fr;padding:23px 17px;border-radius:22px}
+  .final-actions{min-width:0}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column}
+}
+@media(max-width:350px){
+  .brief-grid{grid-template-columns:1fr}
+  .field select{font-size:13px}
+  .hero-actions,.ideas-grid,.service-grid,.check-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button,.idea-card{transition:none}}
+</style>
+</head>
+<body>
+<div class="preview-ribbon"><strong>PRIVATE CONCEPT:</strong> white DLS homepage and bathroom brief — the live website is unchanged</div>
+<header class="site-header">
+  <div class="header-inner shell">
+    <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false">☰</button>
+    <a class="brand" href="#top" aria-label="DLS Bathrooms home">
+      <span class="brand-word">DLS</span>
+      <span class="brand-sub">BATHROOMS LTD</span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#builder">Build Your Bathroom</a>
+      <a href="#ideas">Ideas</a>
+      <a href="#why">Why DLS</a>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+    </nav>
+    <div class="header-actions">
+      <a class="icon-button" href="tel:+447539037841" aria-label="Call DLS">☎</a>
+      <a class="button button-small" href="/quote">Get a Quote</a>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <a href="#builder">Build Your Bathroom</a>
+    <a href="#ideas">Matching Ideas</a>
+    <a href="#why">Why DLS</a>
+    <a href="#services">Services</a>
+    <a href="#process">How It Works</a>
+    <a href="/quote">Get a Quote</a>
+  </nav>
+</header>
+<main>
+  <section class="hero" id="top">
+    <div class="hero-grid shell">
+      <div class="hero-copy">
+        <p class="kicker">Bathroom specialist • Stockport &amp; Manchester</p>
+        <h1>Exceptional bathrooms. <span>Planned around you.</span></h1>
+        <p class="hero-lead">Choose the room, budget and finish you have in mind. DLS can then help you match the right products, visualise the finished space and manage every trade from start to finish.</p>
+        <div class="hero-actions">
+          <a class="button" href="#builder">Build My Brief <span>→</span></a>
+          <a class="button button-light" href="#ideas">See Our Work</a>
+        </div>
+        <div class="hero-points">
+          <span>Every trade coordinated</span>
+          <span>No subcontractors</span>
+          <span>24-month workmanship guarantee</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="/projects/bronze-wetroom-hero.webp" alt="Completed bronze wet room by DLS Bathrooms Ltd">
+        <div class="visual-badge">
+          <div><strong>Designed, supplied and installed</strong><span>One accountable DLS team throughout</span></div>
+          <b>✓</b>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="builder-wrap" id="builder">
+    <div class="shell">
+      <div class="builder-card">
+        <div class="builder-heading">
+          <div>
+            <p class="kicker">Start with three simple choices</p>
+            <h2>Build your bathroom brief.</h2>
+          </div>
+          <p>This is the part you liked: choose the type of bathroom, the product budget and the metal finish. The catalogue then narrows itself down for the customer.</p>
+        </div>
+        <form id="briefForm">
+          <div class="brief-grid">
+            <label class="field">
+              <span class="field-label"><i></i>Room type</span>
+              <select id="roomSelect" aria-label="Room type">
+                <option value="family">Family bath</option>
+                <option value="shower">Shower room</option>
+                <option value="bathled">Bath-led</option>
+                <option value="cloakroom">Cloakroom</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="field-label"><i></i>Product budget</span>
+              <select id="budgetSelect" aria-label="Product budget">
+                <option value="2-3">£2k–£3k</option>
+                <option value="3-5" selected>£3k–£5k</option>
+                <option value="5-8">£5k–£8k</option>
+                <option value="8plus">£8k+</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="field-label"><i></i>Finish</span>
+              <select id="finishSelect" aria-label="Metal finish">
+                <option value="brass">Brushed brass</option>
+                <option value="nickel">Brushed nickel</option>
+                <option value="chrome">Chrome</option>
+                <option value="black">Matt black</option>
+                <option value="gunmetal">Gunmetal</option>
+              </select>
+            </label>
+          </div>
+          <div class="builder-actions">
+            <button class="button" type="submit">Show My Matching Ideas <span>→</span></button>
+            <a class="button button-light" href="/bathroom-builder-next">Open Full Builder Demo</a>
+          </div>
+        </form>
+        <div class="brief-result" aria-live="polite">
+          <div>
+            <strong id="briefTitle">Family bathroom • £3,000–£5,000 • Brushed brass</strong>
+            <p id="briefCopy">The demonstration below is showing the closest matching DLS inspiration. Genuine products and supplier codes will replace the demonstration entries later.</p>
+          </div>
+          <span class="result-count" id="resultCount">3 matching ideas</span>
+        </div>
+        <p class="builder-note">The budget above is an indicative product spend. Installation, preparation and building work would be quoted separately after DLS reviews the room.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="trust-grid shell">
+      <div class="trust-item"><strong>One specialist team</strong><span>Every stage coordinated by DLS.</span></div>
+      <div class="trust-item"><strong>Clear product choices</strong><span>Room, budget and finish narrow the list.</span></div>
+      <div class="trust-item"><strong>Visualise it first</strong><span>See chosen products in your own room.</span></div>
+      <div class="trust-item"><strong>24-month guarantee</strong><span>DLS workmanship from completion.</span></div>
+    </div>
+  </section>
+
+  <section class="section section-warm" id="ideas">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Matched to your choices</p>
+          <h2>Bathroom ideas that <span>fit the brief.</span></h2>
+        </div>
+        <div>
+          <p>The finished shop would use the same logic with individual toilets, furniture, showers, taps, mirrors, heating and accessories. These existing DLS project photographs demonstrate how the filtering could feel.</p>
+          <span class="matches-status" id="matchesStatus">Showing exact demonstration matches</span>
+        </div>
+      </div>
+      <div class="ideas-grid" id="ideasGrid">
+        <article class="idea-card" data-room="family shower" data-budget="3-5 5-8 8plus" data-finish="brass nickel">
+          <div class="idea-image"><img src="/projects/bronze-wetroom-hero.webp" alt="Bronze wet room completed by DLS Bathrooms"></div>
+          <div class="idea-body"><div class="idea-tags"><span>Family / shower</span><span>Brushed brass</span></div><h3>Warm bronze wet room</h3><p>Wall-hung furniture, warm metalwork and a calm hotel-style finish.</p></div>
+        </article>
+        <article class="idea-card" data-room="family shower" data-budget="3-5 5-8" data-finish="black">
+          <div class="idea-image"><img src="/projects/black-frame-shower.webp" alt="Black framed shower completed by DLS Bathrooms"></div>
+          <div class="idea-body"><div class="idea-tags"><span>Family / shower</span><span>Matt black</span></div><h3>Black framed shower</h3><p>Strong contrast, crisp lines and a more architectural bathroom style.</p></div>
+        </article>
+        <article class="idea-card" data-room="family bathled" data-budget="5-8 8plus" data-finish="chrome gunmetal">
+          <div class="idea-image"><img src="/projects/black-marble-suite.webp" alt="Black marble bathroom suite completed by DLS Bathrooms"></div>
+          <div class="idea-body"><div class="idea-tags"><span>Family / bath-led</span><span>Chrome or gunmetal</span></div><h3>Statement marble suite</h3><p>A darker premium scheme balanced with clean sanitaryware and lighting.</p></div>
+        </article>
+        <article class="idea-card" data-room="cloakroom" data-budget="2-3 3-5" data-finish="brass nickel">
+          <div class="idea-image"><img src="/projects/blush-cloakroom-01.webp" alt="Blush cloakroom completed by DLS Bathrooms"></div>
+          <div class="idea-body"><div class="idea-tags"><span>Cloakroom</span><span>Brass or nickel</span></div><h3>Soft blush cloakroom</h3><p>A lighter compact room with warm finishes and carefully chosen details.</p></div>
+        </article>
+        <article class="idea-card" data-room="family shower bathled" data-budget="3-5 5-8" data-finish="brass">
+          <div class="idea-image"><img src="/projects/brass-shower-detail.webp" alt="Brushed brass shower detail fitted by DLS Bathrooms"></div>
+          <div class="idea-body"><div class="idea-tags"><span>Multiple room types</span><span>Brushed brass</span></div><h3>Brass feature details</h3><p>Use one coordinated metal finish across the shower, taps, waste and mirror.</p></div>
+        </article>
+        <article class="idea-card" data-room="family shower" data-budget="3-5 5-8" data-finish="brass nickel">
+          <div class="idea-image"><img src="/projects/bronze-wetroom-02.webp" alt="Bronze wet room detail completed by DLS Bathrooms"></div>
+          <div class="idea-body"><div class="idea-tags"><span>Family / shower</span><span>Brass or nickel</span></div><h3>Clean walk-in layout</h3><p>A practical open shower layout with premium detailing and easy movement.</p></div>
+        </article>
+      </div>
+      <div class="empty-state" id="emptyState">There are no exact demonstration photographs for that combination yet. The finished product catalogue would still return the correct matching products.</div>
+    </div>
+  </section>
+
+  <section class="section" id="why">
+    <div class="split shell">
+      <div>
+        <p class="kicker">Why DLS is different</p>
+        <h2>One team. <span>One standard throughout.</span></h2>
+        <p class="lead">Your bathroom is not handed from one contractor to another. DLS coordinates the preparation, tiling, plumbing, bathroom electrics, joinery and final fitting, so there is one accountable point of contact.</p>
+      </div>
+      <div class="feature-panel">
+        <h3>Complete in-house bathroom installation</h3>
+        <p>The white layout makes the information much easier to scan, while the black panel keeps the premium DLS character and gives the page some strength.</p>
+        <div class="check-grid">
+          <span>Preparation</span><span>Plumbing</span><span>Tiling</span><span>Electrics</span><span>Joinery</span><span>Final fitting</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-warm" id="services">
+    <div class="shell">
+      <div class="section-heading">
+        <div><p class="kicker">Complete bathroom service</p><h2>From first idea to <span>finished room.</span></h2></div>
+        <p>The overall homepage remains recognisably DLS, but the white background gives the photographs, wording and gold details more room to stand out.</p>
+      </div>
+      <div class="service-grid">
+        <article class="service-card"><span class="service-number">01</span><h3>Complete Bathrooms</h3><p>Full renovation from rip-out and first fix to tiling, fitting and finishing.</p></article>
+        <article class="service-card"><span class="service-number">02</span><h3>Wet Rooms</h3><p>Waterproofing, drainage, falls, walk-in layouts and clean detailing.</p></article>
+        <article class="service-card"><span class="service-number">03</span><h3>Precision Tiling</h3><p>Large formats, niches, mitres, feature walls and accurate finishing.</p></article>
+        <article class="service-card"><span class="service-number">04</span><h3>Design Preview</h3><p>See your actual room with chosen products, tiles and finishes before work starts.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="shell">
+      <div class="section-heading">
+        <div><p class="kicker">Simple customer journey</p><h2>Choose. Review. <span>Build.</span></h2></div>
+        <p>The customer can begin online without needing to understand every technical product. DLS reviews the final list before anything is ordered.</p>
+      </div>
+      <div class="process-grid">
+        <article class="process-step"><b>STEP 01</b><h3>Set the brief</h3><p>Choose room type, product budget and preferred metal finish.</p></article>
+        <article class="process-step"><b>STEP 02</b><h3>Build the list</h3><p>Select sanitaryware, furniture, showering, brassware and accessories.</p></article>
+        <article class="process-step"><b>STEP 03</b><h3>DLS checks it</h3><p>Compatibility, concealed parts, sizes, finishes and missing items are reviewed.</p></article>
+        <article class="process-step"><b>STEP 04</b><h3>Quote and install</h3><p>DLS confirms supply pricing and the installation quotation in writing.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-warm">
+    <div class="remote-card shell">
+      <div>
+        <p class="kicker">Remote bathroom estimate</p>
+        <h2>No time for a visit? <span>Start with a video.</span></h2>
+        <p>Send a slow room walk-through, photographs, rough dimensions and the bathroom brief created above. DLS can then give a useful provisional direction before arranging the next stage.</p>
+        <div class="remote-actions"><a class="button" href="/video-estimate">Request a Video Estimate</a><a class="button button-light" href="tel:+447539037841">Call 07539 037841</a></div>
+      </div>
+      <div class="remote-list">
+        <strong>What the customer sends</strong>
+        <span>A slow video showing every wall, the floor and ceiling.</span>
+        <span>Rough room dimensions and the current layout.</span>
+        <span>Chosen room type, budget and metal finish.</span>
+        <span>Any product links, codes or inspiration photographs.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-section">
+    <div class="final-card shell">
+      <div>
+        <p class="kicker">Your current demonstration brief</p>
+        <h2 id="finalTitle">Family bathroom in brushed brass.</h2>
+        <p id="finalCopy">Indicative product budget: £3,000–£5,000. Send this starting point to DLS or continue into the full bathroom builder.</p>
+      </div>
+      <div class="final-actions">
+        <a class="button whatsapp" id="whatsappLink" href="https://wa.me/447539037841">◉ Send Brief to WhatsApp</a>
+        <a class="button button-dark" href="/bathroom-builder-next">Continue to Full Builder</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="footer-grid shell">
+    <div class="footer-brand"><a class="brand" href="#top"><span class="brand-word">DLS</span><span class="brand-sub">BATHROOMS LTD</span></a><p>Complete bathroom renovations, wet rooms, precision tiling and product-matched visualisations across Stockport and Manchester.</p></div>
+    <div class="footer-col"><strong>Contact</strong><a href="tel:+447539037841">07539 037841</a><a href="mailto:info@dlsbathrooms.co.uk">info@dlsbathrooms.co.uk</a><span>Stockport &amp; Manchester</span></div>
+    <div class="footer-col"><strong>Quick links</strong><a href="/quote">Get a Quote</a><a href="/video-estimate">Video Estimate</a><a href="/terms">Terms &amp; Conditions</a><a href="/privacy">Privacy</a></div>
+  </div>
+  <div class="footer-bottom shell"><span>© DLS Bathrooms Ltd</span><span>Private white homepage concept — not the live website</span></div>
+</footer>
+<a class="floating-wa" id="floatingWhatsApp" href="https://wa.me/447539037841" aria-label="WhatsApp DLS Bathrooms">◉</a>
+<script>
+(()=>{
+  const roomSelect=document.getElementById('roomSelect');
+  const budgetSelect=document.getElementById('budgetSelect');
+  const finishSelect=document.getElementById('finishSelect');
+  const form=document.getElementById('briefForm');
+  const cards=[...document.querySelectorAll('.idea-card')];
+  const resultCount=document.getElementById('resultCount');
+  const briefTitle=document.getElementById('briefTitle');
+  const briefCopy=document.getElementById('briefCopy');
+  const matchesStatus=document.getElementById('matchesStatus');
+  const emptyState=document.getElementById('emptyState');
+  const finalTitle=document.getElementById('finalTitle');
+  const finalCopy=document.getElementById('finalCopy');
+  const whatsappLink=document.getElementById('whatsappLink');
+  const floatingWhatsApp=document.getElementById('floatingWhatsApp');
+  const menuButton=document.getElementById('menuButton');
+  const mobileNav=document.getElementById('mobileNav');
+  const labels={
+    room:{family:'Family bathroom',shower:'Shower room',bathled:'Bath-led bathroom',cloakroom:'Cloakroom'},
+    budget:{'2-3':'£2,000–£3,000','3-5':'£3,000–£5,000','5-8':'£5,000–£8,000',eight:'£8,000+','8plus':'£8,000+'},
+    finish:{brass:'Brushed brass',nickel:'Brushed nickel',chrome:'Chrome',black:'Matt black',gunmetal:'Gunmetal'}
+  };
+  const contains=(value,needle)=>(value||'').split(/\s+/).includes(needle);
+  function updateBrief(scroll=false){
+    const room=roomSelect.value;
+    const budget=budgetSelect.value;
+    const finish=finishSelect.value;
+    let exact=cards.filter(card=>contains(card.dataset.room,room)&&contains(card.dataset.budget,budget)&&contains(card.dataset.finish,finish));
+    let visible=exact;
+    let exactMode=true;
+    if(!visible.length){
+      visible=cards.filter(card=>contains(card.dataset.finish,finish));
+      exactMode=false;
+    }
+    cards.forEach(card=>card.hidden=!visible.includes(card));
+    emptyState.classList.toggle('show',!visible.length);
+    resultCount.textContent=`${visible.length} matching idea${visible.length===1?'':'s'}`;
+    matchesStatus.textContent=exactMode?'Showing exact demonstration matches':`Showing the closest ${labels.finish[finish]} inspiration`;
+    briefTitle.textContent=`${labels.room[room]} • ${labels.budget[budget]} • ${labels.finish[finish]}`;
+    briefCopy.textContent=exactMode?'The demonstration below has been narrowed using all three choices. The finished catalogue would filter individual products in the same way.':'There is not an exact DLS photograph for all three choices, so the nearest matching finish is being shown. The finished product catalogue would still return the correct products.';
+    finalTitle.textContent=`${labels.room[room]} in ${labels.finish[finish].toLowerCase()}.`;
+    finalCopy.textContent=`Indicative product budget: ${labels.budget[budget]}. Send this starting point to DLS or continue into the full bathroom builder.`;
+    const message=`Hello DLS Bathrooms, I have started a bathroom brief on your website.%0A%0ARoom: ${encodeURIComponent(labels.room[room])}%0AProduct budget: ${encodeURIComponent(labels.budget[budget])}%0AFinish: ${encodeURIComponent(labels.finish[finish])}%0A%0APlease can you help me with the next stage?`;
+    const wa=`https://wa.me/447539037841?text=${message}`;
+    whatsappLink.href=wa;
+    floatingWhatsApp.href=wa;
+    if(scroll)document.getElementById('ideas').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  form.addEventListener('submit',event=>{event.preventDefault();updateBrief(true)});
+  [roomSelect,budgetSelect,finishSelect].forEach(select=>select.addEventListener('change',()=>updateBrief(false)));
+  menuButton.addEventListener('click',()=>{
+    const open=mobileNav.classList.toggle('open');
+    menuButton.setAttribute('aria-expanded',String(open));
+    menuButton.textContent=open?'×':'☰';
+  });
+  mobileNav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+    mobileNav.classList.remove('open');menuButton.setAttribute('aria-expanded','false');menuButton.textContent='☰';
+  }));
+  updateBrief(false);
+})();
+</script>
+</body>
+</html>

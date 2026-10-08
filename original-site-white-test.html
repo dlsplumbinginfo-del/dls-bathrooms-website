@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#ffffff">
+<title>Loading DLS white homepage test…</title>
+<style>
+html,body{width:100%;height:100%;margin:0;overflow-x:clip;background:#fff;font-family:Arial,Helvetica,sans-serif}.loading{display:grid;place-items:center;min-height:100%;padding:28px;text-align:center;color:#161411}.loading-mark{display:grid;place-items:center;width:58px;height:58px;margin:0 auto 17px;border:1px solid #b98016;border-radius:50%;color:#9d6d12;font-size:13px;letter-spacing:.08em}.loading h1{margin:0;font-size:28px}.loading p{max-width:500px;margin:12px auto;color:#6b665f;line-height:1.55}.loading-bar{width:min(320px,80vw);height:5px;margin:22px auto 0;overflow:hidden;border-radius:999px;background:#eee9df}.loading-bar:after{content:"";display:block;width:42%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#b98016,#e2bf70);animation:load 1.05s ease-in-out infinite alternate}@keyframes load{to{transform:translateX(138%)}}
+</style>
+</head>
+<body>
+<div class="loading" id="loading"><div><div class="loading-mark">DLS</div><h1>Opening the original DLS homepage</h1><p>Applying the private white and warm-neutral colour test. The live website is not being changed.</p><div class="loading-bar"></div></div></div>
+<script>
+(async()=>{try{
+  const response=await fetch('/?original-white-source=1',{cache:'no-store'});
+  if(!response.ok)throw new Error('Could not load the original homepage');
+  let page=await response.text();
+  page=page.replace(/<meta name="robots"[^>]*>/i,'<meta name="robots" content="noindex,nofollow">');
+  page=page.replace(/<meta name="googlebot"[^>]*>/i,'<meta name="googlebot" content="noindex,nofollow">');
+  page=page.replace(/<link rel="canonical"[^>]*>/i,'');
+  page=page.replace(/<title>[^<]*<\/title>/i,'<title>Original DLS Homepage — White Colour Test</title>');
+  page=page.replace(/<body>/i,'<body class="dls-original-white-test"><div class="dls-preview-label" role="note"><strong>PRIVATE WHITE TEST</strong><span>Original DLS homepage layout — live site unchanged</span></div>');
+
+  const whiteTheme=`<style id="dls-original-white-theme">
+  :root{--ink:#ffffff!important;--ink-soft:#f4f1eb!important;--gold:#b27b15!important;--gold-light:#c79531!important;--muted:#625e57!important;--line:#ddd7cc!important}
+  html,body{width:100%!important;max-width:100%!important;overflow-x:clip!important;overscroll-behavior-x:none!important}
+  @supports not (overflow:clip){html,body{overflow-x:hidden!important}}
+  body.dls-original-white-test{background:#fff!important;color:#191714!important;touch-action:pan-y!important}
+  body.dls-original-white-test *,body.dls-original-white-test *::before,body.dls-original-white-test *::after{box-sizing:border-box;min-width:0}
+  body.dls-original-white-test img,body.dls-original-white-test svg,body.dls-original-white-test video,body.dls-original-white-test canvas,body.dls-original-white-test iframe{max-width:100%}
+  .dls-preview-label{position:fixed;z-index:9999;right:13px;bottom:13px;display:flex;flex-direction:column;max-width:245px;padding:9px 12px;border:1px solid #d9c79f;border-radius:11px;background:rgba(255,255,255,.94);color:#171512;box-shadow:0 10px 30px rgba(38,29,12,.14);backdrop-filter:blur(10px);pointer-events:none}
+  .dls-preview-label strong{color:#9b6810;font-size:9px;letter-spacing:.12em}
+  .dls-preview-label span{margin-top:2px;color:#69645c;font-size:9px;line-height:1.3}
+
+  body.dls-original-white-test .site-header{background:rgba(255,255,255,.94)!important;border-bottom:1px solid #ddd7cc!important;box-shadow:0 8px 28px rgba(37,29,15,.07)!important}
+  body.dls-original-white-test .brand strong{color:#171512!important}
+  body.dls-original-white-test .brand small{color:#9b6810!important}
+  body.dls-original-white-test .brand-mark{border-color:#b27b15!important;color:#9b6810!important;background:#fff!important}
+  body.dls-original-white-test .site-header nav{color:#35312c!important}
+  body.dls-original-white-test .site-header nav a:hover{color:#9b6810!important}
+
+  body.dls-original-white-test .hero{background:#f7f4ee!important}
+  body.dls-original-white-test .hero-shade{background:linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.93) 36%,rgba(255,255,255,.54) 62%,rgba(255,255,255,.12) 100%),linear-gradient(180deg,rgba(255,255,255,.04) 54%,rgba(255,255,255,.74) 100%)!important}
+  body.dls-original-white-test .hero h1{color:#15130f!important;text-shadow:0 1px 0 rgba(255,255,255,.35)}
+  body.dls-original-white-test .hero h1 span{color:#9e6b10!important}
+  body.dls-original-white-test .hero-copy{color:#3f3b35!important}
+  body.dls-original-white-test .hero-services{color:#26231f!important}
+  body.dls-original-white-test .eyebrow{color:#9d6b12!important}
+  body.dls-original-white-test .button-outline{border-color:#27231d!important;background:rgba(255,255,255,.76)!important;color:#171512!important;box-shadow:0 8px 20px rgba(37,28,12,.08)!important}
+
+  body.dls-original-white-test .trust-strip{border-color:#dcd5c9!important;background:rgba(255,255,255,.97)!important;box-shadow:0 24px 70px rgba(43,33,15,.14)!important}
+  body.dls-original-white-test .trust-strip div{border-color:#e5ded3!important}
+  body.dls-original-white-test .trust-strip strong{color:#96650f!important}
+  body.dls-original-white-test .trust-strip span{color:#5f5a52!important}
+
+  body.dls-original-white-test main>section:not(.hero){color:#191714}
+  body.dls-original-white-test .section{background:#fff!important}
+  body.dls-original-white-test .section-soft{background:#f5f2ec!important;border-color:#e7e0d5!important}
+  body.dls-original-white-test .payment-section{background:radial-gradient(circle at 78% 42%,rgba(178,123,21,.10),transparent 31%),#fff!important}
+  body.dls-original-white-test .remote-section{background:radial-gradient(circle at 83% 35%,rgba(178,123,21,.13),transparent 31%),#f6f3ed!important}
+  body.dls-original-white-test h2{color:#171512}
+  body.dls-original-white-test h2 span{color:#a26e10!important}
+  body.dls-original-white-test .lead{color:#5f5a52!important}
+  body.dls-original-white-test main>section:not(.hero) p:not(.panel-kicker):not(.eyebrow){color:#625e57}
+
+  body.dls-original-white-test .service-card,
+  body.dls-original-white-test .local-area-grid article,
+  body.dls-original-white-test .faq-grid article{border-color:#ddd7cc!important;background:#fff!important;color:#171512!important;box-shadow:0 12px 34px rgba(46,35,17,.07)!important}
+  body.dls-original-white-test .service-card>span,
+  body.dls-original-white-test .local-area-grid article>span{color:#9b6810!important}
+  body.dls-original-white-test .service-card p,
+  body.dls-original-white-test .local-area-grid p,
+  body.dls-original-white-test .faq-grid p{color:#625e57!important}
+  body.dls-original-white-test .local-area-cta{background:linear-gradient(145deg,#fff9eb,#fff)!important}
+  body.dls-original-white-test .text-link{color:#99650e!important}
+
+  body.dls-original-white-test .feature-panel,
+  body.dls-original-white-test .remote-panel{border-color:rgba(178,123,21,.38)!important;background:linear-gradient(145deg,#1b1b19,#10110f)!important;color:#f7f4ed!important;box-shadow:0 22px 60px rgba(34,28,18,.16)!important}
+  body.dls-original-white-test .feature-panel h3,
+  body.dls-original-white-test .remote-panel h3,
+  body.dls-original-white-test .feature-panel strong,
+  body.dls-original-white-test .remote-panel strong{color:#f7f4ed!important}
+  body.dls-original-white-test .feature-panel p,
+  body.dls-original-white-test .remote-panel p,
+  body.dls-original-white-test .remote-panel span{color:#bdb8ae!important}
+  body.dls-original-white-test .trade-list span{background:rgba(255,255,255,.07)!important;color:#f2ede3!important}
+  body.dls-original-white-test .mini-features{border-color:rgba(255,255,255,.14)!important}
+
+  body.dls-original-white-test .payment-card{background:linear-gradient(135deg,#1b1d1d,#101210 72%)!important;border-color:rgba(178,123,21,.42)!important;box-shadow:0 28px 75px rgba(35,27,12,.17)!important}
+  body.dls-original-white-test .payment-card h2,
+  body.dls-original-white-test .payment-card h3,
+  body.dls-original-white-test .payment-card strong{color:#f6f2e9}
+  body.dls-original-white-test .payment-card h2 span{color:#e2bf70!important}
+  body.dls-original-white-test .payment-card .lead,
+  body.dls-original-white-test .payment-card p{color:#c8c3ba!important}
+  body.dls-original-white-test .worldpay-panel p{color:#666!important}
+  body.dls-original-white-test .card-payment-panel p{color:#453b2a!important}
+  body.dls-original-white-test .payment-faq article{background:#151715!important}
+  body.dls-original-white-test .payment-faq p{color:#99958c!important}
+
+  body.dls-original-white-test .design-proof-pair{border-color:rgba(178,123,21,.32)!important;background:#151614!important;box-shadow:0 25px 65px rgba(38,30,16,.16)!important}
+  body.dls-original-white-test .design-proof-pair figcaption strong{color:#f1eee6!important}
+  body.dls-original-white-test .design-proof-pair figcaption small{color:#aaa69c!important}
+
+  body.dls-original-white-test .gallery-grid,
+  body.dls-original-white-test .process-grid,
+  body.dls-original-white-test .comparison-grid,
+  body.dls-original-white-test .review-grid{border-color:#ded8cd!important}
+  body.dls-original-white-test .process-grid article,
+  body.dls-original-white-test .process-step,
+  body.dls-original-white-test .comparison-grid article,
+  body.dls-original-white-test .review-card{background:#fff!important;border-color:#e1dbd0!important;color:#171512!important;box-shadow:0 10px 30px rgba(46,35,17,.06)!important}
+  body.dls-original-white-test .process-grid p,
+  body.dls-original-white-test .process-step p,
+  body.dls-original-white-test .comparison-grid p,
+  body.dls-original-white-test .review-card p{color:#625e57!important}
+
+  body.dls-original-white-test .site-footer,
+  body.dls-original-white-test footer{background:#121311!important;color:#f5f1e9!important}
+  body.dls-original-white-test footer h2,
+  body.dls-original-white-test footer h3,
+  body.dls-original-white-test footer strong{color:#f5f1e9!important}
+  body.dls-original-white-test footer p,
+  body.dls-original-white-test footer span,
+  body.dls-original-white-test footer a{color:#bdb8ae}
+
+  @media(max-width:820px){
+    .dls-preview-label{right:9px;bottom:80px;max-width:190px}
+    body.dls-original-white-test .site-header{background:rgba(255,255,255,.97)!important}
+    body.dls-original-white-test .hero-shade{background:linear-gradient(180deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.74) 48%,rgba(255,255,255,.92) 100%)!important}
+    body.dls-original-white-test .hero-image{object-position:67% 44%!important;opacity:.68!important}
+    body.dls-original-white-test .trust-strip{background:#fff!important}
+  }
+  </style>`;
+  page=page.replace(/<\/head>/i,whiteTheme+'</head>');
+  document.open();
+  document.write(page);
+  document.close();
+}catch(error){
+  console.error(error);
+  document.getElementById('loading').innerHTML='<div><div class="loading-mark">DLS</div><h1>The preview did not open</h1><p>Please refresh this page. Your live DLS website has not been changed.</p></div>';
+}})();
+</script>
+</body>
+</html>
