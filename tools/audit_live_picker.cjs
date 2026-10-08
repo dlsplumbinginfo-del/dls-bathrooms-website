@@ -30,7 +30,7 @@ async function screenshot(page,prefix,label){
  });
 }
 (async()=>{
- const browser=await chromium.launch({headless:true,args:['--enable-webgl','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+ const browser=await chromium.launch({headless:true});
  let errors=[],results=[],fatal=false;
  try{
   for(const look of [1,51,58]){
@@ -40,7 +40,11 @@ async function screenshot(page,prefix,label){
     page.on('console',m=>{if(m.type()==='error')errors.push(device+' '+look+' '+m.text())});
     let response=await page.goto(TEST_URL+look,{waitUntil:'domcontentloaded',timeout:30000});
     await page.locator('#app').waitFor({state:'visible',timeout:30000});
-    await page.locator('#live-room canvas').waitFor({state:'visible',timeout:30000});
+    await page.waitForTimeout(500);
+    const browserHealth=await page.evaluate(()=>({canvasCount:document.querySelectorAll('#live-room canvas').length,modelStatus:document.querySelector('#model-loading')?.textContent,errorVisible:!document.querySelector('#error')?.hidden,script:[...document.querySelectorAll('script')].map(x=>x.src),userAgent:navigator.userAgent,webglSupported:!!document.createElement('canvas').getContext('webgl2')}));
+    console.log('LIVE_BROWSER_HEALTH '+JSON.stringify({look,device,health:browserHealth,errors}));
+    if(!browserHealth.canvasCount){await page.screenshot({path:path.join(out,device+'-'+look+'-no-canvas.png')});throw Error('No 3D canvas; check health output');}
+    await page.locator('#live-room canvas').waitFor({state:'visible',timeout:7000});
     await page.waitForTimeout(1500);
     const prefix=device+'-'+look;
     const before=await screenshot(page,prefix,'before');
