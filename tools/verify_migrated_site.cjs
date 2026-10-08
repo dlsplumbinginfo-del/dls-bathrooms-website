@@ -164,7 +164,7 @@ async function noOverflow(page, label) {
     }
 
     await new Promise((resolve) => server.listen(4173, '127.0.0.1', resolve));
-    browser = await chromium.launch({ headless: true });
+    browser = await chromium.launch({ headless: true, executablePath: process.env.PICKER_BROWSER || undefined, args: process.env.PICKER_BROWSER ? ['--no-sandbox','--disable-dev-shm-usage'] : [] });
 
     const consoleErrors = [];
     const failedRequests = [];
@@ -248,8 +248,8 @@ async function noOverflow(page, label) {
     }
 
     await open(desktop, '/ideas');
-    check((await desktop.locator('article.look').count()) === 20, 'Bathroom Ideas shows all 20 looks');
-    check((await desktop.locator('a[href$="DLS_Bathroom_Inspiration_20_Looks.pdf"]').count()) >= 1, 'Bathroom Ideas links to its catalogue');
+    check((await desktop.locator('article.look').count()) === 70, 'Bathroom Ideas shows all 70 looks');
+    check((await desktop.locator('a[href$=".pdf"]').count()) >= 1, 'Bathroom Ideas links to its catalogue');
 
     await open(desktop, '/quote');
     await desktop.route('https://wa.me/**', (route) => route.abort());

@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "source_date": "2026-10-05",
+  "version": 2,
+  "source_date": "2026-10-08",
   "finishes": [
     "Brushed Bronze",
     "Brushed Brass",
@@ -2733,6 +2733,54 @@
       "optional": false,
       "quantity": 1,
       "scheme_finish": "Brushed Nickel"
+    },
+    {
+      "category": "Mirror",
+      "name": "Lunar 600mm round LED mirror",
+      "code": "LUNAR60",
+      "url": "https://www.scudo.co.uk/products/lunar-led-mirror-w-demister-pad-600-dia/",
+      "brand": "Scudo",
+      "size": "600mm diameter",
+      "quantity": 1,
+      "optional": false,
+      "checked": "2026-10-08",
+      "note": "Demister and adjustable warm/cool light. Electrical location to confirm."
+    },
+    {
+      "category": "Bath screen",
+      "name": "Thalia single-panel bath screen",
+      "code": "THALIASINGLECHR",
+      "brand": "Scudo",
+      "finish": "Chrome",
+      "url": "https://www.scudo.co.uk/products/thalia-single-panel-bath-screen/",
+      "size": "800–820 × 1500mm; 8mm glass",
+      "quantity": 1,
+      "note": "Confirm bath-edge seal, wall adjustment and swing clearance.",
+      "checked": "2026-10-08"
+    },
+    {
+      "category": "Bath screen",
+      "name": "Thalia single-panel bath screen",
+      "code": "THALIASINGLEBB",
+      "brand": "Scudo",
+      "finish": "Brushed Brass",
+      "url": "https://www.scudo.co.uk/products/thalia-single-panel-bath-screen/",
+      "size": "800–820 × 1500mm; 8mm glass",
+      "quantity": 1,
+      "note": "Confirm bath-edge seal, wall adjustment and swing clearance.",
+      "checked": "2026-10-08"
+    },
+    {
+      "category": "Bath screen",
+      "name": "Thalia single-panel bath screen",
+      "code": "THALIASINGLEBZ",
+      "brand": "Scudo",
+      "finish": "Brushed Bronze",
+      "url": "https://www.scudo.co.uk/products/thalia-single-panel-bath-screen/",
+      "size": "800–820 × 1500mm; 8mm glass",
+      "quantity": 1,
+      "note": "Confirm bath-edge seal, wall adjustment and swing clearance.",
+      "checked": "2026-10-08"
     }
   ],
   "tiles": [
@@ -2756,7 +2804,9 @@
         1200,
         600,
         10
-      ]
+      ],
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "9f95cd40",
@@ -2773,7 +2823,9 @@
         240,
         60,
         10
-      ]
+      ],
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "8fe7b042",
@@ -2790,7 +2842,9 @@
         240,
         60,
         10
-      ]
+      ],
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "c5851da6",
@@ -2812,7 +2866,9 @@
         1200,
         600,
         10
-      ]
+      ],
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "2192b03d",
@@ -2834,21 +2890,27 @@
         1200,
         600,
         10
-      ]
+      ],
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "e7a720cd",
       "name": "Carrara Honed Marble",
       "url": "https://www.mandarinstone.com/product/carrara-honed-marble/",
       "brand": "Mandarin Stone",
-      "size": "610 x 305 x 10mm"
+      "size": "610 x 305 x 10mm",
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "5951e0bb",
       "name": "Zen Blue Gloss Porcelain",
       "url": "https://www.mandarinstone.com/product/zen-blue-gloss-porcelain/",
       "brand": "Mandarin Stone",
-      "size": "200 x 75 x 10mm"
+      "size": "200 x 75 x 10mm",
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "aff4cfbd",
@@ -2870,7 +2932,9 @@
         1200,
         600,
         10
-      ]
+      ],
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "a424d7d8",
@@ -2887,14 +2951,23 @@
         600,
         600,
         10
-      ]
+      ],
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "1df57186",
       "name": "Violetta Nouveau Matt Marble Effect Porcelain",
       "url": "https://www.mandarinstone.com/product/violetta-nouveau-matt-marble-effect-porcelain/",
       "brand": "Mandarin Stone",
-      "size": "1200 x 600 x 9mm"
+      "size": "1200 x 600 x 9mm",
+      "tier": "Premium",
+      "checked": "2026-10-08",
+      "bathroom_walls": true,
+      "bathroom_floors": true,
+      "wet_room_floors": true,
+      "slip_rating": "R10A+B",
+      "floor_note": "Manufacturer confirms wetroom floors; cuts, falls and installation still need design."
     },
     {
       "id": "77ca97b2",
@@ -2911,35 +2984,245 @@
         240,
         60,
         10
-      ]
+      ],
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "c55eab3a",
       "name": "Jakob Ash Wood Effect Porcelain",
       "url": "https://www.mandarinstone.com/product/jakob-ash-wood-effect-porcelain/",
       "brand": "Mandarin Stone",
-      "size": "1510 x 240 x 9mm"
+      "size": "1510 x 240 x 9mm",
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "ad748fff",
       "name": "Hoxton Burnt Orange Gloss Porcelain",
       "url": "https://www.mandarinstone.com/product/hoxton-burnt-orange-gloss-porcelain/",
       "brand": "Mandarin Stone",
-      "size": "240 x 60 x 10mm"
+      "size": "240 x 60 x 10mm",
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "c3be1685",
       "name": "Jakob Ash Parquet Wood Effect Porcelain",
       "url": "https://www.mandarinstone.com/product/jakob-ash-parquet-wood-effect-porcelain/",
       "brand": "Mandarin Stone",
-      "size": "450 x 450 x 10mm"
+      "size": "450 x 450 x 10mm",
+      "tier": "Premium",
+      "checked": "2026-10-05"
     },
     {
       "id": "06f0c2fe",
       "name": "Nordic Green Matt Marble Effect Porcelain",
       "url": "https://www.mandarinstone.com/product/nordic-green-matt-marble-effect-porcelain/",
       "brand": "Mandarin Stone",
-      "size": "1200 x 600 x 9mm"
+      "size": "1200 x 600 x 9mm",
+      "tier": "Premium",
+      "checked": "2026-10-05"
+    },
+    {
+      "id": "tm-mylos",
+      "name": "Mylos Ivory Stone Effect Matt Porcelain",
+      "url": "https://www.tilemountain.co.uk/mylos-ivory-stone-effect-matt-porcelain-wall-floor-tile",
+      "brand": "Tile Mountain",
+      "size": "1200 x 600mm (selected format to confirm)",
+      "tier": "Value",
+      "bathroom_walls": true,
+      "bathroom_floors": true,
+      "wet_room_floors": false,
+      "wall_format_mm": [
+        1200,
+        600
+      ],
+      "price_reference": 26.99,
+      "price_checked": "2026-10-08",
+      "supplier_sku": "470380",
+      "floor_note": "Ordinary bathroom floor only; wetroom suitability not verified.",
+      "preview_sample": "illustrated"
+    },
+    {
+      "id": "tm-marmo-grey",
+      "name": "Marmostone Grey Matt Stone Effect Porcelain",
+      "url": "https://www.tilemountain.co.uk/marmostone-grey-rectified-matt-stone-effect-porcelain-wall-and-floor-tile",
+      "brand": "Tile Mountain",
+      "size": "1200 x 600mm (selected format to confirm)",
+      "tier": "Value",
+      "bathroom_walls": true,
+      "bathroom_floors": true,
+      "wet_room_floors": false,
+      "wall_format_mm": [
+        1200,
+        600
+      ],
+      "price_reference": 19.95,
+      "price_checked": "2026-10-08",
+      "supplier_sku": "462835",
+      "floor_note": "Ordinary bathroom floor only; wetroom suitability not verified.",
+      "preview_sample": "illustrated"
+    },
+    {
+      "id": "tm-marmo-ivory",
+      "name": "Marmostone Ivory Matt Stone Effect Porcelain",
+      "url": "https://www.tilemountain.co.uk/marmostone-ivory-rectified-matt-stone-effect-porcelain-wall-and-floor-tile",
+      "brand": "Tile Mountain",
+      "size": "1200 x 600mm (selected format to confirm)",
+      "tier": "Value",
+      "bathroom_walls": true,
+      "bathroom_floors": true,
+      "wet_room_floors": false,
+      "wall_format_mm": [
+        1200,
+        600
+      ],
+      "price_reference": 19.95,
+      "price_checked": "2026-10-08",
+      "supplier_sku": "",
+      "floor_note": "Ordinary bathroom floor only; wetroom suitability not verified.",
+      "preview_sample": "illustrated"
+    },
+    {
+      "id": "tm-marmo-dark",
+      "name": "Marmostone Anthracite Matt Stone Effect Porcelain",
+      "url": "https://www.tilemountain.co.uk/marmostone-anthracite-rectified-matt-stone-effect-porcelain-wall-and-floor-tile",
+      "brand": "Tile Mountain",
+      "size": "1200 x 600mm (selected format to confirm)",
+      "tier": "Value",
+      "bathroom_walls": true,
+      "bathroom_floors": true,
+      "wet_room_floors": false,
+      "wall_format_mm": [
+        1200,
+        600
+      ],
+      "price_reference": 19.95,
+      "price_checked": "2026-10-08",
+      "supplier_sku": "",
+      "floor_note": "Ordinary bathroom floor only; wetroom suitability not verified.",
+      "preview_sample": "illustrated"
+    },
+    {
+      "id": "tm-bosco-grey",
+      "name": "Boscostone Grey Matt Stone Effect Porcelain",
+      "url": "https://www.tilemountain.co.uk/boscostone-grey-rectified-matt-stone-effect-porcelain-wall-and-floor-tile",
+      "brand": "Tile Mountain",
+      "size": "1200 x 600mm (selected format to confirm)",
+      "tier": "Value",
+      "bathroom_walls": true,
+      "bathroom_floors": true,
+      "wet_room_floors": false,
+      "wall_format_mm": [
+        1200,
+        600
+      ],
+      "price_reference": 19.95,
+      "price_checked": "2026-10-08",
+      "supplier_sku": "462850",
+      "floor_note": "Ordinary bathroom floor only; wetroom suitability not verified.",
+      "preview_sample": "illustrated"
+    },
+    {
+      "id": "tm-bosco-beige",
+      "name": "Boscostone Beige Matt Stone Effect Porcelain",
+      "url": "https://www.tilemountain.co.uk/boscostone-beige-rectified-matt-stone-effect-porcelain-wall-and-floor-tile",
+      "brand": "Tile Mountain",
+      "size": "1200 x 600mm (selected format to confirm)",
+      "tier": "Value",
+      "bathroom_walls": true,
+      "bathroom_floors": true,
+      "wet_room_floors": false,
+      "wall_format_mm": [
+        1200,
+        600
+      ],
+      "price_reference": 19.95,
+      "price_checked": "2026-10-08",
+      "supplier_sku": "",
+      "floor_note": "Ordinary bathroom floor only; wetroom suitability not verified.",
+      "preview_sample": "illustrated"
+    },
+    {
+      "id": "tm-everlast",
+      "name": "Everlast Sand Matt Concrete Effect Porcelain",
+      "url": "https://www.tilemountain.co.uk/everlast-sand-concrete-effect-matt-porcelain-wall-floor-tile",
+      "brand": "Tile Mountain",
+      "size": "1200 x 600mm (selected format to confirm)",
+      "tier": "Value",
+      "bathroom_walls": true,
+      "bathroom_floors": true,
+      "wet_room_floors": false,
+      "wall_format_mm": [
+        1200,
+        600
+      ],
+      "price_reference": 26.99,
+      "price_checked": "2026-10-08",
+      "supplier_sku": "470265",
+      "floor_note": "Ordinary bathroom floor only; wetroom suitability not verified.",
+      "preview_sample": "illustrated"
+    },
+    {
+      "id": "tm-jaya",
+      "name": "Jaya Beige Matt Terrazzo Effect Porcelain",
+      "url": "https://www.tilemountain.co.uk/jaya-beige-terrazzo-effect-matt-porcelain-wall-and-floor-tile",
+      "brand": "Tile Mountain",
+      "size": "1200 x 600mm (selected format to confirm)",
+      "tier": "Value",
+      "bathroom_walls": true,
+      "bathroom_floors": true,
+      "wet_room_floors": false,
+      "wall_format_mm": [
+        1200,
+        600
+      ],
+      "price_reference": 26.99,
+      "price_checked": "2026-10-08",
+      "supplier_sku": "468285",
+      "floor_note": "Ordinary bathroom floor only; wetroom suitability not verified.",
+      "preview_sample": "illustrated"
+    },
+    {
+      "id": "tm-dakaris",
+      "name": "Dakaris Haya Slatted Wood Effect Matt Porcelain",
+      "url": "https://www.tilemountain.co.uk/dakaris-haya-slatted-wood-effect-matt-porcelain-tile",
+      "brand": "Tile Mountain",
+      "size": "1200 x 600mm (selected format to confirm)",
+      "tier": "Value",
+      "bathroom_walls": true,
+      "bathroom_floors": false,
+      "wet_room_floors": false,
+      "wall_format_mm": [
+        1200,
+        600
+      ],
+      "price_reference": null,
+      "price_checked": "2026-10-08",
+      "supplier_sku": "",
+      "floor_note": "Ordinary bathroom floor only; wetroom suitability not verified.",
+      "preview_sample": "illustrated"
+    },
+    {
+      "id": "tm-baltico",
+      "name": "Baltico Beige Matt Stone Effect Porcelain",
+      "url": "https://www.tilemountain.co.uk/baltico-beige-stone-effect-matt-porcelain-wall-floor-tile",
+      "brand": "Tile Mountain",
+      "size": "1200 x 600mm (selected format to confirm)",
+      "tier": "Value",
+      "bathroom_walls": true,
+      "bathroom_floors": true,
+      "wet_room_floors": false,
+      "wall_format_mm": [
+        1200,
+        600
+      ],
+      "price_reference": null,
+      "price_checked": "2026-10-08",
+      "supplier_sku": "",
+      "floor_note": "Ordinary bathroom floor only; wetroom suitability not verified.",
+      "preview_sample": "illustrated"
     }
   ],
   "packages": [
@@ -3904,5 +4187,17 @@
         "Brushed Nickel": "images/customiser/look-01-finish-brushed-nickel.webp"
       }
     }
+  },
+  "close_coupled": {
+    "category": "Toilet",
+    "name": "Spa rimless closed-back pan, cistern and seat",
+    "code": "COMPLETE-TOILET-SET-2",
+    "url": "https://www.scudo.co.uk/products/spa-rimless-closed-back-pan-cistern-seat/",
+    "brand": "Scudo",
+    "size": "650mm projection",
+    "quantity": 1,
+    "optional": false,
+    "checked": "2026-10-08",
+    "note": "Pan fixing kit is not included. DLS confirms connection and clearances."
   }
 }
