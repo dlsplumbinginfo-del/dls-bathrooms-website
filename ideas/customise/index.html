@@ -35,8 +35,9 @@
             <div class="preview-tabs" role="group" aria-label="Preview view">
               <button id="view-live" type="button" aria-pressed="true">Live room</button>
               <button id="view-plan" type="button" aria-pressed="false">Bird’s-eye</button>
-              <button id="view-inspiration" type="button" aria-pressed="false">Starting inspiration</button>
+              <button id="view-inspiration" type="button" aria-pressed="false">Original image (unchanged)</button>
             </div>
+            <div class="resolution-actions"><button id="export-4k" type="button">Save 4K design image</button><span>3840 × 2160 PNG · 3D concept, not a product photograph</span></div>
             <div id="live-room" class="live-room"><p id="model-loading" role="status">Preparing your live room…</p></div>
             <p id="model-note" class="small">Tiles, metal, furniture and mirror choices update here. Drag sideways to look around.</p>
             <div id="fit-notes" class="fit-notes" role="status"></div>
@@ -70,6 +71,10 @@
               <span class="eyebrow">2 of 3</span>
               <h2>Pick your wall tile</h2>
               <p id="wall-help">Tap the wall tile you prefer.</p>
+              <label class="field">Tile coverage<select id="coverage-select"><option value="all">All visible walls (recommended)</option><option value="feature">Back feature wall only (side walls stay pale)</option><option value="half">Lower half of all walls (paint above)</option></select></label>
+              <p id="wall-application" class="coverage-explainer" role="status"></p>
+              <label class="match-floor"><input type="checkbox" id="match-floor"> Match floor to wall tile when suitable</label>
+              <p class="small" id="match-help">Choose your wall tiles, then match the floor if appropriate.</p>
               <label class="field">Find a tile<input id="tile-search" type="search" placeholder="Stone, green, marble, wood…"></label>
               <div class="tile-ranges" role="group" aria-label="Tile ranges"><button data-range="all" type="button" aria-pressed="true">All ranges</button><button data-range="Value" type="button" aria-pressed="false">Value</button><button data-range="Premium" type="button" aria-pressed="false">Premium</button></div>
               <p class="small">Value and premium are budget directions. DLS confirms current prices and physical samples.</p>
@@ -84,7 +89,6 @@
               <label class="field">Room shape<select id="shape-select"><option value="rectangle">Rectangular</option><option value="L-shaped">L-shaped / corner projection</option><option value="loft">Loft / sloped ceiling</option><option value="offset">Offset entrance</option></select></label>
               <label class="field">Built-out wall or ledge<select id="structure-select"><option value="clean">Clean wall / no continuous boxing</option><option value="half">Half-height service wall and ledge</option><option value="full">Full-height built-out service wall</option><option value="ledge">Slim ledge only</option></select></label>
               <label class="field">Toilet style<select id="toilet-select"><option value="wall">Wall-hung WC</option><option value="close">Close-coupled WC</option></select></label>
-              <label class="field">Wall coverage<select id="coverage-select"><option value="all">All walls tiled</option><option value="feature">Feature wall + pale side walls</option><option value="half">Half-height tiles + painted upper walls</option></select></label>
               <label class="field">Tile direction<select id="pattern-select"><option value="stacked">Horizontal / stacked</option><option value="vertical">Vertical</option></select></label>
               <label class="field">Grout direction<select id="grout-select"><option value="matched">Soft neutral</option><option value="white">Light</option><option value="dark">Dark contrast</option></select></label>
               <label class="field">Lighting feel<select id="lighting-select"><option value="warm">Warm white</option><option value="cool">Cool white</option></select></label>
